@@ -15,6 +15,10 @@ The connector uses OAuth 2.1. The server advertises its authorization server via
 
 Ask things like "run patent mining on our recent work", "turn this design doc into a disclosure", or "reply to the comments on the priority draft".
 
+## Relationship to other packages
+
+This repository is the **source of truth for `lightbringer-agent-skill`**. The [claude-plugin](https://github.com/lightbringer-patents/claude-plugin) repository packages the same connector and skill in Claude's plugin format and mirrors the `skills/` tree from here — make skill changes in this repo first, then copy them over.
+
 ## Layout
 
 ```
