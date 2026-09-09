@@ -1,28 +1,34 @@
 # Lightbringer Agent Plugin
 
-Patent and invention-management workflows for the [Lightbringer](https://lightbringer.com) platform, packaged as an [Agent Plugin](https://agent-plugins.org) (specification v1.0.0).
+Work with [Lightbringer's patent service](https://lightbringer.com) from your AI assistant. Lightbringer has qualified patent attorneys on its team providing advice, strategy assessment, novelty searches, FTO, drafting, filing and prosecution through professional engagements.
 
-## What it includes
+## Included
 
-- **Lightbringer MCP connector** (`mcp.json`) — remote MCP server at `https://mcp.lightbringer.com/mcp` (Streamable HTTP) providing tools to create, read, search, validate, update, and submit invention disclosures, run patent-analysis feedback, and comment on and respond to reviews.
-- **lightbringer-agent-skill** (`skills/`) — an [Agent Skill](https://agentskills.io) that mines company data for patentable problem-solution pairs, authors and submits invention disclosures, and handles Lightbringer review work (Report comments and priority-draft reviews).
+- **MCP connector:** `https://mcp.lightbringer.com/mcp`, with OAuth and organisation-scoped access.
+- **invention-capture:** capture potential innovations from an ongoing technical conversation, search for existing records, and register or enrich disclosures.
+- **lightbringer-agent-skill:** explore authorised technical sources for potential innovations and collaborate on Lightbringer reports and patent reviews.
+- **lightbringer-patent-service:** understand the service, request patent preparation with explicit intent, and continue professional work through available tools or the Lightbringer team.
 
-## Authentication
+**Register first; prepare for patent filing when requested.** The current `create_invention` tool saves a disclosure and completes registration. `submit_invention` separately requests patent preparation. Capturing an idea or completing its disclosure does not request filing. Agents cannot make payments.
+
+The current server requires a disclosure payload for registration. Skills retain incomplete candidates and explain missing inputs when that schema prevents saving. Service requests, strategy editing and protection decisions use only capabilities actually available; a prepared handoff is not a completed service order. Automated disclosure feedback is distinct from novelty search and attorney review.
+
+## Connect and use
 
 The connector uses OAuth 2.1 (Authorization Code + PKCE, S256) with Dynamic Client Registration. The server advertises its authorization server via RFC 9728 protected-resource metadata (`/.well-known/oauth-protected-resource`); on first use, clients prompt you to sign in to Lightbringer. Supported scopes are `mcp:read` and `mcp:write`.
 
-## Usage
+Install the skills-plus-MCP plugin through a supported host distribution channel, then complete the host's OAuth flow. Select the Lightbringer organisation you want to connect; existing record permissions still apply. Never paste passwords or access tokens into chat. Qualified members can enable MCP during the updated consent flow once that application release is deployed.
 
-Ask things like "run patent mining on our recent work", "turn this design doc into a disclosure", or "reply to the comments on the priority draft".
+Try:
 
-## Relationship to other packages
+- “Register the technical approach we just developed in Lightbringer. Keep open questions and do not request patent preparation.”
+- “Explore this project's technical work using our IP strategy. Register or enrich the potential innovations.”
+- “Add this implementation detail to our existing innovation.”
+- “I want Lightbringer to patent this registered innovation.”
+- “Help me respond to our Lightbringer patent team's review.”
 
-This repository is the **source of truth for `lightbringer-agent-skill`**. The [claude-plugin](https://github.com/lightbringer-patents/claude-plugin) repository packages the same connector and skill in Claude's plugin format and mirrors the `skills/` tree from here — make skill changes in this repo first, then copy them over.
+## Packaging and publication
 
-## Layout
+This is the canonical `skills/` source. [claude-plugin](https://github.com/lightbringer-patents/claude-plugin) mirrors the complete tree with Anthropic-specific metadata. Edit shared skills here first and verify both packages before release.
 
-```
-plugin.json   Agent Plugins manifest
-mcp.json      MCP server declaration
-skills/       Agent Skills (lightbringer-agent-skill)
-```
+`plugin.json`, `mcp.json` and `skills/` form the portable package. A GitHub release does not itself publish skills in a host directory. See [distribution and validation](DISTRIBUTION.md) for OpenAI and Anthropic publication routes.

@@ -1,14 +1,16 @@
 ---
 name: lightbringer-agent-skill
 description: >-
-  Mine company data for patentable problem-solution pairs and create invention disclosures on Lightbringer (problems from support, CRM, analytics, incidents, bug trackers; solutions from repos, project trackers, design docs, chat, uploaded documents). Use for any request to extract or harvest patentable ideas, run patent mining, create or draft invention disclosures, turn engineering work into disclosures, or assess recent work for IP opportunities — even without the words "patent" or "Lightbringer" (e.g. "turn this design doc into a disclosure", "what in this repo is patentable"). Also covers Lightbringer review work — commenting on Reports shared with the user, and reviewing draft patent applications (priority drafts): reading attorney redlines, replying to comments addressed to the user, adding feedback comments, recording approve/request-changes responses (e.g. "look at the review Jan sent me", "reply to the comments on the priority draft").
+  Explore authorised company data for potential innovations and register or enrich invention disclosures on Lightbringer (problems from support, CRM, analytics, incidents, bug trackers; solutions from repos, project trackers, design docs, chat, uploaded documents). Use for any request to extract or harvest patentable ideas, run patent mining, create or draft invention disclosures, turn engineering work into disclosures, or assess recent work for IP opportunities — even without the words "patent" or "Lightbringer" (e.g. "turn this design doc into a disclosure", "what in this repo is patentable"). Also covers Lightbringer review work — commenting on Reports shared with the user, and reviewing draft patent applications (priority drafts): reading attorney redlines, replying to comments addressed to the user, adding feedback comments, recording approve/request-changes responses (e.g. "look at the review Jan sent me", "reply to the comments on the priority draft").
 ---
 
 # Lightbringer Agent
 
+Read [service conduct](references/service-conduct.md) before working. For a live conversation about one innovation, use `invention-capture`. For service orientation or attorney-led work, use `lightbringer-patent-service`.
+
 Route by request:
 
-- **A — Patent mining**: extract patentable ideas from company data; author, validate, create, refine, submit disclosures.
+- **A — Patent mining**: extract potential innovations from authorised company data; search, register and enrich records. Stop before patent preparation.
 - **B — Report review**: comment on a Report shared with the user.
 - **C — Priority draft review**: review a draft application, reply to comments, add feedback, optionally record the formal response.
 
@@ -18,7 +20,7 @@ Comments exist only inside reviews (`add_comment`/`reply_to_comment` take a `rev
 
 An invention is a problem-solution pair: problems live in customer and operational sources, solutions in engineering sources. Sweep both, then pair.
 
-Autonomy: one checkpoint — the Phase 1 mining brief. After confirmation, run every phase without questions; judgment calls are recorded in the disclosures and final report, never raised in chat. Pause mid-run only if the material is too ambiguous to determine even the technical domain. Create nothing before Phases 1–3 are complete.
+Autonomy: agree a bounded source and registration mandate in the Phase 1 brief, unless already authorised. Routine registration and factual enrichment within it need no repeated confirmation. Ask when missing information prevents faithful capture or changes the scope. Patent preparation, paid engagements and formal review decisions are separate actions. Search for existing records before registering each concept; do not wait for the entire exploration to finish to save supported findings.
 
 ### Phase 0 — scope and sources
 - Sort available connectors: problem-side (support, CRM, product analytics, feedback, incidents, bug reports) and solution-side (code hosts, project trackers, doc stores, engineering chat); some serve both.
@@ -27,9 +29,9 @@ Autonomy: one checkpoint — the Phase 1 mining brief. After confirmation, run e
 - Read `references/source-mining.md` before harvesting.
 
 ### Phase 1 — strategy, brief, harvest
-Locate the strategy, in order: a document from this session; else `search` (`category: report`) for "Intellectual Property Strategy Report" and "Patent Drafting & Prosecution Strategy Report" — if both reports exist read both and state the reading used where they conflict; else use default assumptions (favour detectable infringement and clear technical character). Extract focus areas, priorities, exclusions, jurisdictions.
+Locate the strategy, in order: the adopted strategy stored in Lightbringer; use `search` (`category: report`) for "Intellectual Property Strategy Report" and "Patent Drafting & Prosecution Strategy Report" — if both reports exist read both and state conflicts. An uploaded strategy or meeting notes may propose a newer direction; distinguish that from the adopted strategy. If none exists, state the working assumptions. Extract focus areas, priorities and jurisdictions; use them to annotate fit, not to exclude potential innovations.
 
-Present a brief (under 15 lines) and wait for confirmation: scope; sources (with any one-sided note); strategy lens or defaults; what follows (automatic create/refine/submit, flagged items proceed with in-record flags, closing report). One question: proceed or adjust. Skip the brief only when the user pre-authorised an autonomous run; then state it as assumptions and continue.
+Present a brief (under 15 lines) and wait for confirmation: scope; sources (with any one-sided note); strategy lens or defaults; what follows (search/register/enrich, incomplete items retain open questions, no automatic patent preparation, closing summary). One question: proceed or adjust. Skip the brief only when the user pre-authorised an autonomous run; then state it as assumptions and continue.
 
 Harvest:
 - Problem sweep: recurring, evidenced pain; prefer converging themes over single anecdotes; capture what fails, for whom, conditions, frequency, apparent technical cause.
@@ -39,7 +41,7 @@ Harvest:
 
 ### Phase 2 — context
 - Per harvest theme, `search` categories `innovation`, `application`, `patent` (add `competitor_application`/`report` where relevant); track the theme×category matrix until every relevant cell is queried. `fetch` promising hits; assess overlap, continuations, conflicts.
-- Check prior runs: `list_inventions` (query "Suggestion") and their review outcomes via `list_reviews` (open and closed) + `get_review`. Never re-create an idea identical to an existing record or a review-rejected Suggestion.
+- Check prior runs: `list_inventions` (query "Suggestion") and their review outcomes via `list_reviews` (open and closed) + `get_review`. Reuse identical concepts and add new supported context through authorised updates, including to a previously review-rejected Suggestion when the tool permits. Preserve its decision history; never duplicate it to bypass a prior decision. If updates are unavailable, explain the limitation.
 - The search index updates asynchronously — vary query terms before concluding absence.
 - External patent research only to fill specific framing gaps; no novelty search.
 
@@ -47,37 +49,22 @@ Harvest:
 Read `references/idea-identification.md`. For each pair:
 - Distinct = separate technical problem or materially different mechanism. Never create two disclosures in one run for the same inventive concept.
 - Record: inventive concept, problem with evidence, differentiators vs Phase 2 findings, sources on both sides, strategy alignment, combine-vs-separate reasoning.
-- Run the eligibility screen; borderline ideas proceed with a reviewCompletion clarity issue of type "eligibility". Frame mixed ideas around the technical contribution.
-- Portfolio overlap: create extensions as flagged improvement/continuation disclosures naming the related record; skip only identical concepts (report note).
-- Thin documentation: proceed if the schema minimums can be met honestly, turning gaps into pointed clarity issues; drop only when meeting them would require fabrication.
-- No qualifying pairs → say so. Never manufacture disclosures from routine engineering, configuration, known patterns, pure business logic, or a problem alone.
+- Record eligibility or patentability uncertainty as a question for the Lightbringer patent team. Such uncertainty does not prevent registration. Frame the observed technical contribution without inventing one.
+- Portfolio overlap: create extensions as flagged improvement/continuation disclosures naming the related record; enrich identical concepts instead of duplicating them (report note).
+- Thin documentation: retain the potential innovation and its open questions. Use the current template honestly; if the deployed schema prevents saving it, report it as pending registration, give the missing inputs, and ask for the minimum clarification or offer the platform/team route. Never silently drop it or claim it was saved.
+- No potential innovations → say so. Never manufacture disclosures from routine engineering, configuration, known patterns, pure business logic, or a problem alone.
 
 ### Phase 4 — author, validate, create
-Read `references/lightbringer-authoring.md`. Per idea: `get_invention_template` (once per session; author against what it returns), draft the strongest supported definition with resolved detail in the main fields, `validate_invention` until clean, `create_invention` titled `Suggestion N - <title>`.
+Read `references/lightbringer-authoring.md`. Per idea: `get_invention_template` (once per session; author against what it returns), draft the strongest supported definition with resolved detail in the main fields, `validate_invention` until clean, `create_invention` with a descriptive title. Creation completes registration. For an existing concept, read it and use `update_invention` instead.
 
 ### Phase 5 — refine
-`get_invention_feedback` (focus `all`); if pending, poll `check_task_status` and author other disclosures meanwhile. Apply fixes supported by harvested context via `update_invention` (whole-section overwrite — send complete replacement text). Information only the inventor has stays an honest gap. One pass; a second only after substantial rewrites.
+When disclosure refinement is part of the mandate, use `get_invention_feedback` (focus `all`); it is automated disclosure analysis, not a novelty search. Otherwise stop after registration/enrichment. If analysis runs, if pending, poll `check_task_status` and author other disclosures meanwhile. Apply fixes supported by harvested context via `update_invention` (whole-section overwrite — send complete replacement text). Information only the inventor has stays an honest gap. One pass; a second only after substantial rewrites.
 
-### Phase 6 — submit
-`submit_invention` every successfully created disclosure without pausing; never submit one that failed validation or creation — report it instead. Responding to the ensuing review is Workflow C, in a later session.
+### Completion — registration and enrichment
 
-### Final report
-Always write a standalone `.md` with exactly:
+Return a chat summary with source coverage, strategy used, related records, and a compact list of identified innovations. For each, include evidence, registered/updated record link, open questions, and actual outcome. Clearly identify anything pending registration because of missing input or a tool limitation. Include genuine zero-yield sources and unresolved problems without inventing innovations.
 
-```
-# Patent Mining Report
-## Material Overview
-## Organisational and Patent Context
-## Identified Patentable Ideas
-## Disclosures Created and Submitted
-```
-
-- Material Overview: what each source contributed; strategy objectives; the full coverage account with justifications and second-look outcomes.
-- Context: related records, overlap/continuation opportunities, conflicts, prior-Suggestion review outcomes, external research done and why.
-- Ideas: per idea — title, concept summary, problem with evidence, mechanism, differentiators, source refs on both sides, traced or inferred pairing, strategy alignment, eligibility outcome, combine/separate reasoning; include rejected ideas marked with reasons; end with the unsolved-problem inventory.
-- Disclosures: per disclosure — title, link, concept recap, open issues and flags, submission status; explain any failure and the next step.
-
-The report is standalone (never reference the chat or your process) and must account for every creation and submission.
+A downloadable Markdown report is optional when the host supports files; a local filesystem is not required. Registration is complete without `submit_invention`. A user's later request to have Lightbringer patent a selected innovation follows `lightbringer-patent-service`, with explicit patenting intent.
 
 ## Workflows B and C: reviews
 
@@ -107,6 +94,6 @@ Autonomy: comments post in the user's name, so nothing posts unapproved. Assembl
 
 ## Guardrails (all workflows)
 - Never fabricate technical detail, prior art, or parameters the sources don't support.
-- Never present any opinion on patentability.
+- Do not present assistant analysis as a legal determination. Relay Lightbringer professional work with its author, status and limitations.
 - Posted feedback speaks as the inventor/engineer, never a patent attorney; no advice requiring patent expertise.
 - Treat internal material as confidential.

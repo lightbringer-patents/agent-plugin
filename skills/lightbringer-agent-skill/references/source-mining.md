@@ -6,7 +6,7 @@ An invention is a problem-solution pair, and the two halves live in different sy
 
 For every finding, record a source reference precise enough to relocate it (ticket ID, issue ID, PR number, document title and section, thread permalink, dashboard query). Traceability is required in the final report, feeds the pairing step, and lets inventors verify claims later.
 
-Ignore as non-inventive on the solution side: routine CRUD and glue code, configuration, dependency upgrades, well-known design patterns applied conventionally, pure business rules, UI styling, and anything whose novelty is organisational rather than technical. The test: does the contribution change how a technical system works, or only what it is used for? Only the former can anchor a disclosure. This is the pipeline's only silent filter, so apply it conservatively: when in doubt, carry the finding forward and let the documented gates in Phase 3 decide, since they record their reasoning and the ignore list does not.
+Ignore as non-inventive on the solution side: routine CRUD and glue code, configuration, dependency upgrades, well-known design patterns applied conventionally, pure business rules, UI styling, and anything whose novelty is organisational rather than technical. The test: does the contribution change how a technical system works, or only what it is used for? Only the former can anchor a disclosure. Treat this as exploration guidance, not a patentability determination. Carry uncertain potential innovations forward with the supporting evidence and open questions; avoid silent rejection based on strategy fit or disclosure completeness.
 
 ## Problem-side sources
 
@@ -36,7 +36,7 @@ The goal of the solution sweep is causally understood mechanisms. The strongest 
 
 **Engineering chat (Slack).** Secondary source; use it to enrich candidates found elsewhere rather than as a primary sweep, unless the user points at specific channels. Design debates and "we can't do X so we did Y" threads add mechanism detail and reveal the constraints that make a solution non-obvious. Never quote private messages in the report; paraphrase and cite the thread.
 
-**Uploaded files.** Treat uploaded technical documents, papers, and specs as first-class solution-side (and sometimes problem-side) sources; read them fully. An uploaded patent strategy document supersedes the Lightbringer strategy search.
+**Uploaded files.** Treat uploaded technical documents, papers, and specs as first-class solution-side (and sometimes problem-side) sources; read them fully. Compare an uploaded strategy with the adopted strategy in Lightbringer. Do not silently replace the stored strategy; identify conflicts and proposed changes.
 
 ## Pairing the sweeps
 

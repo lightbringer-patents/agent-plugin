@@ -1,6 +1,6 @@
 # Lightbringer disclosure authoring reference
 
-How to author a submit-ready invention disclosure against the Lightbringer authoring contract. Always fetch the live template with `Lightbringer:get_invention_template` before drafting; this file explains how to use what it returns, and records the constraints observed at the time of writing so you can budget content before the call returns. If the live template disagrees with anything here, the live template wins.
+How to author a supported invention disclosure against the Lightbringer authoring contract. Always fetch the live template with `Lightbringer:get_invention_template` before drafting; this file explains how to use what it returns, and records the constraints observed at the time of writing so you can budget content before the call returns. Use the live template for schema and field constraints. Registration and preparation remain separate actions; template completeness never authorises patent preparation.
 
 ## The pipeline per disclosure
 
@@ -17,7 +17,9 @@ get_invention_feedback (focus: all)   [may be async; poll via check_task_status]
         v
 update_invention (full section replacements, only where fixable from context)
         v
-submit_invention (pre-authorised by the confirmed mining brief)
+registration/enrichment complete — return the saved record link
+
+Separate explicit patenting intent only: submit_invention → patent preparation requested
 ```
 
 ## Schema shape and observed constraints (v1)
@@ -26,8 +28,8 @@ Top-level required fields: `version` (const 1), `title`, `problem`, `invention`,
 
 | Field | Constraint | Notes |
 |---|---|---|
-| `title` | 1 to 100 chars | Prefix with `Suggestion N - `. Budget the prefix into the 100 chars. |
-| `problem.description` | 200 to 3000 chars | Complete problem narrative, submission-grade. |
+| `title` | 1 to 100 chars | Use a descriptive title; preserve existing titles when enriching a record. |
+| `problem.description` | 200 to 3000 chars | Supported problem narrative; record remaining uncertainties. |
 | `problem.technologyField` | single selection object | One resolved field, not a list. |
 | `problem.problems` | array, min 1 | Concrete problem statements. |
 | `problem.technicalCauses` | array, min 1 | Why the problems occur, technically. |
@@ -70,13 +72,17 @@ Good residual issues: undefined thresholds, vague relative terms needing operati
 - `validate_invention` takes the same shape; run it before every create, and again after substantial edits if re-creating.
 - `update_invention` takes `invention_id` and a `sections` map with keys from: `problem`, `solution`, `details`, `priorArt`, `shortcomings`. It overwrites, so send complete replacement text for the sections you touch. Note these section names differ from the authoring schema's field names; they address the rendered disclosure sections.
 - `get_invention_feedback` supports `focus` of `clarity`, `problem`, `completeness`, or `all`. Responses may return pending with ticket identifiers; poll with `Lightbringer:check_task_status` and interleave other work while waiting.
-- `submit_invention` takes `invention_id` and is the only step that changes review status. Call it for every successfully created and refined disclosure as part of the standard run; never submit anything that failed validation or creation, and always account for every submission in the final report.
+- `submit_invention` takes `invention_id` and starts patent preparation. It is not required for registration. Use only for explicit intent to have Lightbringer patent the selected innovation; report the actual returned status without claiming filing or payment.
 - Drawings cannot be attached through this path. If the sources contain relevant diagrams or the inventor has drawings, tell the user to upload them manually in the disclosure UI after creation.
 
 ## Common validation failures to avoid
 
-- Descriptions under the 200-char minimums (usually a symptom of a thin idea; consider whether it should have survived Phase 3).
+- Descriptions under the current minimums: gather missing context without padding; if saving remains impossible, retain the candidate in the user-visible pending-registration summary.
 - Missing `rationale` on a selection object.
 - Extra properties from pasting template comments into the payload.
 - `reviewCompletion` with `OPEN_ISSUES_REMAIN` but no `clarityIssues` array.
-- Titles over 100 chars once the `Suggestion N - ` prefix is added.
+- Titles over the live template limit.
+
+## Interactive capture and current limitations
+
+Follow the live template's interactive capture guidance when the inventor is present; use autonomous capture guidance for authorised source mining. Ask focused questions about the mechanism and evidence, not a long generic questionnaire. Preserve honest open questions. Current tools may require a full disclosure payload even when the user's goal is lightweight registration: explain this limitation and never fabricate fields to make validation pass.
