@@ -1,25 +1,28 @@
-# Lightbringer disclosure authoring reference
+# Lightbringer innovation authoring reference
 
-How to author a supported invention disclosure against the Lightbringer authoring contract. Always fetch the live template with `Lightbringer:get_invention_template` before drafting; this file explains how to use what it returns, and records the constraints observed at the time of writing so you can budget content before the call returns. Use the live template for schema and field constraints. Registration and preparation remain separate actions; template completeness never authorises patent preparation.
+How to author a supported innovation record against the Lightbringer authoring contract. Fetch the live template with `get_innovation_template` before drafting. Its schema and field constraints govern the registration payload. Use the guidance below to organize supported content. Registration and preparation remain separate actions; template completeness never authorises patent preparation.
 
-## The pipeline per disclosure
+## The pipeline per innovation description
 
 ```
-get_invention_template  (once per session)
+get_innovation_template  (once per session)
         v
 draft definition JSON
         v
-validate_invention  --errors-->  fix and re-validate
+validate_innovation  --errors-->  fix and re-validate
         v (clean)
-create_invention
+register_innovation
         v
-get_invention_feedback (focus: all)   [may be async; poll via check_task_status]
+registration complete — return the saved record link
+
+Optional refinement, when requested:
+get_innovation_feedback (focus: all)   [may be async; poll via check_task_status]
         v
-update_invention (full section replacements, only where fixable from context)
+update_innovation (full section replacements, only where fixable from context)
         v
 registration/enrichment complete — return the saved record link
 
-Separate explicit patenting intent only: submit_invention → patent preparation requested
+Separate explicit patenting intent only: prepare_for_patent_filing → patent preparation requested
 ```
 
 ## Schema shape and observed constraints (v1)
@@ -43,11 +46,11 @@ Top-level required fields: `version` (const 1), `title`, `problem`, `invention`,
 | `priorArt.shortcomings` | 100 to 2000 chars | Optional within priorArt. |
 | `illustrationSuggestions` | array, min 1 if present | Inventor-facing drawing suggestions. |
 
-Every "selection object" has the same shape: `item` (short label, max 300 chars), `rationale` (why it belongs in the final disclosure, max 2000), optional `definition` (clarifying explanation, max 2000). Write rationales that justify the selection for this invention, not generic descriptions of the label.
+Every "selection object" has the same shape: `item` (short label, max 300 chars), `rationale` (why it belongs in the final innovation description, max 2000), optional `definition` (clarifying explanation, max 2000). Write rationales that justify the selection for this invention, not generic descriptions of the label.
 
 ## Writing each part well
 
-**Mapping harvested evidence onto the schema.** The disclosure's two halves draw from the two harvest sweeps. Problem-side evidence (support themes, lost-deal reasons, analytics, incidents) feeds `problem.description`, the `problems` list, and `contexts`; quantified pain (ticket volumes, affected segments, error rates) makes the problem description concrete and evidences commercial relevance. Engineering evidence of why the problem occurs feeds `technicalCauses`. Solution-side evidence (design docs, PRs, ADRs) feeds `invention.description`, `solution`, `technicalSolution`, and `furtherDetails`. Keep customer vocabulary in the problem side where it is vivid and accurate, but translate it into technical failure modes; "checkout feels slow" becomes a described latency source with its cause.
+**Mapping harvested evidence onto the schema.** The innovation description's two halves draw from the two harvest sweeps. Problem-side evidence (support themes, lost-deal reasons, analytics, incidents) feeds `problem.description`, the `problems` list, and `contexts`; quantified pain (ticket volumes, affected segments, error rates) makes the problem description concrete and evidences commercial relevance. Engineering evidence of why the problem occurs feeds `technicalCauses`. Solution-side evidence (design docs, PRs, ADRs) feeds `invention.description`, `solution`, `technicalSolution`, and `furtherDetails`. Keep customer vocabulary in the problem side where it is vivid and accurate, but translate it into technical failure modes; "checkout feels slow" becomes a described latency source with its cause.
 
 **Problem section.** The description must stand alone; a reader with no access to the source material should understand what hurts and why. `technicalCauses` is the load-bearing part: it is what the technical solution must answer. Derive causes from the harvested engineering material (architecture constraints, failure modes discussed in issues, measured bottlenecks), not from marketing language. When the problem was reconstructed from the solution artifact rather than traced from problem sources, keep the description faithful to what the artifact supports and record the confirmation need as a clarity issue in reviewCompletion.
 
@@ -57,23 +60,23 @@ Every "selection object" has the same shape: `item` (short label, max 300 chars)
 
 **priorArt.** Include only when prior art is actually known from the current context: Phase 2 portfolio findings, targeted external research results, or references cited in the source material itself. Prefer concrete references over generic "existing systems typically..." filler. When included, explain both what the prior art does and why it falls short. When nothing concrete is known, omit the object entirely; do not pad.
 
-**illustrationSuggestions.** Write for the inventor as recipient, in plain technical language. Name a concrete deliverable and say what it should show, e.g. "Sequence diagram of the cache-invalidation handshake, showing the replica, the coordinator, and the version-vector exchange on write". Match the type to the domain: architecture and data-flow diagrams for software, cross-sections and exploded views for mechanical, reaction schemes for chemistry. These populate disclosure tips only; they do not attach files.
+**illustrationSuggestions.** Write for the inventor as recipient, in plain technical language. Name a concrete deliverable and say what it should show, e.g. "Sequence diagram of the cache-invalidation handshake, showing the replica, the coordinator, and the version-vector exchange on write". Match the type to the domain: architecture and data-flow diagrams for software, cross-sections and exploded views for mechanical, reaction schemes for chemistry. These populate innovation description tips only; they do not attach files.
 
 **reviewCompletion.** Two modes:
 
-- `NO_OPEN_ISSUES`: use only when the disclosure is genuinely ready without inventor follow-up.
-- `OPEN_ISSUES_REMAIN` with `clarityIssues`: the honest default for mined disclosures, since source material rarely covers everything an attorney needs. Each clarity issue needs a `type` (e.g. parameter range, boundary behavior, embodiment), a `label` naming the specific gap, and a `description` saying exactly what is missing and why it matters.
+- `NO_OPEN_ISSUES`: use only when the innovation description is genuinely ready without inventor follow-up.
+- `OPEN_ISSUES_REMAIN` with `clarityIssues`: the honest default for mined innovation records, since source material rarely covers everything an attorney needs. Each clarity issue needs a `type` (e.g. parameter range, boundary behavior, embodiment), a `label` naming the specific gap, and a `description` saying exactly what is missing and why it matters.
 
-Good residual issues: undefined thresholds, vague relative terms needing operational definitions, missing failure or fallback behaviour, missing concrete embodiments. Three flag types from earlier phases also live here: an issue of type "eligibility" carrying the subject-matter screen's borderline reasoning, an issue of type "problem confirmation" when the problem was reconstructed from the solution artifact and the inventor should confirm the framing, and pointed detail-recruitment issues for thin-but-real ideas, each naming exactly what the inventor must supply. For improvement or continuation disclosures, name the related portfolio record and the specific delta in the reviewCompletion notes and, where known prior art exists, in the priorArt section. Bad residual issues: things already answered elsewhere in the payload, information you could have resolved from the sources, or speculative nice-to-haves. Author first, record only the genuine remainder.
+Good residual issues: undefined thresholds, vague relative terms needing operational definitions, missing failure or fallback behaviour, missing concrete embodiments. Three flag types from earlier phases also live here: an issue of type "eligibility" carrying the subject-matter screen's borderline reasoning, an issue of type "problem confirmation" when the problem was reconstructed from the solution artifact and the inventor should confirm the framing, and pointed detail-recruitment issues for thin-but-real ideas, each naming exactly what the inventor must supply. For related innovations, name the related portfolio record and the specific delta in the reviewCompletion notes and, where known prior art exists, in the priorArt section. Bad residual issues: things already answered elsewhere in the payload, information you could have resolved from the sources, or speculative nice-to-haves. Author first, record only the genuine remainder.
 
 ## Tool-use specifics
 
-- `create_invention` takes `{ definition: <the JSON object> }`.
-- `validate_invention` takes the same shape; run it before every create, and again after substantial edits if re-creating.
-- `update_invention` takes `invention_id` and a `sections` map with keys from: `problem`, `solution`, `details`, `priorArt`, `shortcomings`. It overwrites, so send complete replacement text for the sections you touch. Note these section names differ from the authoring schema's field names; they address the rendered disclosure sections.
-- `get_invention_feedback` supports `focus` of `clarity`, `problem`, `completeness`, or `all`. Responses may return pending with ticket identifiers; poll with `Lightbringer:check_task_status` and interleave other work while waiting.
-- `submit_invention` takes `invention_id` and starts patent preparation. It is not required for registration. Use only for explicit intent to have Lightbringer patent the selected innovation; report the actual returned status without claiming filing or payment.
-- Drawings cannot be attached through this path. If the sources contain relevant diagrams or the inventor has drawings, tell the user to upload them manually in the disclosure UI after creation.
+- `register_innovation` takes `{ definition: <the JSON object> }`.
+- `validate_innovation` takes the same shape; run it before every create, and again after substantial edits if re-creating.
+- `update_innovation` takes `invention_id` and a `sections` map with keys from: `problem`, `solution`, `details`, `priorArt`, `shortcomings`. It overwrites, so send complete replacement text for the sections you touch. Note these section names differ from the authoring schema's field names; they address the rendered innovation description sections.
+- `get_innovation_feedback` supports `focus` of `clarity`, `problem`, `completeness`, or `all`. Responses may return pending with ticket identifiers; poll with `check_task_status` and interleave other work while waiting.
+- `prepare_for_patent_filing` takes `invention_id` and starts patent preparation. It is not required for registration. Use only for explicit intent to have Lightbringer patent the selected innovation; report the actual returned status without claiming filing or payment.
+- Drawings cannot be attached through this path. If the sources contain relevant diagrams or the inventor has drawings, tell the user to upload them manually in the innovation description UI after creation.
 
 ## Common validation failures to avoid
 
@@ -85,4 +88,4 @@ Good residual issues: undefined thresholds, vague relative terms needing operati
 
 ## Interactive capture and current limitations
 
-Follow the live template's interactive capture guidance when the inventor is present; use autonomous capture guidance for authorised source mining. Ask focused questions about the mechanism and evidence, not a long generic questionnaire. Preserve honest open questions. Current tools may require a full disclosure payload even when the user's goal is lightweight registration: explain this limitation and never fabricate fields to make validation pass.
+Follow the live template's interactive capture guidance when the inventor is present; use autonomous capture guidance for authorised source mining. Ask focused questions about the mechanism and evidence, not a long generic questionnaire. Preserve honest open questions. Current tools may require a structured registration payload even when the user's goal is lightweight registration: explain this limitation and never fabricate fields to make validation pass.

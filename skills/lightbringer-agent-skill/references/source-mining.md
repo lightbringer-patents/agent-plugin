@@ -1,16 +1,16 @@
 # Source mining reference
 
-An invention is a problem-solution pair, and the two halves live in different systems. Problems surface in customer-facing and operational data; solutions live in engineering artifacts. This reference covers where to find each half, what the signal looks like, and how to pair them. The skill is source-agnostic: inventory the connectors available in the session, sort them into problem-side and solution-side, and apply the matching sections. When one side has no connector, tell the user rather than silently mining one-sided.
+Problem and solution evidence can live in different systems; an innovation does not require both to be fully described. Problems surface in customer-facing and operational data; solutions live in engineering artifacts. This reference covers where to find each half, what the signal looks like, and how to pair them. The skill is source-agnostic: inventory the connectors available in the session, sort them into problem-side and solution-side, and apply the matching sections. When one side has no connector, tell the user rather than silently mining one-sided.
 
 ## General principles
 
 For every finding, record a source reference precise enough to relocate it (ticket ID, issue ID, PR number, document title and section, thread permalink, dashboard query). Traceability is required in the final report, feeds the pairing step, and lets inventors verify claims later.
 
-Ignore as non-inventive on the solution side: routine CRUD and glue code, configuration, dependency upgrades, well-known design patterns applied conventionally, pure business rules, UI styling, and anything whose novelty is organisational rather than technical. The test: does the contribution change how a technical system works, or only what it is used for? Only the former can anchor a disclosure. Treat this as exploration guidance, not a patentability determination. Carry uncertain potential innovations forward with the supporting evidence and open questions; avoid silent rejection based on strategy fit or disclosure completeness.
+Look for innovative significance in the available context. Routine configuration or familiar patterns alone are not evidence of a new contribution, but labels such as UI, business rules or unfinished work do not justify discarding an idea. Retain identified innovations with their evidence and open questions, regardless of maturity or patent-readiness. Patent eligibility and legal qualification belong to later professional assessment. Never invent significance that the sources do not support.
 
 ## Problem-side sources
 
-The goal of the problem sweep is evidenced, recurring, technical pain. Convergence is the quality bar: the same friction appearing independently in several channels is a real problem; a single anecdote is not. Quantify where the source allows (ticket volume, affected accounts, error rates, drop-off percentages), because that evidence later strengthens the disclosure's problem description and demonstrates commercial relevance.
+The goal of the problem sweep is evidenced, recurring, technical pain. Independent corroboration strengthens a finding. A single observation can support an innovation; record its evidence and uncertainty without requiring recurrence. Quantify where the source allows (ticket volume, affected accounts, error rates, drop-off percentages), because that evidence later strengthens the innovation description's problem description and demonstrates commercial relevance.
 
 **Support and helpdesk platforms (Zendesk, Intercom, and similar).** The most honest problem signal available: customers report what they care enough to interrupt their day over, in their own words. Cluster tickets into themes rather than reading individually; look for repeated failure modes, workarounds customers invent, and complaints that persist across releases. Beware vocabulary spread: the same pain appears as "slow", "takes forever", "spinning", "timed out". Note ticket volumes and trends per theme.
 
@@ -30,7 +30,7 @@ The goal of the solution sweep is causally understood mechanisms. The strongest 
 
 **Code hosts (GitHub and similar).** Design docs, RFCs, and ADRs in the repo (often under `docs/`, `rfcs/`, `adr/`) are the richest single source: they state problem, alternatives considered, and chosen mechanism. Next best are PR descriptions for large or long-lived branches, especially with benchmarks, then READMEs explaining novel algorithms, then long-form code comments. Do not read code exhaustively; read documents about the code, dipping into implementation only to confirm details needed for furtherDetails (parameters, data structures, protocol steps). If no GitHub connector is present, public repos are reachable via the GitHub REST API from the sandbox (api.github.com); for private repos, ask the user to connect GitHub or provide the documents directly.
 
-**Issue trackers, project side (Linear, Jira).** Completed projects, epics, and their milestone or project documents contain design rationale for shipped work. For Linear: `Linear:list_projects` to find in-scope projects, `Linear:list_documents` and `Linear:get_document` for project docs, `Linear:list_issues` filtered to the project, `Linear:get_issue` and `Linear:list_comments` on promising hits for design debates. Prefer completed or shipped work; speculative backlog items rarely support a full disclosure.
+**Issue trackers, project side (Linear, Jira).** Completed projects, epics, and their milestone or project documents contain design rationale for shipped work. For Linear: `Linear:list_projects` to find in-scope projects, `Linear:list_documents` and `Linear:get_document` for project docs, `Linear:list_issues` filtered to the project, `Linear:get_issue` and `Linear:list_comments` on promising hits for design debates. Prefer completed or shipped work; unfinished ideas can still be innovations; retain their supported context and open questions.
 
 **Document stores (Google Drive, Notion, Confluence).** Design documents and technical specs, especially with "Alternatives considered" sections (rejected alternatives sharpen differentiating features). Post-mortems are doubly valuable: the incident section is problem-side evidence and the remediation section frequently contains a novel mechanism, pre-paired in one document. Experiment writeups and benchmark reports feed furtherDetails with validation data. Search by scoped folder or project name first; broad keyword sweeps produce noise.
 
@@ -48,7 +48,7 @@ Organisations already maintain the links; follow them before inferring anything:
 
 Classify every finding as paired, unpaired problem, or unpaired solution, per the Phase 1 rules in SKILL.md. Unpaired problems go to the unsolved-problem inventory in the report; unpaired solutions proceed with a reconstructed problem and an inventor-confirmation note.
 
-## Mapping the pair onto the disclosure
+## Mapping the pair onto the innovation description
 
 Keep the two evidence streams distinct in your notes, because they populate different halves of the Lightbringer schema. Problem-side evidence feeds the problem description, the problems list, and the contexts (operating environments where the pain occurs). Engineering evidence of why the problem happens feeds technicalCauses. Solution-side evidence feeds the invention description, solution, technicalSolution, and furtherDetails. See the authoring reference for detail.
 

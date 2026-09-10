@@ -1,6 +1,8 @@
 # Distribution and validation
 
-Version 1.1.0 adds service orientation and live inventor capture and changes mining to registration/enrichment without automatic patent preparation. The portable and Claude packages share all three skills and retain the existing MCP tool names.
+Version 1.1.0 adds service orientation and live inventor capture and changes mining to registration/enrichment without automatic patent preparation. The portable and Claude packages share all three skills.
+
+The working copy uses the renamed innovation tools, including `register_innovation` and `prepare_for_patent_filing`. Release these skills together with the matching MCP server and assign coordinated release versions before publication. Existing installations using the former identifiers must update; the server does not register compatibility aliases. Historical OpenAI exports remain evidence of earlier releases.
 
 ## Build
 

@@ -1,6 +1,6 @@
 # Idea identification reference
 
-How to turn harvested material into a defensible list of distinct patentable ideas, aligned with the patent strategy and the organisational context from Phase 2.
+How to turn harvested material into a defensible list of distinct potential innovations, aligned with the patent strategy and the organisational context from Phase 2.
 
 ## The distinctness test
 
@@ -15,21 +15,21 @@ Conversely, do not split one mechanism into several ideas because it has multipl
 
 ## Per-idea articulation
 
-Every idea is a problem-solution pair. For each, write down before any authoring begins:
+Describe the problem and proposed approach to the extent known; an innovation can still be vague or incomplete. For each, write down before any authoring begins:
 
 - **Descriptive title**, specific enough to distinguish it from siblings.
 - **Inventive concept** in plain language: what it is and the mechanism by which it works.
 - **Technical problem** it solves, with its evidence: where the pain was observed (support themes, lost deals, incidents, analytics), at what frequency or severity, and the technical cause it addresses. State whether the pairing was traced through explicit links, inferred from theme and timeframe, or reconstructed from the solution artifact.
 - **Differentiating features** relative to the Phase 2 context: what makes it different from existing portfolio items, known competitor filings, and the state of the art found in targeted research. Name the specific delta, not "it is better".
 - **Source reference(s)** for both sides of the pair: where the problem evidence lives and where the solution is documented.
-- **Strategy alignment**: which strategy focus area or priority it serves, or an explicit note that it falls outside strategy focus. Off-strategy ideas still proceed to authoring; the off-strategy note travels in the report and in the disclosure's reviewCompletion notes so reviewers can weigh it on the platform.
+- **Strategy alignment**: which strategy focus area or priority it serves, or an explicit note that it falls outside strategy focus. Off-strategy ideas still proceed to authoring; the off-strategy note travels in the report and in the innovation description's reviewCompletion notes so reviewers can weigh it on the platform.
 
 ## Combine versus separate
 
-When two distinct ideas are tightly coupled, consider whether they belong in one filing:
+When two innovations are related, record their relationship for later patent-preparation assessment. Do not merge distinct innovation assets merely because they might support one application:
 
-- Combine when one is only useful with the other or when they share the same technical cause.
-- Keep separate when each stands alone commercially or technically, when they would have different infringement targets, when they sit in different strategy focus areas, or when one is much stronger and would be diluted by the other.
+- Note shared dependencies or a common technical cause.
+- Keep distinct innovations traceable individually. Selection of one or more innovations for an invention disclosure belongs to explicitly requested patent preparation.
 
 Record the reasoning either way; it goes into the report.
 
@@ -39,13 +39,13 @@ Retain every identified potential innovation in the authorised scope, including 
 
 Search for existing concepts before creation. Enrich an identical existing record with supported new context, preserving its earlier decisions and sources. Distinct improvements can have separate records linked by their identifiers and the factual delta. Do not duplicate a rejected concept to bypass its history.
 
-The deployed `create_invention` schema currently has full-disclosure requirements. Use the live template honestly. If the available evidence cannot meet the schema without fabrication, retain the candidate in the user-visible summary as pending registration, identify the missing inputs and offer clarification or the platform/team route. This is an implementation limitation, not a judgment that the idea lacks value.
+The deployed `register_innovation` schema currently has structured registration requirements. Use the live template honestly. If the available evidence cannot meet the schema without fabrication, retain the candidate in the user-visible summary as pending registration, identify the missing inputs and offer clarification or the platform/team route.
 
 ## Technical and eligibility observations
 
 Describe what the solution changes in the technical system and the evidence for that observation. Mark uncertain mechanisms or inferred problem/solution links for inventor clarification. Frame mixed technical and commercial context faithfully without inventing a technical effect. Record eligibility questions for professional assessment, including relevant jurisdictions from the strategy, without presenting the assistant's screening as a legal conclusion.
 
-Do not manufacture novelty, turn every feature into an invention, or create a disclosure from a problem alone when no solution exists. Keep unsolved problems visible as research opportunities. A conventional implementation with no identified potential innovation can be reported as such, with its evidence.
+Do not manufacture novelty, turn every feature into an invention, or invent a solution to an observed problem. Keep unsolved problems visible as research opportunities. A conventional implementation with no identified potential innovation can be reported as such, with its evidence.
 
 ## When nothing is identified
 

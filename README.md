@@ -5,13 +5,13 @@ Work with [Lightbringer's patent service](https://lightbringer.com) from your AI
 ## Included
 
 - **MCP connector:** `https://mcp.lightbringer.com/mcp`, with OAuth and organisation-scoped access.
-- **invention-capture:** capture potential innovations from an ongoing technical conversation, search for existing records, and register or enrich disclosures.
+- **invention-capture:** capture potential innovations from an ongoing technical conversation, search for existing records, and register or enrich innovation records.
 - **lightbringer-agent-skill:** explore authorised technical sources for potential innovations and collaborate on Lightbringer reports and patent reviews.
 - **lightbringer-patent-service:** understand the service, request patent preparation with explicit intent, and continue professional work through available tools or the Lightbringer team.
 
-**Register first; prepare for patent filing when requested.** The current `create_invention` tool saves a disclosure and completes registration. `submit_invention` separately requests patent preparation. Capturing an idea or completing its disclosure does not request filing. Agents cannot make payments.
+**Register first; prepare for patent filing when requested.** The current `register_innovation` tool saves a innovation description and completes registration. `prepare_for_patent_filing` separately requests patent preparation. Capturing an idea or completing its innovation description does not request filing. Agents cannot make payments.
 
-The current server requires a disclosure payload for registration. Skills retain incomplete candidates and explain missing inputs when that schema prevents saving. Service requests, strategy editing and protection decisions use only capabilities actually available; a prepared handoff is not a completed service order. Automated disclosure feedback is distinct from novelty search and attorney review.
+The current server requires a innovation description payload for registration. Skills retain incomplete candidates and explain missing inputs when that schema prevents saving. Service requests, strategy editing and protection decisions use only capabilities actually available; a prepared handoff is not a completed service order. Automated innovation description feedback is distinct from novelty search and attorney review.
 
 ## Connect and use
 

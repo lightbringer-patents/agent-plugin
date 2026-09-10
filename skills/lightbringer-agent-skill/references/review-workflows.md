@@ -2,10 +2,15 @@
 
 ## Locating and reading
 - `list_reviews`: reviews the user participates in or created — status, own response status, awaited participants. Default `open`; use `closed` for historical outcomes.
-- `get_review`: metadata, the document as markdown, comment threads with stable IDs; priority drafts add attorney redlines (original, replacement, rationale).
+- `get_review`: metadata, `artifact.markdown`, document comment threads with stable IDs, and the review discussion feed. Read all of them before proposing feedback to avoid repeating an existing point. Attorney redlines carry original/replacement/rationale.
+- Inspect `artifact.amendments` separately: these are proposed block changes with baseline/proposed text, redline and patch; the document body still shows baseline text. Do not describe an agent-drafted proposal as an accepted amendment or attorney-authored change.
+- Check `artifact.status` and `artifact.reason` when the document cannot be rendered. A rendering notice is not the document. Explain the limitation and use the supplied platform link for document review; do not infer missing content or recommend approval from metadata alone.
 - No review for the named document → `search` + `fetch` is read-only; commenting requires a review.
 
-## Anchoring and threading
+## Anchoring, threading and discussion
+- Use `add_discussion_comment` with `review_id` and `comment` for general remarks about the review, without a fabricated quote. It posts to the discussion feed and can notify eligible participants in-app and by email; include its destination and exact text in the same approval batch as other comments.
+- Discussion entries are separate from document threads. Do not pass a discussion entry ID to `reply_to_comment`; use that tool only for a supported document comment ID.
+- If `add_discussion_comment` is unavailable in the connection, keep the general remark as a draft and offer the review in the platform. Do not claim it was posted or attach it to an unrelated passage.
 - `quoted_text` is an exact passage from the review markdown: unique, but short enough to read as a natural anchor.
 - Ambiguous anchor → the tool returns candidate passages; re-anchor with a longer quote and retry. Never guess between candidates.
 - `add_comment` anchored inside an existing thread silently becomes a reply, so all replies go through `reply_to_comment` with an explicit `comment_id`.
@@ -37,7 +42,7 @@ Last line of every comment and reply, one of:
 ## Priority draft checklist
 Classify each finding under the regimes before drafting it.
 - Claim support: every claim element described in the specification? Report gaps factually; the remedy is the team's call.
-- Disclosure consistency: `get_invention` the source disclosure; divergences in mechanism, parameters, or embodiments are engineering-side corrections.
+- Innovation description consistency: `get_innovation` the source innovation description; divergences in mechanism, parameters, or embodiments are engineering-side corrections.
 - Terminology: consistent naming across claims, specification, figures.
 - Embodiments/fallbacks: real alternatives, parameter ranges, and fallback behaviour the draft omits are grounded additions.
 - Strategy fit: jurisdiction or focus mismatches are raised in the user's words — a prosecution decision.
