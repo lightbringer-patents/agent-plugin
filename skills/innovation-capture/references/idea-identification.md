@@ -1,6 +1,6 @@
 # Idea identification reference
 
-How to turn harvested material into a defensible list of distinct potential innovations, aligned with the patent strategy and the organisational context from Phase 2.
+How to turn harvested material into a defensible list of distinct potential innovations, aligned with the patent strategy and the organisational portfolio context.
 
 ## The distinctness test
 
@@ -20,9 +20,9 @@ Describe the problem and proposed approach to the extent known; an innovation ca
 - **Descriptive title**, specific enough to distinguish it from siblings.
 - **Inventive concept** in plain language: what it is and the mechanism by which it works.
 - **Technical problem** it solves, with its evidence: where the pain was observed (support themes, lost deals, incidents, analytics), at what frequency or severity, and the technical cause it addresses. State whether the pairing was traced through explicit links, inferred from theme and timeframe, or reconstructed from the solution artifact.
-- **Differentiating features** relative to the Phase 2 context: what makes it different from existing portfolio items, known competitor filings, and the state of the art found in targeted research. Name the specific delta, not "it is better".
+- **Differentiating features** relative to the portfolio context: what makes it different from existing portfolio items, known competitor filings, and the state of the art found in targeted research. Name the specific delta, not "it is better".
 - **Source reference(s)** for both sides of the pair: where the problem evidence lives and where the solution is documented.
-- **Strategy alignment**: which strategy focus area or priority it serves, or an explicit note that it falls outside strategy focus. Off-strategy ideas still proceed to authoring; the off-strategy note travels in the report and in the innovation description's reviewCompletion notes so reviewers can weigh it on the platform.
+- **Strategy alignment**: which strategy focus area or priority it serves, or an explicit note that it falls outside strategy focus. Off-strategy ideas still proceed to authoring; the off-strategy note travels in the summary and in the innovation description's reviewCompletion notes so reviewers can weigh it on the platform.
 
 ## Combine versus separate
 
@@ -31,7 +31,7 @@ When two innovations are related, record their relationship for later patent-pre
 - Note shared dependencies or a common technical cause.
 - Keep distinct innovations traceable individually. Selection of one or more innovations for an invention disclosure belongs to explicitly requested patent preparation.
 
-Record the reasoning either way; it goes into the report.
+Record the reasoning either way; it goes into the summary.
 
 ## Capture and qualification are separate
 

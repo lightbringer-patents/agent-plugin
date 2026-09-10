@@ -2,7 +2,7 @@
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "lightbringer",
   "version": "1.1.0",
-  "description": "Work with Lightbringer’s patent attorneys: capture and enrich innovations, explore technical work, prepare for patent filing when requested, and collaborate on patent reviews.",
+  "description": "Capture and enrich innovations from conversations or technical sources, request patent preparation, and respond to Lightbringer report and patent-draft reviews.",
   "author": {
     "name": "Lightbringer AB",
     "email": "dominic@lightbringer.com",
@@ -12,9 +12,9 @@
   "repository": "https://github.com/lightbringer-patents/agent-plugin",
   "license": "MIT",
   "keywords": [
+    "innovations",
     "patents",
-    "invention-disclosure",
-    "ip",
+    "patent-review",
     "lightbringer"
   ]
 }

@@ -5,19 +5,19 @@ Work with [Lightbringer's patent service](https://lightbringer.com) from your AI
 ## Included
 
 - **MCP connector:** `https://mcp.lightbringer.com/mcp`, with OAuth and organisation-scoped access.
-- **invention-capture:** capture potential innovations from an ongoing technical conversation, search for existing records, and register or enrich innovation records.
-- **lightbringer-agent-skill:** explore authorised technical sources for potential innovations and collaborate on Lightbringer reports and patent reviews.
-- **lightbringer-patent-service:** understand the service, request patent preparation with explicit intent, and continue professional work through available tools or the Lightbringer team.
+- **innovation-capture:** identify, register and enrich innovations from a conversation, inventor interview or authorised source exploration.
+- **patent-preparation:** request preparation of a selected innovation for patent filing and report the confirmed status and next steps.
+- **patent-review:** read and respond to Lightbringer report and patent-draft reviews, including comments, discussion and formal responses.
 
-**Register first; prepare for patent filing when requested.** The current `register_innovation` tool saves a innovation description and completes registration. `prepare_for_patent_filing` separately requests patent preparation. Capturing an idea or completing its innovation description does not request filing. Agents cannot make payments.
+**Register first; prepare for patent filing when requested.** The current `register_innovation` tool saves an innovation description and completes registration. `prepare_for_patent_filing` separately requests patent preparation. Capturing an idea or completing its innovation description does not request filing. Agents cannot make payments.
 
-The current server requires a innovation description payload for registration. Skills retain incomplete candidates and explain missing inputs when that schema prevents saving. Service requests, strategy editing and protection decisions use only capabilities actually available; a prepared handoff is not a completed service order. Automated innovation description feedback is distinct from novelty search and attorney review.
+The current server requires an innovation description payload for registration. Skills retain incomplete candidates and explain missing inputs when that schema prevents saving. Connection and general service orientation come from MCP instructions and this guide. Use available service routes for professional work; a prepared handoff is not a completed service order. Automated innovation description feedback is distinct from novelty search and attorney review.
 
 ## Connect and use
 
 The connector uses OAuth 2.1 (Authorization Code + PKCE, S256) with Dynamic Client Registration. The server advertises its authorization server via RFC 9728 protected-resource metadata (`/.well-known/oauth-protected-resource`); on first use, clients prompt you to sign in to Lightbringer. Supported scopes are `mcp:read` and `mcp:write`.
 
-Install the skills-plus-MCP plugin through a supported host distribution channel, then complete the host's OAuth flow. Select the Lightbringer organisation you want to connect; existing record permissions still apply. Never paste passwords or access tokens into chat. Qualified members can enable MCP during the updated consent flow once that application release is deployed.
+Install the skills-plus-MCP plugin through a supported host distribution channel, then complete the host's OAuth flow. Select the Lightbringer organisation you want to connect; existing record permissions still apply. Never paste passwords or access tokens into chat. If connection is blocked, follow the account or organisation remedy shown by the host.
 
 Try:
 

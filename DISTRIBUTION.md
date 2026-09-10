@@ -1,6 +1,6 @@
 # Distribution and validation
 
-Version 1.1.0 adds service orientation and live inventor capture and changes mining to registration/enrichment without automatic patent preparation. The portable and Claude packages share all three skills.
+The package contains three workflow skills: `innovation-capture`, `patent-preparation` and `patent-review`. Capture covers both inventor conversations and source exploration. Preparation ends with a confirmed preparation request; review handles report and patent-draft feedback. General service orientation is supplied through MCP instructions and the README. Each skill contains its required references.
 
 The working copy uses the renamed innovation tools, including `register_innovation` and `prepare_for_patent_filing`. Release these skills together with the matching MCP server and assign coordinated release versions before publication. Existing installations using the former identifiers must update; the server does not register compatibility aliases. Historical OpenAI exports remain evidence of earlier releases.
 
