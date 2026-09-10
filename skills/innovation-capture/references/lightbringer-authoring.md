@@ -20,7 +20,7 @@ update_innovation (full section replacements, only where fixable from context)
         v
 registration/enrichment complete — return the saved record link
 
-Separate explicit patenting intent only: prepare_for_patent_filing → patent preparation requested
+Separate explicit patenting intent only: request_patent_preparation → patent preparation requested
 ```
 
 ## Schema shape and observed constraints (v1)
@@ -72,7 +72,7 @@ Good residual issues: undefined thresholds, vague relative terms needing operati
 - `register_innovation` takes `{ definition: <the JSON object> }` and validates before creating the record. Call it only when saving is authorised; it is not a validation-only preview. Validation errors mean nothing was registered: correct the reported fields from supported context before retrying. A successful result contains the saved ID/link and may contain non-blocking `warnings`; report them without retrying registration.
 - `update_innovation` takes `invention_id` and a `sections` map with keys from: `problem`, `solution`, `details`, `priorArt`, `shortcomings`. It overwrites, so send complete replacement text for the sections you touch. Note these section names differ from the authoring schema's field names; they address the rendered innovation description sections. Check each section's `applied`/`error` outcome and read back with `get_innovation` when needed. Do not re-register an existing record to validate its changes.
 - `get_innovation_feedback` supports `focus` of `clarity`, `problem`, `completeness`, or `all`. Responses may return pending with ticket identifiers; poll with `check_task_status` and interleave other work while waiting.
-- `prepare_for_patent_filing` takes `invention_id` and starts patent preparation. It is not required for registration. Use only for explicit intent to have Lightbringer patent the selected innovation; report the actual returned status without claiming filing or payment.
+- `request_patent_preparation` takes `invention_id` and records a patent-preparation request. Automated feedback and revisions are optional, not prerequisites to an explicit request. It is not required for registration. Use only for explicit intent to have Lightbringer patent the selected innovation; report the actual returned status without claiming filing or payment.
 - Drawings cannot be attached through this path. If the sources contain relevant diagrams or the inventor has drawings, tell the user to upload them manually in the innovation description UI after creation.
 
 ## Common validation failures to avoid

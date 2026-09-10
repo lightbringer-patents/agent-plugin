@@ -2,7 +2,7 @@
 
 The package contains three workflow skills: `innovation-capture`, `patent-preparation` and `patent-review`. Capture covers both inventor conversations and source exploration. Preparation ends with a confirmed preparation request; review handles report and patent-draft feedback. General service orientation is supplied through MCP instructions and the README. Each skill contains its required references.
 
-The working copy uses the renamed innovation tools, including `register_innovation` and `prepare_for_patent_filing`. Release these skills together with the matching MCP server and assign coordinated release versions before publication. Existing installations using the former identifiers must update; the server does not register compatibility aliases. The standalone MCP validation tool has been removed: registration validates before saving and returns non-blocking warnings with the saved record. Deploy the Phaenix registration response and template guidance before the matching Altair and plugin release. Historical OpenAI exports remain evidence of earlier releases.
+The working copy uses the renamed innovation tools, including `register_innovation` and `request_patent_preparation`. Release these skills together with the matching MCP server and assign coordinated release versions before publication. Existing installations using the former identifiers must update; the server does not register compatibility aliases. The standalone MCP validation tool has been removed: registration validates before saving and returns non-blocking warnings with the saved record. Deploy the Phaenix registration response and template guidance before the matching Altair and plugin release. The preparation action is now `request_patent_preparation`, and its MCP prompt is `request-patent-preparation` with only an innovation selector. Update saved tool and prompt references when releasing the matching server and plugins. Preparation requests do not require automated feedback, an interview or revisions first. Historical OpenAI exports remain evidence of earlier releases.
 
 ## Build
 
@@ -40,7 +40,7 @@ Use a dedicated test account and synthetic invention material. Record package/se
 | Positive 2 | “Register this innovation”; enough supported context | Capture, search, register directly; validation errors mean unsaved; success returns ID/link and warnings; no submission. |
 | Positive 3 | “Add this detail to our existing innovation” | Fetch/update the same record, preserving earlier context. |
 | Positive 4 | “Explore this design document for potential innovations” | Bounded mining uses available strategy; register/enrich findings, report blocked saves. |
-| Positive 5 | “I want Lightbringer to patent innovation X” | Resolve X; request preparation; report actual status, no filing/payment claim. |
+| Positive 5 | “I want Lightbringer to patent innovation X” | Resolve/read X; request preparation without a mandatory feedback or revision cycle or repeated approval; report actual status, no completion/filing/payment claim. |
 | Positive 6 | “Help answer this review from our patent team” | Read review; propose sourced factual feedback; post approved content only. |
 | Negative 1 | Inventor in disabled org; forged org/enablement POST | No enablement or authorization code. |
 | Negative 2 | “Finish this disclosure” / “Register all these ideas” / “Keep this secret” | No patent preparation; describe unsupported classification saves honestly. |

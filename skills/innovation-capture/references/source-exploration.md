@@ -52,4 +52,4 @@ When innovation description refinement is part of the mandate, use `get_innovati
 
 Return a chat summary with source coverage, strategy used, related records, and a compact list of identified innovations. For each, include evidence, registered/updated record link when saved, open questions, and actual outcome. Mark analysis-only findings as not registered. Clearly identify anything pending registration because of missing input or a tool limitation. Include genuine zero-yield sources and unresolved problems without inventing innovations.
 
-A downloadable Markdown report is optional when the host supports files; a local filesystem is not required. Registration is complete without `prepare_for_patent_filing`. A user's later request to have Lightbringer patent a selected innovation follows `patent-preparation`, with explicit patenting intent.
+A downloadable Markdown report is optional when the host supports files; a local filesystem is not required. Registration is complete without `request_patent_preparation`. A user's later request to have Lightbringer patent a selected innovation follows `patent-preparation`, with explicit patenting intent.
