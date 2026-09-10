@@ -11,7 +11,7 @@ Work with [Lightbringer's patent service](https://lightbringer.com) from your AI
 
 **Register first; prepare for patent filing when requested.** The current `register_innovation` tool saves an innovation description and completes registration. `prepare_for_patent_filing` separately requests patent preparation. Capturing an idea or completing its innovation description does not request filing. Agents cannot make payments.
 
-The current server requires an innovation description payload for registration. Skills retain incomplete candidates and explain missing inputs when that schema prevents saving. Connection and general service orientation come from MCP instructions and this guide. Use available service routes for professional work; a prepared handoff is not a completed service order. Automated innovation description feedback is distinct from novelty search and attorney review.
+The current server requires an innovation description payload for registration. `register_innovation` validates and saves in one request; validation errors leave nothing registered, while success returns the saved ID/link and any non-blocking warnings. A separate validation call is not required. Skills retain incomplete candidates and explain missing inputs when that schema prevents saving. Connection and general service orientation come from MCP instructions and this guide. Use available service routes for professional work; a prepared handoff is not a completed service order. Automated innovation description feedback is distinct from novelty search and attorney review.
 
 ## Connect and use
 

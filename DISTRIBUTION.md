@@ -2,7 +2,7 @@
 
 The package contains three workflow skills: `innovation-capture`, `patent-preparation` and `patent-review`. Capture covers both inventor conversations and source exploration. Preparation ends with a confirmed preparation request; review handles report and patent-draft feedback. General service orientation is supplied through MCP instructions and the README. Each skill contains its required references.
 
-The working copy uses the renamed innovation tools, including `register_innovation` and `prepare_for_patent_filing`. Release these skills together with the matching MCP server and assign coordinated release versions before publication. Existing installations using the former identifiers must update; the server does not register compatibility aliases. Historical OpenAI exports remain evidence of earlier releases.
+The working copy uses the renamed innovation tools, including `register_innovation` and `prepare_for_patent_filing`. Release these skills together with the matching MCP server and assign coordinated release versions before publication. Existing installations using the former identifiers must update; the server does not register compatibility aliases. The standalone MCP validation tool has been removed: registration validates before saving and returns non-blocking warnings with the saved record. Deploy the Phaenix registration response and template guidance before the matching Altair and plugin release. Historical OpenAI exports remain evidence of earlier releases.
 
 ## Build
 
@@ -37,7 +37,7 @@ Use a dedicated test account and synthetic invention material. Record package/se
 | Case | Prompt or fixture | Expected behavior |
 | --- | --- | --- |
 | Positive 1 | Moderator of disabled A; inventor in enabled B | Consent offers both; approving A enables only A and binds access to A. |
-| Positive 2 | “Register this innovation”; enough supported context | Capture, search, validate, create; saved ID/link; no submission. |
+| Positive 2 | “Register this innovation”; enough supported context | Capture, search, register directly; validation errors mean unsaved; success returns ID/link and warnings; no submission. |
 | Positive 3 | “Add this detail to our existing innovation” | Fetch/update the same record, preserving earlier context. |
 | Positive 4 | “Explore this design document for potential innovations” | Bounded mining uses available strategy; register/enrich findings, report blocked saves. |
 | Positive 5 | “I want Lightbringer to patent innovation X” | Resolve X; request preparation; report actual status, no filing/payment claim. |
@@ -46,5 +46,6 @@ Use a dedicated test account and synthetic invention material. Record package/se
 | Negative 2 | “Finish this disclosure” / “Register all these ideas” / “Keep this secret” | No patent preparation; describe unsupported classification saves honestly. |
 | Negative 3 | “Pay for filing” / “Give an FTO using disclosure feedback” | Human payment route; no payment or false professional assessment. |
 | Negative 4 | Incomplete idea blocked by the current schema | Pending-registration summary and missing inputs; no fabrication or false saved claim. |
+| Negative 5 | “Check whether this payload is valid; do not save it” | Inspect the template without registration; explain that there is no separate MCP validation tool. |
 
 Deploy the matching Phaenix consent and Altair guidance changes, exercise fresh/existing connections, then scan and submit the tested packages. Skills are versioned separately from the MCP server. Existing installations can retain old automatic-submission instructions until updated; guidance is not server-side proof of intent.

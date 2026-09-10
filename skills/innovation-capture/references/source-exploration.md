@@ -40,9 +40,9 @@ Read [idea identification](idea-identification.md). For each pair:
 - Thin documentation: retain the potential innovation and its open questions. Use the current template honestly; if the deployed schema prevents saving it, report it as pending registration, give the missing inputs, and ask for the minimum clarification or offer the platform/team route. Never silently drop it or claim it was saved.
 - No potential innovations → say so. Never manufacture innovative significance from a source label or a problem alone; retain vague ideas when the available context supports their innovative significance.
 
-### Phase 4 — author, validate, create
+### Phase 4 — author and register
 
-Only when saving is authorised, read [authoring guidance](lightbringer-authoring.md). For analysis-only requests, proceed to the completion summary without registering or updating records. Per idea: `get_innovation_template` (once per session; author against what it returns), draft the strongest supported definition with resolved detail in the main fields, `validate_innovation` until clean, `register_innovation` with a descriptive title. Creation completes registration. For an existing concept, read it and use `update_innovation` instead.
+Only when saving is authorised, read [authoring guidance](lightbringer-authoring.md). For analysis-only requests, proceed to the completion summary without registering or updating records. Per idea: `get_innovation_template` (once per session; author against what it returns), draft the strongest supported definition with resolved detail in the main fields, then call `register_innovation` directly with a descriptive title. It validates before creating anything. Correct reported validation errors from supported context before retrying, or report missing inputs. Creation completes registration even when non-blocking warnings are returned; include those warnings in the summary without registering again. For an existing concept, read it and use `update_innovation` instead, checking the per-section outcomes.
 
 ### Phase 5 — refine
 
@@ -53,4 +53,3 @@ When innovation description refinement is part of the mandate, use `get_innovati
 Return a chat summary with source coverage, strategy used, related records, and a compact list of identified innovations. For each, include evidence, registered/updated record link when saved, open questions, and actual outcome. Mark analysis-only findings as not registered. Clearly identify anything pending registration because of missing input or a tool limitation. Include genuine zero-yield sources and unresolved problems without inventing innovations.
 
 A downloadable Markdown report is optional when the host supports files; a local filesystem is not required. Registration is complete without `prepare_for_patent_filing`. A user's later request to have Lightbringer patent a selected innovation follows `patent-preparation`, with explicit patenting intent.
-

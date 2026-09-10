@@ -9,11 +9,9 @@ get_innovation_template  (once per session)
         v
 draft definition JSON
         v
-validate_innovation  --errors-->  fix and re-validate
-        v (clean)
-register_innovation
-        v
-registration complete — return the saved record link
+register_innovation  --validation errors, not saved-->  fix supported fields and retry
+        v (saved, possibly with warnings)
+registration complete — return the saved record link and warnings
 
 Optional refinement, when requested:
 get_innovation_feedback (focus: all)   [may be async; poll via check_task_status]
@@ -71,9 +69,8 @@ Good residual issues: undefined thresholds, vague relative terms needing operati
 
 ## Tool-use specifics
 
-- `register_innovation` takes `{ definition: <the JSON object> }`.
-- `validate_innovation` takes the same shape; run it before every create, and again after substantial edits if re-creating.
-- `update_innovation` takes `invention_id` and a `sections` map with keys from: `problem`, `solution`, `details`, `priorArt`, `shortcomings`. It overwrites, so send complete replacement text for the sections you touch. Note these section names differ from the authoring schema's field names; they address the rendered innovation description sections.
+- `register_innovation` takes `{ definition: <the JSON object> }` and validates before creating the record. Call it only when saving is authorised; it is not a validation-only preview. Validation errors mean nothing was registered: correct the reported fields from supported context before retrying. A successful result contains the saved ID/link and may contain non-blocking `warnings`; report them without retrying registration.
+- `update_innovation` takes `invention_id` and a `sections` map with keys from: `problem`, `solution`, `details`, `priorArt`, `shortcomings`. It overwrites, so send complete replacement text for the sections you touch. Note these section names differ from the authoring schema's field names; they address the rendered innovation description sections. Check each section's `applied`/`error` outcome and read back with `get_innovation` when needed. Do not re-register an existing record to validate its changes.
 - `get_innovation_feedback` supports `focus` of `clarity`, `problem`, `completeness`, or `all`. Responses may return pending with ticket identifiers; poll with `check_task_status` and interleave other work while waiting.
 - `prepare_for_patent_filing` takes `invention_id` and starts patent preparation. It is not required for registration. Use only for explicit intent to have Lightbringer patent the selected innovation; report the actual returned status without claiming filing or payment.
 - Drawings cannot be attached through this path. If the sources contain relevant diagrams or the inventor has drawings, tell the user to upload them manually in the innovation description UI after creation.

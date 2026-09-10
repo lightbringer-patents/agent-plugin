@@ -9,7 +9,7 @@ Record the user's request for Lightbringer to prepare a selected innovation for 
 
 ## Identify the innovation
 
-Use the connected organisation and resolve the selected record with `list_innovations` or `search`; read it with `get_innovation`. Clarify an ambiguous selection. If the innovation is not registered, use `innovation-capture` when installed, retaining the user's patenting intent for that concept. If capture guidance is unavailable, follow `get_innovation_template`, validate supported content with `validate_innovation`, and register with `register_innovation` as part of the requested preparation. Report any missing inputs or failed save before attempting preparation.
+Use the connected organisation and resolve the selected record with `list_innovations` or `search`; read it with `get_innovation`. Clarify an ambiguous selection. If the innovation is not registered, use `innovation-capture` when installed, retaining the user's patenting intent for that concept. If capture guidance is unavailable, follow `get_innovation_template` and call `register_innovation` with supported content as part of the requested preparation. Registration validates before saving: report any missing inputs or validation errors before attempting preparation. Successful registration can include non-blocking warnings; report them without re-registering the record.
 
 If enrichment is needed, carry the record ID and relevant gaps into the capture workflow. Do not require speculative improvements or invent technical detail as a prerequisite to the user's request.
 
