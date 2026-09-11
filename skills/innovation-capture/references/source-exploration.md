@@ -46,7 +46,7 @@ Only when saving is authorised, read [authoring guidance](lightbringer-authoring
 
 ### Phase 5 — refine
 
-When innovation description refinement is part of the mandate, use `get_innovation_feedback` (focus `all`); it is automated innovation description analysis, not a novelty search. Otherwise stop after registration/enrichment. If analysis runs, if pending, poll `check_task_status` and author other innovation records meanwhile. Apply fixes supported by harvested context via `update_innovation` (whole-section overwrite — send complete replacement text). Information only the inventor has stays an honest gap. One pass; a second only after substantial rewrites.
+When innovation description refinement is part of the mandate, use `start_innovation_feedback` (focus `all`); it is automated innovation description analysis, not a novelty search. Otherwise stop after registration/enrichment. If analysis is `queued` or `running`, poll `get_task_status` with its single `task_id` and author other innovation records meanwhile. Stop polling at `succeeded`, `partially_succeeded` or `failed`; preserve findings and report per-analysis errors. Apply fixes supported by harvested context via `update_innovation` (whole-section overwrite — send complete replacement text). Information only the inventor has stays an honest gap. One pass; a second only after substantial rewrites.
 
 ### Completion — registration and enrichment
 

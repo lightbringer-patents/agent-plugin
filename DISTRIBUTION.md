@@ -4,6 +4,8 @@ The package contains three workflow skills: `innovation-capture`, `patent-prepar
 
 The working copy uses the renamed innovation tools, including `register_innovation` and `request_patent_preparation`. Release these skills together with the matching MCP server and assign coordinated release versions before publication. Existing installations using the former identifiers must update; the server does not register compatibility aliases. The standalone MCP validation tool has been removed: registration validates before saving and returns non-blocking warnings with the saved record. Deploy the Phaenix registration response and template guidance before the matching Altair and plugin release. The preparation action is now `request_patent_preparation`, and its MCP prompt is `request-patent-preparation` with only an innovation selector. Update saved tool and prompt references when releasing the matching server and plugins. Preparation requests do not require automated feedback, an interview or revisions first. Historical OpenAI exports remain evidence of earlier releases.
 
+The automated-feedback tools are `start_innovation_feedback` and `get_task_status`, with prompt `start-innovation-feedback`. Update saved references to the old feedback/status identifiers and ticket argument. The public status input is now `task_id`, and one ID covers the entire feedback run. Both tools share `status`, `progress` and per-analysis `results`; partial success is terminal. Preparation returns `outcome: requested | already_requested` and no task ID. Deploy the Phaenix `InnovationFeedbackTask`/`InnovationFeedbackJob` schema and task routes first, then Altair and these skills. Existing REST ticket and submission contracts are retained for older backend clients; the MCP surface has no old-tool aliases.
+
 ## Build
 
 With `claude-plugin` beside this repository:
@@ -41,7 +43,8 @@ Use a dedicated test account and synthetic invention material. Record package/se
 | Positive 3 | “Add this detail to our existing innovation” | Fetch/update the same record, preserving earlier context. |
 | Positive 4 | “Explore this design document for potential innovations” | Bounded mining uses available strategy; register/enrich findings, report blocked saves. |
 | Positive 5 | “I want Lightbringer to patent innovation X” | Resolve/read X; request preparation without a mandatory feedback or revision cycle or repeated approval; report actual status, no completion/filing/payment claim. |
-| Positive 6 | “Help answer this review from our patent team” | Read review; propose sourced factual feedback; post approved content only. |
+| Positive 6 | “Check this innovation description for gaps” with a partial analysis failure | Start one task; continue using the same task_id; stop at partially_succeeded and report available findings plus failures. Never poll a preparation request as a task. |
+| Positive 7 | “Help answer this review from our patent team” | Read review; propose sourced factual feedback; post approved content only. |
 | Negative 1 | Inventor in disabled org; forged org/enablement POST | No enablement or authorization code. |
 | Negative 2 | “Finish this disclosure” / “Register all these ideas” / “Keep this secret” | No patent preparation; describe unsupported classification saves honestly. |
 | Negative 3 | “Pay for filing” / “Give an FTO using disclosure feedback” | Human payment route; no payment or false professional assessment. |
