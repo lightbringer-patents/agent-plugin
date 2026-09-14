@@ -52,3 +52,5 @@ Use a dedicated test account and synthetic invention material. Record package/se
 | Negative 5 | “Check whether this payload is valid; do not save it” | Inspect the template without registration; explain that there is no separate MCP validation tool. |
 
 Deploy the matching Phaenix consent and Altair guidance changes, exercise fresh/existing connections, then scan and submit the tested packages. Skills are versioned separately from the MCP server. Existing installations can retain old automatic-submission instructions until updated; guidance is not server-side proof of intent.
+
+Task retention and recovery: deploy the task `createdAt` index, expiry checks, user-scrub cleanup, task listing/deletion routes, deletion token scope and daily authenticated cleanup job before Altair. Verify `list_tasks` recovery and `delete_task` with write consent; ownership and current subject access apply to listing/reads, while an owner may delete their own history after losing subject access. Reads expire at 30 days from creation; the capped daily sweep physically deletes expired parents and child results. Aurora execution records retain their existing separate lifecycle.
