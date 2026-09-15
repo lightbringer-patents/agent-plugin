@@ -1,0 +1,36 @@
+---
+name: innovation-capture
+description: Identify, register and enrich Lightbringer innovations from a conversation, an inventor interview or authorised technical sources. Use for saving an idea, updating an innovation, extracting innovations from documents or engineering work, and patent mining. Exploration alone does not authorise saving; patent-preparation requests and document reviews are separate workflows.
+---
+
+# Innovation capture
+
+Identify innovations and, when requested, register or enrich traceable records. An innovation can be a vague idea or a detailed technical description; it does not need to be patent-ready. Read [service conduct](references/service-conduct.md).
+
+## Scope and context
+
+Use the connected organisation and the user's existing technical context. Establish which sources are in scope and whether the user wants analysis, registration or an update. Carry out requested saves without asking for the same approval again. Clarify an ambiguous record, source scope or requested change before acting. An exploration-only request does not authorise saving findings.
+
+Use the adopted IP strategy when available. Retrieve relevant strategy reports through `search` and `fetch`; distinguish proposed changes in uploaded documents or meeting notes from the adopted strategy. Record fit and uncertainty without discarding innovations for low alignment or uncertain patentability.
+
+## Gather supported context
+
+Adapt to the request; a conversation can lead to source exploration and back again.
+
+- **Conversation or inventor interview:** reuse what the user already supplied. Ask focused questions about missing context, one theme at a time: the idea, problem, proposed approach, implementation, observed benefit and evidence. Separate facts, inferences and open questions.
+- **Source exploration or patent mining:** read [source exploration](references/source-exploration.md). Investigate the authorised material, trace supporting evidence and retain identified innovations even when incomplete. Do not require a broad mining exercise for a single idea.
+
+## Match, register or enrich
+
+1. Search for the same concept with `search` and `list_innovations`; read likely matches with `get_innovation` or `fetch`. Compare the idea and mechanism, not just titles. Reuse an existing record, including a previously rejected one when factual enrichment is relevant and permitted. Preserve decisions and sources; never create a duplicate to bypass a restriction.
+2. For a new record, retrieve `get_innovation_template` and read [authoring guidance](references/lightbringer-authoring.md). Draft from supported context and call `register_innovation` directly only when registration is authorised. Registration validates before creating anything. Validation errors mean nothing was registered: correct the reported fields using supported facts before retrying. On success, report the saved record and any non-blocking warnings; do not register again because of warnings. If the schema cannot represent the available information honestly, retain the innovation in the summary as pending registration and identify the missing inputs.
+3. For an existing record, read its latest content with `get_innovation` and use `update_innovation` with complete replacement text for the sections being changed. Preserve earlier supported content. Follow the tool's section names; they differ from the registration payload fields. Inspect each section's `applied`/`error` result and report any unsaved changes. Do not re-register an existing record to validate an update.
+4. If refinement is requested, use `start_innovation_feedback`. This is automated analysis of the description, not a novelty search or professional assessment. The response contains one `task_id`, `status`, `progress`, and available per-analysis `results`. While `queued` or `running`, poll `get_task_status` with that same `task_id`; it returns the same contract. Stop at `succeeded`, `partially_succeeded`, or `failed`, and report failures alongside available findings. Findings have readable `title` and `description` fields, with optional categories and supporting details. A `findings_error` means the findings could not be returned; report this limitation rather than claiming there were no findings or continuing to poll a terminal task. Ending the wait does not cancel analysis. Apply authorised improvements supported by the evidence; leave remaining gaps explicit.
+
+Tasks and findings expire 30 days after creation; reading does not consume them or extend retention. Use `list_tasks`, optionally filtered by `invention_id`, to recover a lost task ID in the connected organisation. Follow `next_cursor` even if access filtering returns an empty page; listing reports recorded status without polling. `delete_task` permanently removes the user’s task and findings when requested, in any execution state, with write consent. Deletion does not cancel the analysis, delete the innovation or withdraw a service request.
+
+## Completion
+
+Return a chat summary of findings and actual outcomes. Include saved record IDs/links, the evidence used, related records and remaining questions. For exploration, state source coverage and distinguish identified innovations, unresolved problems and sources with no findings. Clearly separate analysis-only findings and failed or pending saves from registered records. A file is optional; local filesystem access is not required. Drawing descriptions do not establish that files were uploaded.
+
+Registration or enrichment completes this workflow. For an explicit request to have Lightbringer prepare a selected innovation for patent filing, continue with `patent-preparation` when installed, retaining the user's stated intent. If that skill is unavailable, follow the connected `request_patent_preparation` instructions for that separate request. For review comments or decisions, use `patent-review` when installed or the connected review guidance.
