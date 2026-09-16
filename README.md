@@ -4,7 +4,7 @@ Work with [Lightbringer's patent service](https://lightbringer.com) from your AI
 
 ## Included
 
-Version 1.1.0 targets the released innovation interface in Altair 4.7.0 and Phaenix 12.5.0. The live MCP tool catalog and prompts were verified on 2026-09-15. Update existing installations to use the renamed tools and these three workflow skills. Host-directory publication is separate from the repository release; see [distribution and validation](DISTRIBUTION.md).
+Version 1.1.0 supports the Lightbringer MCP innovation workflows. Public discovery verified the tool catalog and prompts on 2026-09-15; this does not establish authenticated workflow or host installation testing. Update existing installations to use the renamed tools and these three workflow skills. Host-directory publication is separate from the repository release; see [distribution and validation](DISTRIBUTION.md).
 
 - **MCP connector:** `https://mcp.lightbringer.com/mcp`, with OAuth and organisation-scoped access.
 - **innovation-capture:** identify, register and enrich innovations from a conversation, inventor interview or authorised source exploration.
