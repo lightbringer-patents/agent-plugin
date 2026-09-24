@@ -20,7 +20,7 @@ python3 scripts/build_release.py --claude-dir ../claude-plugin --output-dir ../a
 
 The script checks package versions, JSON, skill links and mirror equality, and creates portable and Claude ZIPs with SHA-256 checksums. It includes only public package files. Archive validation is not host approval.
 
-The combined builder currently requires equal package versions and stops if they differ. The versions listed above differ, so this command cannot build that pair as-is. Resolve the intended package release versions before using the combined builder; do not change a version merely to bypass validation.
+The builder uses each package's own manifest version in its archive filename. Package versions may differ; the complete shared skills trees must still match exactly. Bump the version of each package whose published contents change.
 
 ## ChatGPT and Codex
 

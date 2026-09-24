@@ -78,12 +78,10 @@ def main() -> None:
         raise ValueError("Shared skills differ; sync from agent-plugin before packaging")
     version, portable = package_files(root, True)
     claude_version, anthropic = package_files(claude, False)
-    if version != claude_version:
-        raise ValueError("Package versions differ")
     args.output_dir.mkdir(parents=True, exist_ok=True)
     checksums = []
-    for host, files in [("portable", portable), ("claude", anthropic)]:
-        path = args.output_dir / f"lightbringer-{host}-{version}.zip"
+    for host, package_version, files in [("portable", version, portable), ("claude", claude_version, anthropic)]:
+        path = args.output_dir / f"lightbringer-{host}-{package_version}.zip"
         with zipfile.ZipFile(path, "w", compression=zipfile.ZIP_DEFLATED) as archive:
             for name, data in sorted(files.items()):
                 info = zipfile.ZipInfo(name, date_time=(2026, 1, 1, 0, 0, 0))
