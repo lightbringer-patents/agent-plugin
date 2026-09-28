@@ -1,10 +1,14 @@
 # Distribution and validation
 
-The package contains three workflow skills: `innovation-capture`, `patent-preparation` and `patent-review`. Capture covers both inventor conversations and source exploration. Preparation ends with a confirmed preparation request; review handles report and patent-draft feedback. General service orientation is supplied through MCP instructions and the README. Each skill contains its required references.
+The package contains four workflow skills: `innovation-capture`, `patent-preparation`, `patent-review` and `patent-portfolio`. Portfolio covers assignee discovery, single and portfolio imports, and patent family updates for saved own patents. Capture covers both inventor conversations and source exploration. Preparation ends with a confirmed preparation request; review handles report and patent-draft feedback. General service orientation is supplied through MCP instructions and the README. Each skill contains its required references.
+
+## Prepared release — 1.2.0
+
+Both package manifests are prepared at version 1.2.0 with identical skills trees. The portfolio skill checks runtime availability of `search_public_patents`, `import_patent` and `refresh_patent_family`; preparing these instructions does not establish deployment or authenticated host acceptance. Family refresh improves grouping of related saved applications; it does not update text, assets or legal status. Run the portfolio acceptance cases below before claiming host verification.
 
 ## Interface verification — 2026-09-15
 
-Public discovery confirmed the Lightbringer MCP innovation tools and four prompts on 2026-09-15. Package builds and manifest validation passed during that review; host installation and authenticated production acceptance cases remain separate checks. The portable package is version 1.1.0 and the Claude package is version 1.1.1, with identical skills trees. See the [connector release guide](https://github.com/lightbringer-patents/mcp-connector/blob/main/RELEASE.md) for compatibility, verification scope and registry publication steps.
+Public discovery confirmed the Lightbringer MCP innovation tools and four prompts on 2026-09-15. Package builds and manifest validation passed during that review; host installation and authenticated production acceptance cases remain separate checks. That review covered portable package version 1.1.0 and Claude package version 1.1.1, with identical skills trees; it did not verify the portfolio workflows added later. See the [connector release guide](https://github.com/lightbringer-patents/mcp-connector/blob/main/RELEASE.md) for compatibility, verification scope and registry publication steps.
 
 The packages use the renamed innovation tools, including `register_innovation` and `request_patent_preparation`. Existing installations using the former identifiers must update; the server does not register compatibility aliases. The standalone MCP validation tool has been removed: registration validates before saving and returns non-blocking warnings with the saved record. The preparation action is `request_patent_preparation`, and its MCP prompt is `request-patent-preparation` with only an innovation selector. Update saved tool and prompt references when installing the new packages. Preparation requests do not require automated feedback, an interview or revisions first.
 
@@ -24,7 +28,7 @@ The builder uses each package's own manifest version in its archive filename. Pa
 
 ## ChatGPT and Codex
 
-Use the [OpenAI plugin portal](https://platform.openai.com/plugins) and **With MCP** for the remote server plus uploaded skills. Submit `https://mcp.lightbringer.com/mcp`, configure OAuth, scan the deployed tools, and upload the tested portable bundle. Review all three skills and their references. An existing integration reference or skills-only upload does not register this combination. Public release follows review and a separate publish action. See [submission requirements](https://developers.openai.com/plugins/deploy/submission) and [portable package structure](https://developers.openai.com/plugins/build/plugins#plugin-structure).
+Use the [OpenAI plugin portal](https://platform.openai.com/plugins) and **With MCP** for the remote server plus uploaded skills. Submit `https://mcp.lightbringer.com/mcp`, configure OAuth, scan the deployed tools, and upload the tested portable bundle. Review all four skills and their references. An existing integration reference or skills-only upload does not register this combination. Public release follows review and a separate publish action. See [submission requirements](https://developers.openai.com/plugins/deploy/submission) and [portable package structure](https://developers.openai.com/plugins/build/plugins#plugin-structure).
 
 The publisher needs a verified identity and Apps Management write access. Keep reviewer credentials in the portal, never in this public repo. Confirm listing details, countries, policy URLs and claims with the publisher. Preserve existing domain verification tokens.
 
@@ -54,6 +58,15 @@ Use a dedicated test account and synthetic invention material. Record public pac
 | Negative 3 | “Pay for filing” / “Give an FTO using disclosure feedback” | Human payment route; no payment or false professional assessment. |
 | Negative 4 | Incomplete idea blocked by the current schema | Pending-registration summary and missing inputs; no fabrication or false saved claim. |
 | Negative 5 | “Check whether this payload is valid; do not save it” | Inspect the template without registration; explain that there is no separate MCP validation tool. |
+| Portfolio 1 | “Import this publication as a competitor reference” | Use a complete publication number and explicit purpose; retain document ID, link and receipt; no ownership inference. |
+| Portfolio 2 | “Import our portfolio” with accepted legal names, duplicate hits and multiple pages | Check assignee evidence, follow nextPage, deduplicate repeated publication hits and use the platform’s application-conflict handling, import the authorised scope without repeated approval. |
+| Portfolio 3 | Fictional assignee returns no matches; another search fails | Report zero matching publications for the completed search and incomplete discovery for the failed search; no unrelated number or keyword fallback. |
+| Portfolio 4 | Ambiguous company, former name and joint applicants | Keep evidence and unresolved entities separate; do not assume every variant is own or every other assignee a competitor. |
+| Portfolio 5 | Import times out after save; later call returns already_imported with partial or null receipt | Retry the same publication/purpose in a bounded way, preserve warnings or unknown completion, and do not claim refresh or create duplicates. |
+| Portfolio 6 | Refresh saved own patents after relatives are imported; repeat refresh | Use saved document IDs, report the family update outcome and remaining uncertainty; no implicit import of missing relatives. |
+| Portfolio 7 | Family update is partial or fails; competitor or missing tool selected | Explain missing applications or uncertain family information, retry only transient failures, and report unsupported scope or capability honestly. |
+| Portfolio 8 | Application/purpose conflict during a partially completed batch | Preserve successful records, report conflicts and pending entries, do not change identifiers or purpose to bypass the conflict. |
+| Portfolio 9 | “Keep our portfolio updated” | Discover new filings and update family grouping for selected own patents; explain that text, assets and legal status are unchanged and no schedule was created. |
 
 Exercise fresh and existing connections to the Lightbringer MCP service, then scan and submit the tested packages. Package versions are separate from service updates. Existing installations can retain old automatic-submission instructions until updated; confirm that registration alone does not request patent preparation.
 

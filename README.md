@@ -4,12 +4,13 @@ Work with [Lightbringer's patent service](https://lightbringer.com) from your AI
 
 ## Included
 
-Version 1.1.0 supports the Lightbringer MCP innovation workflows. Public discovery verified the tool catalog and prompts on 2026-09-15; this does not establish authenticated workflow or host installation testing. Update existing installations to use the renamed tools and these three workflow skills. Host-directory publication is separate from the repository release; see [distribution and validation](DISTRIBUTION.md).
+Version 1.2.0 is prepared for release with four workflow skills, including patent portfolio imports and family refresh. Check the connected MCP tool catalog before using patent search, import or refresh; package preparation does not establish that those tools are deployed or that authenticated host acceptance tests have passed. Host-directory publication is separate from the repository release; see [distribution and validation](DISTRIBUTION.md).
 
 - **MCP connector:** `https://mcp.lightbringer.com/mcp`, with OAuth and organisation-scoped access.
 - **innovation-capture:** identify, register and enrich innovations from a conversation, inventor interview or authorised source exploration.
 - **patent-preparation:** request preparation of a selected innovation for patent filing and report the confirmed status and next steps. Refinement is optional; an explicit request does not require an automated feedback or revision cycle.
 - **patent-review:** read and respond to Lightbringer report and patent-draft reviews, including comments, discussion and formal responses.
+- **patent-portfolio:** identify assignee labels, discover and import single patents or portfolios, and update patent family grouping for saved own patents. Family refresh does not update saved text, assets or legal status.
 
 **Register first; prepare for patent filing when requested.** The current `register_innovation` tool saves an innovation description and completes registration. `request_patent_preparation` separately requests patent preparation. Capturing an idea or completing its innovation description does not request filing. Agents cannot make payments.
 
@@ -32,6 +33,9 @@ Try:
 - “Add this implementation detail to our existing innovation.”
 - “I want Lightbringer to patent this registered innovation.”
 - “Help me respond to our Lightbringer patent team's review.”
+- “Find the public patents filed under these legal names and import our portfolio.”
+- “Import this publication as a competitor reference.”
+- “Check for new filings and update the patent families in our saved portfolio.”
 
 ## Packaging and publication
 
