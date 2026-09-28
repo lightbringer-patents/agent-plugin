@@ -4,13 +4,13 @@ Work with [Lightbringer's patent service](https://lightbringer.com) from your AI
 
 ## Included
 
-Version 1.2.0 is prepared for release with four workflow skills, including patent portfolio imports and family refresh. Check the connected MCP tool catalog before using patent search, import or refresh; package preparation does not establish that those tools are deployed or that authenticated host acceptance tests have passed. Host-directory publication is separate from the repository release; see [distribution and validation](DISTRIBUTION.md).
+The plugin includes four workflow skills. Patent discovery, import and family grouping require `search_public_patents`, `import_patent` and `refresh_patent_family` in the connected MCP tool catalog.
 
 - **MCP connector:** `https://mcp.lightbringer.com/mcp`, with OAuth and organisation-scoped access.
 - **innovation-capture:** identify, register and enrich innovations from a conversation, inventor interview or authorised source exploration.
 - **patent-preparation:** request preparation of a selected innovation for patent filing and report the confirmed status and next steps. Refinement is optional; an explicit request does not require an automated feedback or revision cycle.
 - **patent-review:** read and respond to Lightbringer report and patent-draft reviews, including comments, discussion and formal responses.
-- **patent-portfolio:** identify assignee labels, discover and import single patents or portfolios, and update patent family grouping for saved own patents. Family refresh does not update saved text, assets or legal status.
+- **patent-portfolio:** find the names a company files patents under, discover and import publications, and group saved own patents into families. Family grouping does not update patent text or legal status.
 
 **Register first; prepare for patent filing when requested.** The current `register_innovation` tool saves an innovation description and completes registration. `request_patent_preparation` separately requests patent preparation. Capturing an idea or completing its innovation description does not request filing. Agents cannot make payments.
 
@@ -35,9 +35,12 @@ Try:
 - “Help me respond to our Lightbringer patent team's review.”
 - “Find the public patents filed under these legal names and import our portfolio.”
 - “Import this publication as a competitor reference.”
-- “Check for new filings and update the patent families in our saved portfolio.”
+- “Group these saved patents into families.”
+- “Check for new publications and update the patent families in our saved portfolio.”
 
 ## Packaging and publication
+
+Version 1.2.0 is prepared for release. Package preparation does not establish service availability or authenticated host verification; see [distribution and validation](DISTRIBUTION.md).
 
 This is the canonical `skills/` source. [claude-plugin](https://github.com/lightbringer-patents/claude-plugin) mirrors the complete tree with Anthropic-specific metadata. Edit shared skills here first and verify both packages before release.
 

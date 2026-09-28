@@ -10,13 +10,15 @@ Call `import_patent` for each selected complete publication number with the agre
 | `already_imported` | The existing record was returned. Its content has not been refreshed. |
 | Receipt `complete` | Import processing completed. |
 | Receipt `partial` | The record was saved with limitations described in the warnings. |
-| Receipt `incomplete` | Completion of import processing is unconfirmed. |
+| Receipt `incomplete` | The record was saved, but import processing did not finish. This does not mean work is still running. |
 | Null receipt | Completion details are unavailable. |
-| Application or purpose conflict | Review the existing record identified by the tool and resolve the conflict before continuing that item. |
+| Application or purpose conflict | Inspect the existing record identified by the error with `fetch` when an ID is available; report the conflict and retain its link. |
 
-Use the platform's duplicate and conflict handling for publications that belong to an existing application. Preserve the user's publication selection and import purpose when resolving a conflict.
+For a conflict, compare the existing publication and purpose with the request. If the existing record satisfies the user's goal, report it as already saved without claiming the requested import succeeded. Otherwise leave that item unresolved and continue the rest of the authorised batch. The import tool cannot change an existing record's purpose or replace its publication; direct the user to the Lightbringer platform or team for those changes. Do not alter identifiers or purpose to bypass a conflict.
 
 A timed-out request may have saved the record. Retry the same publication and purpose to retrieve the outcome, with a bounded number of attempts and any advised delay. Stop retrying on persistent failures or errors requiring changed input or access. Retain successful results and identify the items still pending.
+
+Repeating an import retrieves its saved outcome; it does not complete missing text, PDFs or images. Report these limitations from the receipt warnings and use the Lightbringer platform or team when further help is needed.
 
 Use the returned document ID and link for readback. Saved-document search can lag behind imports; use `fetch` with the returned identity when available.
 
@@ -26,8 +28,8 @@ A patent family groups related applications for the same or similar technical su
 
 To update family grouping for saved own patents, call `refresh_patent_family` with each selected record's `documentId`. Use the ID returned by import or resolved from an existing saved record. When importing and updating in the same workflow, complete the imports first so related applications are available for the family update.
 
-This tool updates family information among own patents already saved in the connected organisation. It does not import additional family members or update competitor records, patent text, assets or legal status. Importing an existing publication again returns its saved outcome; use the refresh tool for a family update.
+This tool updates family grouping among own patents already saved in the connected organisation. It does not import additional family members or update competitor records, patent text, PDFs, images or legal status. Importing an existing publication again returns its saved outcome; use the refresh tool for a family update.
 
-Report the returned outcome and warnings. A partial result can mean that related applications are absent or the available family information is insufficient. Retry transient failures only; unresolved information may need further investigation. Report remaining uncertainty without claiming complete family coverage.
+Report the returned outcome and warnings. A partial result can mean that related applications are absent or the available family information is insufficient. If `links` is null, the family update did not finish; a bounded retry can attempt it again. Otherwise retry transient failures only. The result reports counts, not a list of family members: do not infer publication identities or a complete family from those counts.
 
-Importing additional family members requires selecting those publications within the user's requested scope. They can then be included in a subsequent family update.
+When additional related publications have been identified from available sources and selected within the user's requested scope, import them before updating the family grouping again. Report any missing members that could not be identified or imported.
