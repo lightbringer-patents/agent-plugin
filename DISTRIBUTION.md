@@ -2,9 +2,9 @@
 
 The package contains four workflow skills: `innovation-capture`, `patent-preparation`, `patent-review` and `patent-portfolio`. Portfolio covers assignee discovery, single and portfolio imports, and patent family updates for saved own patents. Capture covers both inventor conversations and source exploration. Preparation ends with a confirmed preparation request; review handles report and patent-draft feedback. General service orientation is supplied through MCP instructions and the README. Each skill contains its required references.
 
-## Prepared release — 1.2.0
+## Next prepared release — 1.3.0
 
-Both package manifests are prepared at version 1.2.0 with identical skills trees. The portfolio skill checks runtime availability of `search_public_patents`, `import_patent` and `refresh_patent_family`; preparing these instructions does not establish deployment or authenticated host acceptance. Family refresh improves grouping of related saved applications; it does not update text, assets or legal status. Run the portfolio acceptance cases below before claiming host verification.
+Both package manifests are prepared at version 1.3.0 with identical skills trees, following the queued 1.2.0 release. This release adds read-only saved-portfolio reviews, structured family interpretation and verification after authorised updates. The portfolio skill checks runtime availability of `search_public_patents`, `import_patent` and `refresh_patent_family`; preparing these instructions does not establish deployment or authenticated host acceptance. Family refresh improves grouping of related saved applications; it does not update text, assets or legal status. Run the portfolio acceptance cases below before claiming host verification.
 
 ## Interface verification — 2026-09-15
 
@@ -69,6 +69,11 @@ Use a dedicated test account and synthetic invention material. Record public pac
 | Portfolio 9 | “Keep our portfolio updated” | Discover and import new publications with automatic family grouping. Refresh existing own patents only when warranted; do not claim a text or legal-status update or a monitoring schedule. |
 | Portfolio 10 | User reports a missing relationship between saved own patents, or requests newer family information | Resolve affected saved records and refresh within the authorised scope. Report counts and warnings without inventing member identities. |
 | Portfolio 11 | User reports an incorrect existing family relationship | Explain that refresh retains existing relationships and cannot remove the incorrect one; use the platform or team as the continuation route. |
+| Portfolio 12 | “Review our current portfolio; do not change it” with multiple application/patent pages | Read every page, use structured families when returned, keep competitors/pipeline separate, distinguish family/application/publication counts, and make no imports or refresh calls. |
+| Portfolio 13 | Family has multiple jurisdictions, indirect ancestors, restricted relatives and truncated members | Show accessible members, recorded statuses, priority provenance and coverage limits; do not invent hidden members or call every indirect member a sibling. |
+| Portfolio 14 | Stored references show a missing link to an accessible saved record | Explain the specific gap; refresh only within authorised update scope; fetch the affected record again and compare the resulting relationship. |
+| Portfolio 15 | Family references are absent, ambiguous, unmatched, or carry an old/null refresh date | Distinguish uncertainty and unresolved references from actionable missing links; no automatic refresh solely because data is old, absent or incomplete. |
+| Portfolio 16 | A write succeeds but family readback fails, or an older connection omits family data | Preserve the confirmed write result; describe family verification as incomplete. Never infer member identities from refresh counts. |
 
 Exercise fresh and existing connections to the Lightbringer MCP service, then scan and submit the tested packages. Package versions are separate from service updates. Existing installations can retain old automatic-submission instructions until updated; confirm that registration alone does not request patent preparation.
 
