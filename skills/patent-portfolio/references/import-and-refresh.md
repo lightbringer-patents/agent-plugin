@@ -26,10 +26,22 @@ Use the returned document ID and link for readback. Saved-document search can la
 
 A patent family groups related applications for the same or similar technical subject matter, often filed in different countries. Membership depends on the family definition and the applications' priority claims; see the [EPO introduction](https://www.epo.org/en/searching-for-patents/helpful-resources/first-time-here/patent-families). Each application remains a separate record.
 
-To update family grouping for saved own patents, call `refresh_patent_family` with each selected record's `documentId`. Use the ID returned by import or resolved from an existing saved record. When importing and updating in the same workflow, complete the imports first so related applications are available for the family update.
+Own-patent imports automatically attempt to group related saved applications into families. Import order does not require a separate refresh: later imports can establish relationships with earlier records.
+
+Refresh is useful when:
+
+- Available records or the user indicate that related saved own applications are missing a family relationship.
+- An import or refresh result specifically reports that family grouping did not finish.
+- The user asks to update saved families using newer public patent information.
+
+Do not refresh routinely after each import or batch. A general warning that family coverage is unverified is not evidence of a failed update; a missing PDF or image is unrelated to family grouping. Similar titles or subject matter alone do not establish a missing family relationship. If the available tools do not expose family membership, describe the limit instead of claiming to have inspected it.
+
+For a warranted refresh, call `refresh_patent_family` with the affected saved record's `documentId`. Use the ID returned by import or resolved from an existing saved record. If the request also includes importing identified related publications, finish those imports first and assess whether a separate refresh is still needed. Honour existing authorisation to update the selected families.
 
 This tool updates family grouping among own patents already saved in the connected organisation. It does not import additional family members or update competitor records, patent text, PDFs, images or legal status. Importing an existing publication again returns its saved outcome; use the refresh tool for a family update.
 
+Existing family relationships are retained. If the inconsistency is an incorrect relationship that needs removing or changing, explain that refresh cannot make that correction and direct the user to the Lightbringer platform or team.
+
 Report the returned outcome and warnings. A partial result can mean that related applications are absent or the available family information is insufficient. If `links` is null, the family update did not finish; a bounded retry can attempt it again. Otherwise retry transient failures only. The result reports counts, not a list of family members: do not infer publication identities or a complete family from those counts.
 
-When additional related publications have been identified from available sources and selected within the user's requested scope, import them before updating the family grouping again. Report any missing members that could not be identified or imported.
+When additional related publications have been identified from available sources and selected within the user's requested scope, import them and report the returned outcome. Their family grouping is attempted automatically. Report any missing members that could not be identified or imported.

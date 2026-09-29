@@ -33,13 +33,15 @@ For a batch, keep enough working information to resume: publication number, inte
 
 ### Build or update patent families
 
-For a request to group selected own patents into families, resolve their saved records with `search` and `fetch`, or use IDs returned by import. If the request includes importing selected publications, finish those imports before calling `refresh_patent_family` for each selected saved record. Existing authorisation to build or update the families covers these calls.
+Lightbringer automatically attempts family grouping when own patents are imported, including relationships to patents imported earlier. A normal single or portfolio import does not need a separate refresh step.
 
-Read [import and refresh](references/import-and-refresh.md) for interpreting family results. The tool groups related own patents already saved in the organisation; it does not discover a list of additional publications to import. If the user wants missing family members, use publication identities supported by available sources or supplied by the user, and explain any discovery that remains unavailable.
+Use `refresh_patent_family` for selected saved own patents when available records or the user indicate a missing relationship, a result reports that family grouping did not finish, or the user requests a check against newer public family information. Resolve the affected records with `search` and `fetch`, or use IDs returned by import. Read [import and refresh](references/import-and-refresh.md) for the limits and interpretation of refresh results.
+
+Refresh can add missing relationships; it cannot remove an incorrect existing relationship. It also does not identify additional publications to import. Explain these limits when the requested correction or discovery cannot be completed with the available tools.
 
 ### Update an existing portfolio
 
-Repeat discovery for the selected assignees to find additional publications. Compare with available saved records and import the selected additions. When family grouping is also requested, follow the family workflow above after importing the additions. This performs the requested update now; it does not create a monitoring schedule.
+Repeat discovery for the selected assignees to find additional publications. Compare with available saved records and import the selected additions; their family grouping is attempted automatically. Use the family workflow above only when a separate refresh is warranted. This performs the requested update now; it does not create a monitoring schedule.
 
 ## Results
 
