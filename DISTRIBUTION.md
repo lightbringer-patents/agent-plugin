@@ -6,6 +6,8 @@ The source contains five workflow skills: `innovation-capture`, `patent-preparat
 
 `ip-strategy` is new source work, mirrored into the Claude skills tree. It is not included in the prepared versions below. Before packaging it for distribution, advance each affected package's version, update listing information and release notes, and exercise Strategy capture and editing in the target hosts against a connection advertising the Strategy tools. The current guide is `get_strategy_template`; saving, editing and publication use `create_strategy`, `edit_strategy` and `set_strategy_publication`. Local skill validation does not establish that these tools are available in production or that authenticated workflows passed.
 
+`innovation-capture` also prefers relevant published Strategy records through `list_strategies` and `get_strategy`, with reports retained as backup for strategy decisions. Drafts and uncertain adoption remain distinct from adopted direction.
+
 ## Prepared release — portable 1.2.1, Claude 1.2.0
 
 Portable version 1.2.1 adds the OpenAI listing, review cases, release notes and

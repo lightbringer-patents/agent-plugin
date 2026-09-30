@@ -11,7 +11,9 @@ Identify innovations and, when requested, register or enrich traceable records. 
 
 Use the connected organisation and the user's existing technical context. Establish which sources are in scope and whether the user wants analysis, registration or an update. Carry out requested saves without asking for the same approval again. Clarify an ambiguous record, source scope or requested change before acting. An exploration-only request does not authorise saving findings.
 
-Use the adopted IP strategy when available. Retrieve relevant strategy reports through `search` and `fetch`; distinguish proposed changes in uploaded documents or meeting notes from the adopted strategy. Record fit and uncertainty without discarding innovations for low alignment or uncertain patentability.
+Use the organisation's IP strategy when available. Prefer `list_strategies` and `get_strategy` to locate and read relevant published Strategy records; multiple strategies may apply to the source scope. Treat drafts and records with unknown publication status as proposals, not adopted direction. Publication makes a strategy shared context but does not establish that every recommendation has been approved.
+
+Organisations may also record strategy decisions in reports. Use `search` and `fetch` as backup when the Strategy tools are unavailable, no applicable published Strategy is accessible, or a relevant decision is not covered. A result's title or `report` category does not establish its kind, publication status or adoption; resolve Strategy records through the Strategy tools when available. Distinguish adopted decisions from proposals in reports, uploaded documents and meeting notes, and state conflicts or uncertain adoption. Record fit and uncertainty without discarding innovations for low alignment or uncertain patentability.
 
 ## Gather supported context
 
