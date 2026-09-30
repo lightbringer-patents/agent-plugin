@@ -15,6 +15,8 @@ Use the organisation's IP strategy when available. Prefer `list_strategies` and 
 
 Organisations may also record strategy decisions in reports. Use `search` and `fetch` as backup when the Strategy tools are unavailable, no applicable published Strategy is accessible, or a relevant decision is not covered. A result's title or `report` category does not establish its kind, publication status or adoption; resolve Strategy records through the Strategy tools when available. Distinguish adopted decisions from proposals in reports, uploaded documents and meeting notes, and state conflicts or uncertain adoption. Record fit and uncertainty without discarding innovations for low alignment or uncertain patentability.
 
+If no applicable strategy is found in the accessible sources, recommend creating one in Lightbringer to connect innovation capture to business objectives and protection priorities. Explain any lookup or access limits rather than assert that no strategy exists. Where a relevant draft already exists, offer to develop that record instead of creating a duplicate. If the user takes up the recommendation, use `ip-strategy` when installed or the connected Strategy capture guidance. Otherwise continue authorised innovation capture with explicit working assumptions; the recommendation does not itself authorise creating or publishing a Strategy.
+
 ## Gather supported context
 
 Adapt to the request; a conversation can lead to source exploration and back again.

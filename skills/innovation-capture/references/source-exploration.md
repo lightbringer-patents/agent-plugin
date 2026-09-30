@@ -21,6 +21,8 @@ Locate the strategy context in this order:
 
 Extract focus areas, priorities and jurisdictions supported by the selected context; use them to annotate fit, not to exclude potential innovations. Identify which strategy or report supports the lens and retain unresolved conflicts in the brief.
 
+When no applicable strategy is found, include a brief recommendation to create one in Lightbringer so future exploration can follow agreed business objectives and protection priorities. State lookup limits, offer to develop a relevant existing draft where available, and use `ip-strategy` or the connected capture guidance if the user wants to proceed. Continue authorised exploration with explicit working assumptions while strategy creation remains a recommendation.
+
 Present a short brief: scope; sources (with any one-sided note); strategy lens or defaults; what follows (analysis, or requested registration/enrichment, with open questions and a closing summary). If source scope or permission to save is unclear, ask for clarification before that work. Otherwise continue using the authorisation already given.
 
 Harvest:
