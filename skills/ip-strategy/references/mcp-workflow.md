@@ -42,7 +42,7 @@ Inspect the returned content, revision and `orphaned_discussion_ids`. Nonempty I
 
 ## Publication and deletion
 
-Publishing makes the Strategy shared organisation context for members with full IP access and Lightbringer agents, subject to access permissions. Published strategies are supplied to scheduled competitor monitoring runs, which select relevant strategy content for their analysis; drafts are excluded from this selection. Explain this sharing and automated use before asking the user to approve publication. Publication does not create a monitoring schedule, start an immediate run or confirm that monitoring has completed.
+Publishing makes the Strategy organisation-wide context for members and Lightbringer agents. Published strategies are supplied to scheduled competitor monitoring runs, which select relevant strategy content for their analysis; drafts are excluded from this selection. Explain this sharing and automated use before asking the user to approve publication. Publication does not create a monitoring schedule, start an immediate run or confirm that monitoring has completed.
 
 Use `set_strategy_publication` only for an explicit request to publish or return the selected Strategy to draft, with `publish: true` or `false`. Read the selected record so the intended content and identity are clear, then inspect the returned status. Existing explicit authorisation is sufficient; a drafting request does not supply publication authorisation. Publishing one Strategy does not unpublish others and does not establish that professional review occurred.
 
