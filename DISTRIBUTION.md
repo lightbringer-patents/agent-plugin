@@ -1,12 +1,16 @@
 # Distribution and validation
 
-The package contains four workflow skills: `innovation-capture`, `patent-preparation`, `patent-review` and `patent-portfolio`. Portfolio covers assignee discovery, single and portfolio imports, and patent family updates for saved own patents. Capture covers both inventor conversations and source exploration. Preparation ends with a confirmed preparation request; review handles report and patent-draft feedback. General service orientation is supplied through MCP instructions and the README. Each skill contains its required references.
+The source contains five workflow skills: `innovation-capture`, `patent-preparation`, `patent-review`, `patent-portfolio` and `ip-strategy`. Portfolio covers assignee discovery, single and portfolio imports, and patent family updates for saved own patents. Capture covers both inventor conversations and source exploration. Preparation ends with a confirmed preparation request; review handles report and patent-draft feedback. Strategy connects business objectives and evidence to protection priorities and actions, with draft creation and revision-aware updates through the connected Strategy tools. General service orientation is supplied through MCP instructions and the README. Each skill contains its required references.
+
+## Source changes awaiting release
+
+`ip-strategy` is new source work, mirrored into the Claude skills tree. It is not included in the prepared versions below. Before packaging it for distribution, advance each affected package's version, update listing information and release notes, and exercise Strategy capture and editing in the target hosts against a connection advertising the Strategy tools. The current guide is `get_strategy_template`; saving, editing and publication use `create_strategy`, `edit_strategy` and `set_strategy_publication`. Local skill validation does not establish that these tools are available in production or that authenticated workflows passed.
 
 ## Prepared release — portable 1.2.1, Claude 1.2.0
 
 Portable version 1.2.1 adds the OpenAI listing, review cases, release notes and
-icons to the complete plugin ZIP. All four skills remain byte-identical to 1.2.0
-and the Claude package. Claude keeps its independent version 1.2.0. This packaging
+icons to the complete plugin ZIP. Its four original skills were unchanged from 1.2.0
+and matched the Claude package. Claude keeps its independent version 1.2.0. This packaging
 change does not establish host approval or completion of authenticated tests.
 The separate 1.3.0 portfolio workflow work is not included in this package.
 

@@ -4,13 +4,16 @@ Work with [Lightbringer's patent service](https://lightbringer.com) from your AI
 
 ## Included
 
-The plugin includes four workflow skills. Patent discovery uses `search_public_patents`; `import_patent` saves publications and automatically attempts family grouping for own patents. `refresh_patent_family` supports targeted updates to saved families when needed. Use the tools available in the connected MCP catalog.
+The source includes five workflow skills. Patent discovery uses `search_public_patents`; `import_patent` saves publications and automatically attempts family grouping for own patents. `refresh_patent_family` supports targeted updates to saved families when needed. Use the tools available in the connected MCP catalog.
 
 - **MCP connector:** `https://mcp.lightbringer.com/mcp`, with OAuth and organisation-scoped access.
 - **innovation-capture:** identify, register and enrich innovations from a conversation, inventor interview or authorised source exploration.
 - **patent-preparation:** request preparation of a selected innovation for patent filing and report the confirmed status and next steps. Refinement is optional; an explicit request does not require an automated feedback or revision cycle.
 - **patent-review:** read and respond to Lightbringer report and patent-draft reviews, including comments, discussion and formal responses.
 - **patent-portfolio:** find the names a company files patents under, discover and import publications, and group saved own patents into families. Family grouping does not update patent text or legal status.
+- **ip-strategy:** develop and revise an actionable company, product or technology strategy, connecting business objectives, evidence, protection options and next actions. Save and maintain a Strategy through the connected tools when available; publication is a separate explicit action.
+
+Strategy authoring requires the Strategy tools in the connected service. The assistant follows the current `get_strategy_template` guide, authors the document and uses revision-aware edits to preserve collaborators' changes. Importing the existing patent portfolio into Lightbringer is recommended to provide strategy context. Engaging Lightbringer to manage the portfolio is a separate service. See [distribution and validation](DISTRIBUTION.md) for package release status.
 
 **Register first; prepare for patent filing when requested.** The current `register_innovation` tool saves an innovation description and completes registration. `request_patent_preparation` separately requests patent preparation. Capturing an idea or completing its innovation description does not request filing. Agents cannot make payments.
 
@@ -37,10 +40,12 @@ Try:
 - “Import this publication as a competitor reference.”
 - “Group these saved patents into families.”
 - “Check for new publications and update the patent families in our saved portfolio.”
+- “Use our launch brief and saved innovations to build and save an IP strategy for this product.”
+- “Update our existing strategy for the changed target market, preserving the other priorities.”
 
 ## Packaging and publication
 
-Version 1.2.1 prepares the complete OpenAI plugin upload. The four workflow skills are unchanged from 1.2.0. Package preparation does not establish service availability or authenticated host verification; see [distribution and validation](DISTRIBUTION.md).
+Version 1.2.1 prepared the complete OpenAI plugin upload with four workflow skills unchanged from 1.2.0. The source now also includes `ip-strategy`, awaiting a new package release. Package preparation does not establish service availability or authenticated host verification; see [distribution and validation](DISTRIBUTION.md).
 
 This is the canonical `skills/` source. [claude-plugin](https://github.com/lightbringer-patents/claude-plugin) mirrors the complete tree with Anthropic-specific metadata. Edit shared skills here first and verify both packages before release.
 
