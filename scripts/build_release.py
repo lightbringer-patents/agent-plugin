@@ -8,9 +8,13 @@ from pathlib import Path
 import re
 import zipfile
 
+from validate_submission import asset_files, regular_file, validate_openai, no_credentials
+
 
 def skill_files(root: Path) -> dict[str, bytes]:
     files = {}
+    if (root / "skills").is_symlink():
+        raise ValueError("Skills directory must not be a symlink")
     for path in sorted((root / "skills").rglob("*")):
         if path.is_symlink():
             raise ValueError(f"Symlinks are not allowed in the skill bundle: {path}")
@@ -36,7 +40,7 @@ def skill_files(root: Path) -> dict[str, bytes]:
             if "://" in target or target.startswith("#"):
                 continue
             linked = (root / name).parent.joinpath(target.split("#")[0]).resolve()
-            if not linked.is_relative_to(root) or not linked.is_file():
+            if not linked.is_relative_to(root) or not linked.is_file() or linked.relative_to(root).as_posix() not in files:
                 raise ValueError(f"Missing or escaping skill reference: {name}: {target}")
     return files
 
@@ -44,13 +48,17 @@ def skill_files(root: Path) -> dict[str, bytes]:
 def package_files(root: Path, portable: bool) -> tuple[str, dict[str, bytes]]:
     manifest = "plugin.json" if portable else ".claude-plugin/plugin.json"
     config = "mcp.json" if portable else ".mcp.json"
-    metadata = json.loads((root / manifest).read_text())
+    metadata = json.loads(regular_file(root, manifest).read_text())
     if metadata["name"] != "lightbringer" or not re.fullmatch(r"\d+\.\d+\.\d+", metadata["version"]):
         raise ValueError(f"Invalid release identity in {manifest}")
-    mcp = json.loads((root / config).read_text())
+    mcp = json.loads(regular_file(root, config).read_text())
     if mcp["mcpServers"]["lightbringer"]["url"] != "https://mcp.lightbringer.com/mcp":
         raise ValueError(f"Unexpected connector endpoint in {config}")
+    if portable:
+        validate_openai(root, metadata, mcp)
     files = skill_files(root)
+    if portable:
+        files.update(asset_files(root))
     paths = [manifest, config, "README.md", "LICENSE"]
     if portable:
         paths.append("DISTRIBUTION.md")
@@ -60,10 +68,12 @@ def package_files(root: Path, portable: bool) -> tuple[str, dict[str, bytes]]:
             raise ValueError("Marketplace plugin name mismatch")
         paths.append(".claude-plugin/marketplace.json")
     for name in paths:
-        path = root / name
-        if path.is_symlink() or not path.is_file():
-            raise ValueError(f"Missing or non-regular package file: {path}")
+        path = regular_file(root, name)
         files[name] = path.read_bytes()
+    if portable:
+        for name, content in files.items():
+            if name.endswith(".json"):
+                no_credentials(json.loads(content))
     return metadata["version"], files
 
 

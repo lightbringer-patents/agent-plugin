@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "lightbringer",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Capture innovations, request patent preparation, respond to patent reviews, and import or refresh patent portfolios through Lightbringer.",
   "author": {
     "name": "Lightbringer AB",
@@ -17,5 +17,85 @@
     "patent-review",
     "patent-portfolio",
     "lightbringer"
-  ]
+  ],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Lightbringer",
+        "shortDescription": "Patent service in your chat",
+        "longDescription": "Lightbringer helps technology companies manage the patent process end to end, combining an AI-native platform with qualified patent attorneys on our team. Our service covers innovation capture, IP strategy, novelty and freedom-to-operate assessments, patent application drafting and filing, and prosecution through grant.\n\nThe Lightbringer plugin connects ChatGPT to your private organisation workspace. Capture innovations while working on technical solutions, find and enrich existing disclosures as your ideas develop, get automated feedback on clarity and completeness, and search and summarise innovations, patent documents and accessible meeting notes or transcripts. Find public patent publications, import your own portfolio or third-party references, and group saved own patents into families. Review, comment on, and respond to work with your Lightbringer patent team directly from the conversation.\n\nRegister an innovation to preserve and develop it, even before deciding how to protect it. When you decide to pursue a patent, separately request preparation for filing with Lightbringer. Automated description feedback and public patent discovery do not establish novelty, freedom to operate, current ownership or legal status. Attorney-led services are available through the Lightbringer team; the plugin supports the connected workflows described above.\n\nTry questions like:\n“Help me identify potential innovations in the solution we’ve been developing”\n“Register this innovation without requesting patent preparation”\n“Find our adaptive-fins disclosure and add what we learned today”\n“Check this disclosure for gaps and help me prepare questions for our Lightbringer patent team”\n“Show the reviews awaiting my response and help me act on them”",
+        "developerName": "Lightbringer AB",
+        "category": "Business",
+        "websiteURL": "https://lightbringer.com",
+        "supportURL": "https://www.lightbringer.com/contact/get-in-touch",
+        "privacyPolicyURL": "https://lightbringer.com/about/legal/privacy-policy",
+        "termsOfServiceURL": "https://lightbringer.com/about/legal/terms-of-service",
+        "defaultPrompt": [
+          "Help me identify and register innovations in our technical work.",
+          "Show the reviews awaiting my response.",
+          "Find public patents and help me import our portfolio."
+        ],
+        "logo": "./assets/logo-square-light.png",
+        "logoDark": "./assets/logo-square-dark.png",
+        "composerIcon": "./assets/logo-square-light.png",
+        "composerIconDark": "./assets/logo-square-dark.png"
+      },
+      "review": {
+        "test_cases": {
+          "positive": [
+            {
+              "description": "Find an existing innovation and enrich it using accessible meeting context without duplicating it. Seed an adaptive-separator disclosure and a meeting titled Adaptive separator design review with notes and a stored transcript.",
+              "prompt": "Show which Lightbringer organisation I am connected to. Find my adaptive-separator innovation and the meeting Adaptive separator design review. Read the current disclosure and meeting notes/transcript, then add supported technical details from the meeting to the disclosure, preserving existing content. Do not request patent preparation.",
+              "tools_triggered": "whoami, list_innovations, search, fetch, get_innovation, update_innovation",
+              "expected_behavior": "Identifies the connected organisation and retrieves the existing disclosure. Searches meetings with category=meeting and passes the returned meeting:<id> unchanged to fetch. Distinguishes notes from transcript sessions, links sources and reports unavailable content; an active transcript is a snapshot. Reads the existing disclosure before saving supported section updates. Returns the record link, reports partial failures accurately, and neither duplicates the innovation nor requests preparation. Does not invent missing meeting content."
+            },
+            {
+              "description": "Register a new innovation using the live template, then collect automated feedback and delete its task history. Supply sufficient factual disclosure details during the test and a reviewer account with read/write consent.",
+              "prompt": "Help me register a new innovation: a heat-exchanger controller combines inlet temperature and pressure-drop measurements to choose the next cleaning interval. Use only facts I provide and ask for missing disclosure details. Save it when complete, then check its clarity and completeness. Show the findings and any failed analyses, then delete that feedback task history. I have not decided to patent it.",
+              "tools_triggered": "search, get_innovation_template, register_innovation, start_innovation_feedback, get_task_status, delete_task",
+              "expected_behavior": "Uses innovation-capture and the current template to check for an existing record and collect missing supported facts. Registers a complete definition under the existing save instruction; invalid input creates no record, while success returns id, url and any warnings. Starts one feedback task for the saved innovation and follows the same task_id while queued/running. Stops on succeeded, partially_succeeded or failed and preserves findings and per-analysis errors; unavailable findings are not no findings. After presenting results, deletes that task history without claiming to cancel analysis or delete the innovation. Reports that task history expires after 30 days. Never requests patent preparation or presents description feedback as a novelty/FTO assessment."
+            },
+            {
+              "description": "Explicitly request patent preparation and verify repeat-request handling; use a registered unsubmitted innovation with known open questions and controlled notification recipients.",
+              "prompt": "I have decided to pursue patent filing for my adaptive-separator innovation. Send it to Lightbringer for patent preparation and notify the team. Once that succeeds, repeat the same request to verify it is not submitted twice.",
+              "tools_triggered": "list_innovations, get_innovation, request_patent_preparation",
+              "expected_behavior": "Uses the patent-preparation skill. Resolves and reads the selected innovation, then records the explicit preparation request without requiring automated feedback, a completeness interview, revisions, or confirmation of the same decision again. Reports the first transition and repeat no-op accurately. Describes preparation as requested, without claiming preparation completed, a patent was filed, a payment was made, or notification email delivery was confirmed. If the service blocks the request, reports the specific blocker and offers the relevant next step. Reports outcome=requested on the first request and outcome=already_requested on repetition, retaining the innovation ID/link. No task_id is returned and get_task_status is not used for this service lifecycle."
+            },
+            {
+              "description": "Collaborate on a seeded open review with a document, comment thread, and authorised participant; exercise quote ambiguity without guessing.",
+              "prompt": "Open my pending adaptive-separator review and show me its document and discussion. Add the comment “Please explain the pressure threshold” to the passage about pressure measurement, asking me to choose if the quote is ambiguous. Reply to the existing sensor-placement thread: “The sensor sits upstream of the separator.” Add a general discussion comment: “Please check the control-loop explanation.” Then record my response as requesting changes, with the message “Please address these comments before approval.”",
+              "tools_triggered": "list_reviews, get_review, add_comment, reply_to_comment, add_discussion_comment, respond_to_review",
+              "expected_behavior": "Uses the patent-review skill. Retrieves the actual review and available document, resolves ambiguous quotes before posting, adds the requested comments and reply, and records request_changes; accurately reflects notification effects and never marks the review approved."
+            },
+            {
+              "description": "Use patent-portfolio to discover and import a third-party publication, then separately refresh a seeded own-patent family. Provide import permission, provider availability and two related saved own patents, one titled Portfolio family test A.",
+              "prompt": "Find public patent publications about self-cleaning heat exchangers and import the first relevant result as a third-party reference. Repeat the same import to check for duplicates. Separately, check newer public family information for the saved own patent Portfolio family test A and update its grouping with related own patents already saved. Do not import more publications for that family.",
+              "tools_triggered": "search_public_patents, import_patent, search, fetch, refresh_patent_family",
+              "expected_behavior": "Uses patent-portfolio and simple public-search keywords. Imports a complete publicationNumber returned by search with purpose=competitor; reports documentId, url, status and receipt warnings. Repetition returns already_imported without changing the record. A null receipt means details are unavailable; reports no_results or provider failure honestly. Separately resolves the selected saved own patent and refreshes its documentId, never the competitor record. Reports refresh status, link counts, warnings and unresolved/ambiguous matches without inventing family members. Null links means unfinished work, not zero relationships. Does not remove existing links, update patent text/legal status, import extra family members or claim complete coverage."
+            }
+          ],
+          "negative": [
+            {
+              "description": "Do not infer import ownership or choose an import purpose without the user’s intent.",
+              "prompt": "Find public patents for the company named Acme and import them. I have not told you which Acme I mean or whether these are ours or third-party references.",
+              "expected_behavior": "Asks which legal entity is intended and whether the imports are own patents or third-party references. Does not call import_patent or refresh_patent_family until the ambiguity is resolved. Does not infer current ownership from assignee search metadata. Public patent discovery is supported; do not claim that the connector has no patent-search tool."
+            },
+            {
+              "description": "Do not treat preparation as direct filing or payment.",
+              "prompt": "Charge my card and file a new patent application with the patent office right now; do not create or change any Lightbringer records.",
+              "expected_behavior": "No Lightbringer tools are invoked and no filing or payment is claimed; the assistant explains that Lightbringer’s qualified team provides filing services, while payment and direct patent-office filing are not available through these tools."
+            },
+            {
+              "description": "Do not present additive family refresh as a way to remove relationships or change patent text or legal status.",
+              "prompt": "Remove an incorrect family link from my saved patent, replace its patent text, and mark it expired. Do not merely add more relationships.",
+              "expected_behavior": "Explains that refresh_patent_family retains existing links and cannot edit patent text or legal status. Does not call it or re-import a publication to pretend the requested changes were made. Offers continuation through the Lightbringer platform or team."
+            }
+          ]
+        }
+      },
+      "publication": {
+        "release_notes": "This update packages the Lightbringer connector and all four workflow skills together, with listing information and review scenarios included in the upload. Continue capturing and developing innovations, requesting patent preparation, collaborating on reviews, and importing or grouping patents. Workflow instructions and access permissions are unchanged."
+      }
+    }
+  }
 }
