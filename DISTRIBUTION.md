@@ -2,9 +2,13 @@
 
 The package contains four workflow skills: `innovation-capture`, `patent-preparation`, `patent-review` and `patent-portfolio`. Portfolio covers assignee discovery, single and portfolio imports, and patent family updates for saved own patents. Capture covers both inventor conversations and source exploration. Preparation ends with a confirmed preparation request; review handles report and patent-draft feedback. General service orientation is supplied through MCP instructions and the README. Each skill contains its required references.
 
-## Prepared release — 1.2.0
+## Prepared release — portable 1.2.1, Claude 1.2.0
 
-Both package manifests are prepared at version 1.2.0 with identical skills trees. The portfolio skill checks runtime availability of `search_public_patents`, `import_patent` and `refresh_patent_family`; preparing these instructions does not establish deployment or authenticated host acceptance. Family refresh improves grouping of related saved applications; it does not update text, assets or legal status. Run the portfolio acceptance cases below before claiming host verification.
+Portable version 1.2.1 adds the OpenAI listing, review cases, release notes and
+icons to the complete plugin ZIP. All four skills remain byte-identical to 1.2.0
+and the Claude package. Claude keeps its independent version 1.2.0. This packaging
+change does not establish host approval or completion of authenticated tests.
+The separate 1.3.0 portfolio workflow work is not included in this package.
 
 ## Interface verification — 2026-09-15
 
@@ -28,9 +32,80 @@ The builder uses each package's own manifest version in its archive filename. Pa
 
 ## ChatGPT and Codex
 
-Use the [OpenAI plugin portal](https://platform.openai.com/plugins) and **With MCP** for the remote server plus uploaded skills. Submit `https://mcp.lightbringer.com/mcp`, configure OAuth, scan the deployed tools, and upload the tested portable bundle. Review all four skills and their references. An existing integration reference or skills-only upload does not register this combination. Public release follows review and a separate publish action. See [submission requirements](https://developers.openai.com/plugins/deploy/submission) and [portable package structure](https://developers.openai.com/plugins/build/plugins#plugin-structure).
+Use the complete portable ZIP to update the existing plugin in the
+[OpenAI plugin portal](https://platform.openai.com/plugins). It contains the MCP
+configuration and every skill to retain; do not replace it with a single-skill ZIP.
+Our supported portable format uses root `plugin.json`, `mcp.json`, `skills/` and
+`assets/`. There is no need for a Codex compatibility manifest or an app reference.
 
-The publisher needs a verified identity and Apps Management write access. Keep reviewer credentials in the portal, never in this public repo. Confirm listing details, countries, policy URLs and claims with the publisher. Preserve existing domain verification tokens.
+OpenAI-specific settings live under `extensions.com.openai` in `plugin.json`:
+
+- `interface`: listing text, publisher, public policy/support URLs and asset paths.
+- `review.test_cases`: exactly five positive and three negative scenarios. Use
+  `prompt` and `expected_behavior`, not the legacy import field names.
+- `review.demo_recording_url`: optionally include the actual reviewer-accessible
+  walkthrough. It is omitted by default to preserve the portal's existing value;
+  confirm the recording is present and current before submitting.
+- `publication.release_notes`: describe the package being uploaded. Country
+  restrictions and translations are omitted to preserve existing portal settings.
+
+Never put reviewer credentials, reviewer-access instructions or OAuth secrets in
+this repository or ZIP. Enter them in the secure portal review form. Review cases
+here use synthetic fixtures; run them with a dedicated account and confirm the
+fixtures and permissions before submitting. They are not records of passed tests.
+
+### Validate before upload
+
+The builder's structural checks use Python's standard library. The full offline
+submission validator additionally checks the pinned portable JSON schemas with
+`jsonschema`; use Python 3.10 or newer:
+
+```sh
+python3 -m venv .venv
+.venv/bin/python -m pip install -r scripts/requirements-validation.txt
+.venv/bin/python -m unittest discover -s scripts
+.venv/bin/python scripts/validate_submission.py
+.venv/bin/python scripts/build_release.py --claude-dir ../claude-plugin --output-dir artifacts
+```
+
+The validator checks listing limits, HTTPS URL syntax, exact case counts, portable
+schemas, bundled PNG dimensions/size, safe paths, skill references and exclusion
+of credential fields. `--tools /path/to/tools-list.json` also checks scenario tool
+names against a saved MCP `tools/list` result. `--require-demo` requires an explicit
+walkthrough URL for a new submission rather than preserving a portal value. These
+checks do not verify URL reachability, authentication, policy acceptance, fixture
+availability, or execution of the scenarios. OpenAI's extension is checked against
+the documented fields we use; this is not a replica of all portal checks.
+
+All PNG files under `assets/` enter the portable ZIP; other file types are rejected.
+Keep that directory limited to reviewed public assets. This builder supports PNG listing images;
+add appropriate validation before using another image format. The pinned portable
+schemas and their provenance are under `scripts/schemas/` and are not packaged.
+
+### Upload, review and publish
+
+1. Wait for the existing review to finish; only one review can be active per plugin.
+   Increment the package version for an update and upload the complete ZIP using
+   **Upload plugin to make changes** on the existing plugin.
+2. Review **Metadata & Skills** findings. Use **Copy issues**, fix the source and
+   upload the rebuilt ZIP through **Upload plugin to fix issues**. Required skill
+   scans must finish successfully before submission.
+3. Verify the existing connection under **MCPs** and rescan when server tools have
+   changed. A tool-only service update does not require a new package ZIP.
+4. Check imported listing, test cases, release notes and walkthrough, enter reviewer
+   credentials, run the acceptance cases and complete the policy attestations.
+   Imported cases are read-only: edit `plugin.json` and upload again to change them.
+5. Submit for review. After approval, use **Publish plugin** and verify the actual
+   published package before recording its version and source commit.
+
+Omitted review fields preserve saved portal values; an empty `test_cases` object
+clears the saved lists and an empty string clears scalar text. Keep the existing
+plugin identity, MCP endpoint and domain-verification token. The verified publisher
+needs Apps Management write access. A successful local build or portal scan is not
+approval or publication.
+
+See [submission and field reference](https://developers.openai.com/plugins/deploy/submission)
+and [portable package structure](https://developers.openai.com/plugins/build/plugins).
 
 ## Anthropic
 

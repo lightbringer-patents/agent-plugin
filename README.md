@@ -40,8 +40,8 @@ Try:
 
 ## Packaging and publication
 
-Version 1.2.0 is prepared for release. Package preparation does not establish service availability or authenticated host verification; see [distribution and validation](DISTRIBUTION.md).
+Version 1.2.1 prepares the complete OpenAI plugin upload. The four workflow skills are unchanged from 1.2.0. Package preparation does not establish service availability or authenticated host verification; see [distribution and validation](DISTRIBUTION.md).
 
 This is the canonical `skills/` source. [claude-plugin](https://github.com/lightbringer-patents/claude-plugin) mirrors the complete tree with Anthropic-specific metadata. Edit shared skills here first and verify both packages before release.
 
-`plugin.json`, `mcp.json` and `skills/` form the portable package. A GitHub release does not itself publish skills in a host directory. See [distribution and validation](DISTRIBUTION.md) for OpenAI and Anthropic publication routes.
+`plugin.json`, `mcp.json`, `skills/` and `assets/` form the portable package. OpenAI listing information, review scenarios and release notes live under `extensions.com.openai` in the manifest. A GitHub release does not itself publish skills in a host directory. See [distribution and validation](DISTRIBUTION.md) for OpenAI and Anthropic publication routes.
