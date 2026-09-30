@@ -36,7 +36,7 @@ Use the smallest coherent set of changes that satisfies the request. Whole-docum
 
 The batch is atomic: an explicit rejection means its changes did not apply. On revision conflict, read again and reconcile the requested change with the latest content. Preserve intervening edits; do not resend a stale full-section replacement using only a fresh revision. If the new content creates a material decision conflict, resolve that specific issue before writing.
 
-The service preserves unchanged text and comment anchors and tracks replacements. It can reject ambiguous text matching or edits that touch pending review changes. Explain that blocker and provide the record link for continuation in the application editor. Do not remove/reinsert a section, create a replacement Strategy or repeatedly retry to bypass the restriction.
+Replacements apply directly as the user's edits; the service preserves unchanged text and comment anchors and does not record them as suggestions for later acceptance. It can reject ambiguous text matching or edits that touch pending review changes made in the application editor. Explain that blocker and provide the record link for continuation in the application editor. Do not remove/reinsert a section, create a replacement Strategy or repeatedly retry to bypass the restriction.
 
 Inspect the returned content, revision and `orphaned_discussion_ids`. Nonempty IDs mean retained discussion threads have lost their text anchors; report this effect rather than claim the comments were deleted. An uncertain edit outcome requires readback and comparison before retrying. Preserve confirmed edits and describe unresolved ones.
 
