@@ -2,19 +2,13 @@
 
 The source contains five workflow skills: `innovation-capture`, `patent-preparation`, `patent-review`, `patent-portfolio` and `ip-strategy`. Portfolio covers assignee discovery, single and portfolio imports, and patent family updates for saved own patents. Capture covers both inventor conversations and source exploration. Preparation ends with a confirmed preparation request; review handles report and patent-draft feedback. Strategy connects business objectives and evidence to protection priorities and actions, with draft creation and revision-aware updates through the connected Strategy tools. General service orientation is supplied through MCP instructions and the README. Each skill contains its required references.
 
-## Source changes awaiting release
+## Prepared release — 1.3.0
 
-`ip-strategy` is new source work, mirrored into the Claude skills tree. It is not included in the prepared versions below. Before packaging it for distribution, advance each affected package's version, update listing information and release notes, and exercise Strategy capture and editing in the target hosts against a connection advertising the Strategy tools. The current guide is `get_strategy_template`; saving, editing and publication use `create_strategy`, `edit_strategy` and `set_strategy_publication`. Local skill validation does not establish that these tools are available in production or that authenticated workflows passed.
+Both packages contain five identical workflow skills. This release combines IP strategy capture, draft creation and revision-aware editing with read-only saved-portfolio reviews, structured family interpretation and readback after authorised updates. Innovation capture uses relevant published Strategies as context while keeping drafts and uncertain adoption distinct from adopted direction.
 
-`innovation-capture` also prefers relevant published Strategy records through `list_strategies` and `get_strategy`, with reports retained as backup for strategy decisions. Drafts and uncertain adoption remain distinct from adopted direction.
+Public discovery on 2026-10-01 returned service version 4.13.1, 30 tools and five prompts, including all seven Strategy tools and `draft-strategy`. The `search` and `fetch` output schemas include optional structured family information. Anonymous discovery does not verify authenticated permissions, returned family data, host installation, or successful execution of the acceptance cases below.
 
-## Prepared release — portable 1.2.1, Claude 1.2.0
-
-Portable version 1.2.1 adds the OpenAI listing, review cases, release notes and
-icons to the complete plugin ZIP. Its four original skills were unchanged from 1.2.0
-and matched the Claude package. Claude keeps its independent version 1.2.0. This packaging
-change does not establish host approval or completion of authenticated tests.
-The separate 1.3.0 portfolio workflow work is not included in this package.
+The complete portable ZIP retains the OpenAI listing, review cases, release notes and icons introduced in 1.2.1. Both package versions advance to 1.3.0 for the changed skills. Prepared packages are not evidence of host approval or publication. Follow each host's publication route and record its actual outcome separately.
 
 ## Interface verification — 2026-09-15
 
@@ -150,6 +144,22 @@ Use a dedicated test account and synthetic invention material. Record public pac
 | Portfolio 9 | “Keep our portfolio updated” | Discover and import new publications with automatic family grouping. Refresh existing own patents only when warranted; do not claim a text or legal-status update or a monitoring schedule. |
 | Portfolio 10 | User reports a missing relationship between saved own patents, or requests newer family information | Resolve affected saved records and refresh within the authorised scope. Report counts and warnings without inventing member identities. |
 | Portfolio 11 | User reports an incorrect existing family relationship | Explain that refresh retains existing relationships and cannot remove the incorrect one; use the platform or team as the continuation route. |
+| Portfolio 12 | “Review our current portfolio; do not change it” with multiple application/patent pages | Read every page, use structured families when returned, keep competitors/pipeline separate, distinguish family/application/publication counts, and make no imports or refresh calls. |
+| Portfolio 13 | Family has multiple jurisdictions, indirect ancestors, restricted relatives and truncated members | Show accessible members, recorded statuses, priority provenance and coverage limits; do not invent hidden members or call every indirect member a sibling. |
+| Portfolio 14 | Stored references show a missing link to an accessible saved record | Explain the specific gap; refresh only within authorised update scope; fetch the affected record again and compare the resulting relationship. |
+| Portfolio 15 | Family references are absent, ambiguous, unmatched, or carry an old/null refresh date | Distinguish uncertainty and unresolved references from actionable missing links; no automatic refresh solely because data is old, absent or incomplete. |
+| Portfolio 16 | A write succeeds but family readback fails, or an older connection omits family data | Preserve the confirmed write result; describe family verification as incomplete. Never infer member identities from refresh counts. |
+
+## Strategy acceptance cases for both hosts
+
+| Case | Prompt or fixture | Expected behavior |
+| --- | --- | --- |
+| Strategy 1 | Save a strategy from a supplied brief, an innovation and a meeting | Load the current capture guide, read substantive evidence, create populated sections, and report the saved draft link and revision. Unknown facts stay explicit; no publication, import or filing request. |
+| Strategy 2 | Revise a saved Strategy while another collaborator edits it | Read the current record and revision; on conflict, reread and reconcile without overwriting unrelated work. Successful replacements are direct edits, not proposed redlines. |
+| Strategy 3 | Replacement intersects pending review changes or loses discussion anchors | Report a rejected edit without bypassing the restriction; report returned orphaned discussion IDs without claiming comments were deleted. |
+| Strategy 4 | Explore an IP strategy without saving, or save a draft without publishing | Do not create during exploration or publish during draft creation. Do not infer authority for imports, preparation, deletion or external sharing. |
+| Strategy 5 | Explicitly publish, unpublish or delete a selected synthetic Strategy | Resolve the record, explain the applicable effect and use the requested action; verify returned status. Publication does not create a monitoring schedule or complete professional review. |
+| Strategy 6 | Missing management rights, read-only consent or an uncertain save outcome | Explain denied operations; after uncertain creation inspect existing records before retrying, avoiding duplicates. Never infer permission from tool visibility. |
 
 Exercise fresh and existing connections to the Lightbringer MCP service, then scan and submit the tested packages. Package versions are separate from service updates. Existing installations can retain old automatic-submission instructions until updated; confirm that registration alone does not request patent preparation.
 
