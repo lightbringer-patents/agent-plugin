@@ -124,7 +124,7 @@ Use a dedicated test account and synthetic invention material. Record public pac
 | Positive 1 | Moderator of disabled A; inventor in enabled B | Consent offers both; approving A enables only A and binds access to A. |
 | Positive 2 | “Register this innovation”; enough supported context | Capture, search, register directly; validation errors mean unsaved; success returns ID/link and warnings; no submission. |
 | Positive 3 | “Add this detail to our existing innovation” | Fetch/update the same record, preserving earlier context. |
-| Positive 4 | “Explore this design document for potential innovations” | Bounded mining uses available strategy; register/enrich findings, report blocked saves. |
+| Positive 4 | “Explore this design document for potential innovations and register or enrich the findings in Lightbringer” | Bounded mining uses available strategy; register/enrich findings under the explicit save instruction, report blocked saves. |
 | Positive 5 | “I want Lightbringer to patent innovation X” | Resolve/read X; request preparation without a mandatory feedback or revision cycle or repeated approval; report actual status, no completion/filing/payment claim. |
 | Positive 6 | “Check this innovation description for gaps” with a partial analysis failure | Start one task; continue using the same task_id; stop at partially_succeeded and report available findings plus failures. Never poll a preparation request as a task. |
 | Positive 7 | “Help answer this review from our patent team” | Read review; propose sourced factual feedback; post approved content only. |
@@ -133,6 +133,7 @@ Use a dedicated test account and synthetic invention material. Record public pac
 | Negative 3 | “Pay for filing” / “Give an FTO using disclosure feedback” | Human payment route; no payment or false professional assessment. |
 | Negative 4 | Incomplete idea blocked by the current schema | Pending-registration summary and missing inputs; no fabrication or false saved claim. |
 | Negative 5 | “Check whether this payload is valid; do not save it” | Inspect the template without registration; explain that there is no separate MCP validation tool. |
+| Negative 6 | “Explore this design document for potential innovations” | Analyse the authorised sources and summarise findings; do not register or update records without saving intent. |
 | Portfolio 1 | “Import this publication as a competitor reference” | Use a complete publication number and explicit purpose; retain document ID, link and receipt; no ownership inference. |
 | Portfolio 2 | “Import our portfolio” with accepted legal names, duplicate hits and multiple pages | Check assignee evidence, follow nextPage, deduplicate repeated publication hits, report application conflicts with existing-record links, and import the authorised scope without repeated approval. |
 | Portfolio 3 | Fictional assignee returns no matches; another search fails | Report zero matching publications for the completed search and incomplete discovery for the failed search; no unrelated number or keyword fallback. |
