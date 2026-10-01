@@ -39,6 +39,10 @@ class BuildReleaseTests(unittest.TestCase):
             portable, claude, output = root / "portable", root / "claude", root / "output"
             self.package(portable, True, "1.1.0")
             self.package(claude, False, "1.1.1")
+            icon = b"icon fixture"
+            (claude / ".claude-plugin/icon.png").write_bytes(icon)
+            (claude / ".claude").mkdir()
+            (claude / ".claude/CLAUDE.md").write_text("Contributor instructions\n")
             with patch.object(builder, "__file__", str(portable / "scripts/build_release.py")), patch("sys.argv", [
                 "build_release.py", "--claude-dir", str(claude), "--output-dir", str(output)
             ]):
@@ -51,6 +55,8 @@ class BuildReleaseTests(unittest.TestCase):
                     self.assertEqual(checksum, hashlib.sha256((output / name).read_bytes()).hexdigest())
                 with zipfile.ZipFile(output / "lightbringer-claude-1.1.1.zip") as archive:
                     self.assertEqual(json.loads(archive.read(".claude-plugin/plugin.json"))["version"], "1.1.1")
+                    self.assertEqual(archive.read(".claude-plugin/icon.png"), icon)
+                    self.assertNotIn(".claude/CLAUDE.md", archive.namelist())
                 self.assertTrue((output / "lightbringer-portable-1.1.0.zip").is_file())
 
     def test_different_skills_still_block_packaging(self):

@@ -67,6 +67,10 @@ def package_files(root: Path, portable: bool) -> tuple[str, dict[str, bytes]]:
         if marketplace["plugins"][0]["name"] != metadata["name"]:
             raise ValueError("Marketplace plugin name mismatch")
         paths.append(".claude-plugin/marketplace.json")
+        # Claude discovers this conventional icon without a manifest override.
+        icon = root / ".claude-plugin/icon.png"
+        if icon.exists() or icon.is_symlink():
+            paths.append(".claude-plugin/icon.png")
     for name in paths:
         path = regular_file(root, name)
         files[name] = path.read_bytes()
