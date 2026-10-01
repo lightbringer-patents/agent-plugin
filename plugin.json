@@ -1,8 +1,8 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "lightbringer",
-  "version": "1.2.1",
-  "description": "Capture innovations, request patent preparation, respond to patent reviews, and import or refresh patent portfolios through Lightbringer.",
+  "version": "1.3.0",
+  "description": "Capture innovations, develop IP strategies, request patent preparation, respond to reviews, and review or update patent portfolios through Lightbringer.",
   "author": {
     "name": "Lightbringer AB",
     "email": "dominic@lightbringer.com",
@@ -16,14 +16,15 @@
     "patents",
     "patent-review",
     "patent-portfolio",
-    "lightbringer"
+    "lightbringer",
+    "ip-strategy"
   ],
   "extensions": {
     "com.openai": {
       "interface": {
         "displayName": "Lightbringer",
         "shortDescription": "Patent service in your chat",
-        "longDescription": "Lightbringer helps technology companies manage the patent process end to end, combining an AI-native platform with qualified patent attorneys on our team. Our service covers innovation capture, IP strategy, novelty and freedom-to-operate assessments, patent application drafting and filing, and prosecution through grant.\n\nThe Lightbringer plugin connects ChatGPT to your private organisation workspace. Capture innovations while working on technical solutions, find and enrich existing disclosures as your ideas develop, get automated feedback on clarity and completeness, and search and summarise innovations, patent documents and accessible meeting notes or transcripts. Find public patent publications, import your own portfolio or third-party references, and group saved own patents into families. Review, comment on, and respond to work with your Lightbringer patent team directly from the conversation.\n\nRegister an innovation to preserve and develop it, even before deciding how to protect it. When you decide to pursue a patent, separately request preparation for filing with Lightbringer. Automated description feedback and public patent discovery do not establish novelty, freedom to operate, current ownership or legal status. Attorney-led services are available through the Lightbringer team; the plugin supports the connected workflows described above.\n\nTry questions like:\n“Help me identify potential innovations in the solution we’ve been developing”\n“Register this innovation without requesting patent preparation”\n“Find our adaptive-fins disclosure and add what we learned today”\n“Check this disclosure for gaps and help me prepare questions for our Lightbringer patent team”\n“Show the reviews awaiting my response and help me act on them”",
+        "longDescription": "Lightbringer helps technology companies manage the patent process end to end, combining an AI-native platform with qualified patent attorneys on our team. Our service covers innovation capture, IP strategy, novelty and freedom-to-operate assessments, patent application drafting and filing, and prosecution through grant.\n\nThe Lightbringer plugin connects ChatGPT to your private organisation workspace. Capture innovations while working on technical solutions, find and enrich existing disclosures as your ideas develop, get automated feedback on clarity and completeness, and search and summarise innovations, patent documents and accessible meeting notes or transcripts. Review saved patent portfolios and family overviews, find public publications, import your own portfolio or third-party references, and verify authorised family updates. Develop and save an IP strategy from business objectives and accessible evidence, then revise the same document while preserving collaborators’ changes. Strategy creation saves a draft; publication is a separate explicit action. Review, comment on, and respond to work with your Lightbringer patent team directly from the conversation.\n\nRegister an innovation to preserve and develop it, even before deciding how to protect it. When you decide to pursue a patent, separately request preparation for filing with Lightbringer. Automated description feedback and public patent discovery do not establish novelty, freedom to operate, current ownership or legal status. Attorney-led services are available through the Lightbringer team; the plugin supports the connected workflows described above.\n\nTry questions like:\n“Help me identify potential innovations in the solution we’ve been developing”\n“Register this innovation without requesting patent preparation”\n“Find our adaptive-fins disclosure and add what we learned today”\n“Check this disclosure for gaps and help me prepare questions for our Lightbringer patent team”\n“Show the reviews awaiting my response and help me act on them”",
         "developerName": "Lightbringer AB",
         "category": "Business",
         "websiteURL": "https://lightbringer.com",
@@ -33,7 +34,7 @@
         "defaultPrompt": [
           "Help me identify and register innovations in our technical work.",
           "Show the reviews awaiting my response.",
-          "Find public patents and help me import our portfolio."
+          "Build an IP strategy using our innovations and saved patent portfolio."
         ],
         "logo": "./assets/logo-square-light.png",
         "logoDark": "./assets/logo-square-dark.png",
@@ -44,10 +45,10 @@
         "test_cases": {
           "positive": [
             {
-              "description": "Find an existing innovation and enrich it using accessible meeting context without duplicating it. Seed an adaptive-separator disclosure and a meeting titled Adaptive separator design review with notes and a stored transcript.",
-              "prompt": "Show which Lightbringer organisation I am connected to. Find my adaptive-separator innovation and the meeting Adaptive separator design review. Read the current disclosure and meeting notes/transcript, then add supported technical details from the meeting to the disclosure, preserving existing content. Do not request patent preparation.",
-              "tools_triggered": "whoami, list_innovations, search, fetch, get_innovation, update_innovation",
-              "expected_behavior": "Identifies the connected organisation and retrieves the existing disclosure. Searches meetings with category=meeting and passes the returned meeting:<id> unchanged to fetch. Distinguishes notes from transcript sessions, links sources and reports unavailable content; an active transcript is a snapshot. Reads the existing disclosure before saving supported section updates. Returns the record link, reports partial failures accurately, and neither duplicates the innovation nor requests preparation. Does not invent missing meeting content."
+              "description": "Create and revise a draft IP strategy from an existing innovation and meeting. Seed an adaptive-separator disclosure and an Adaptive separator design review meeting with notes and a transcript. Use an account with Strategy management rights and read/write consent.",
+              "prompt": "Show which Lightbringer organisation I am connected to. Read my adaptive-separator innovation and the meeting Adaptive separator design review. Our goal is to enter the industrial water-treatment market next year; our priority is protecting the separator control method while keeping manufacturing settings confidential. Build and save a draft IP strategy using this context. Keep unknown budgets and competitors as open questions. Then revise the saved strategy to prioritise licensing the control method. Keep it unpublished and do not import patents or request filing.",
+              "tools_triggered": "whoami, get_strategy_template, list_strategies, list_innovations, get_innovation, search, fetch, create_strategy, get_strategy, edit_strategy",
+              "expected_behavior": "Uses ip-strategy and the current capture guide. Reads the substantive innovation and meeting evidence, distinguishing notes from transcripts and missing information from facts. Checks relevant existing strategies and saved portfolio context without importing. Saves populated Markdown sections and reports the returned ID, URL, DRAFT status and revision. Reads the same Strategy before the requested edit and uses its current revision; on conflict, reads again and preserves intervening edits. Replacements apply directly, not as redlines. Reports any orphaned discussion anchors or rejected edits accurately. Does not publish, delete, request preparation, claim attorney assessment, or invent unsupported source facts."
             },
             {
               "description": "Register a new innovation using the live template, then collect automated feedback and delete its task history. Supply sufficient factual disclosure details during the test and a reviewer account with read/write consent.",
@@ -69,9 +70,9 @@
             },
             {
               "description": "Use patent-portfolio to discover and import a third-party publication, then separately refresh a seeded own-patent family. Provide import permission, provider availability and two related saved own patents, one titled Portfolio family test A.",
-              "prompt": "Find public patent publications about self-cleaning heat exchangers and import the first relevant result as a third-party reference. Repeat the same import to check for duplicates. Separately, check newer public family information for the saved own patent Portfolio family test A and update its grouping with related own patents already saved. Do not import more publications for that family.",
+              "prompt": "First review our saved own portfolio without changing it, listing accessible families and any coverage limits. Find public patent publications about self-cleaning heat exchangers and import the first relevant result as a third-party reference. Repeat the same import to check for duplicates. Separately, check newer public family information for the saved own patent Portfolio family test A and update its grouping with related own patents already saved. Do not import more publications for that family. Fetch the affected own patent after the update and explain what the saved family now shows.",
               "tools_triggered": "search_public_patents, import_patent, search, fetch, refresh_patent_family",
-              "expected_behavior": "Uses patent-portfolio and simple public-search keywords. Imports a complete publicationNumber returned by search with purpose=competitor; reports documentId, url, status and receipt warnings. Repetition returns already_imported without changing the record. A null receipt means details are unavailable; reports no_results or provider failure honestly. Separately resolves the selected saved own patent and refreshes its documentId, never the competitor record. Reports refresh status, link counts, warnings and unresolved/ambiguous matches without inventing family members. Null links means unfinished work, not zero relationships. Does not remove existing links, update patent text/legal status, import extra family members or claim complete coverage."
+              "expected_behavior": "Paginates saved application and patent searches, groups only by returned family groupingKey, and distinguishes family, application and recorded-publication counts without double-counting. No write is performed during the initial review. Uses patent-portfolio and simple public-search keywords. Imports a complete publicationNumber returned by search with purpose=competitor; reports documentId, url, status and receipt warnings. Repetition returns already_imported without changing the record. A null receipt means details are unavailable; reports no_results or provider failure honestly. Separately resolves the selected saved own patent and refreshes its documentId, never the competitor record. Reports refresh status, link counts, warnings and unresolved/ambiguous matches without inventing family members. Null links means unfinished work, not zero relationships. Does not remove existing links, update patent text/legal status, import extra family members or claim complete coverage. After the authorised refresh, fetches the affected saved record and compares the family overview. Reports missing links, unresolved references, truncation and access limits; an old or null timestamp alone does not warrant refresh. If readback fails, preserves the confirmed write result and reports verification as incomplete."
             }
           ],
           "negative": [
@@ -94,7 +95,7 @@
         }
       },
       "publication": {
-        "release_notes": "This update packages the Lightbringer connector and all four workflow skills together, with listing information and review scenarios included in the upload. Continue capturing and developing innovations, requesting patent preparation, collaborating on reviews, and importing or grouping patents. Workflow instructions and access permissions are unchanged."
+        "release_notes": "Version 1.3.0 adds IP strategy capture, draft creation and revision-aware editing, plus read-only saved-portfolio reviews and verification after authorised family updates. Innovation capture uses relevant published strategies as context. The complete package includes all five workflow skills, the MCP connection, listing assets and updated review scenarios. Strategy publication remains a separate explicit action."
       }
     }
   }

@@ -34,7 +34,7 @@ Refresh is useful when:
 - An import or refresh result specifically reports that family grouping did not finish.
 - The user asks to update saved families using newer public patent information.
 
-Do not refresh routinely after each import or batch. A general warning that family coverage is unverified is not evidence of a failed update; a missing PDF or image is unrelated to family grouping. Similar titles or subject matter alone do not establish a missing family relationship. If the available tools do not expose family membership, describe the limit instead of claiming to have inspected it.
+Do not refresh routinely after each import or batch. A general warning that family coverage is unverified is not evidence of a failed update; a missing PDF or image is unrelated to family grouping. Similar titles or subject matter alone do not establish a missing family relationship. Use the structured family overview from `search` or `fetch` when returned; follow [saved portfolio and families](saved-portfolio.md) to assess gaps. If family information is absent, describe the limit instead of claiming to have inspected membership.
 
 For a warranted refresh, call `refresh_patent_family` with the affected saved record's `documentId`. Use the ID returned by import or resolved from an existing saved record. If the request also includes importing identified related publications, finish those imports first and assess whether a separate refresh is still needed. Honour existing authorisation to update the selected families.
 
@@ -45,3 +45,5 @@ Existing family relationships are retained. If the inconsistency is an incorrect
 Report the returned outcome and warnings. A partial result can mean that related applications are absent or the available family information is insufficient. If `links` is null, the family update did not finish; a bounded retry can attempt it again. Otherwise retry transient failures only. The result reports counts, not a list of family members: do not infer publication identities or a complete family from those counts.
 
 When additional related publications have been identified from available sources and selected within the user's requested scope, import them and report the returned outcome. Their family grouping is attempted automatically. Report any missing members that could not be identified or imported.
+
+After authorised imports or family refresh, fetch affected saved record IDs and compare their family overview with the baseline. Preserve returned receipts and warnings if readback is unavailable; describe verification as incomplete. Refresh counts alone do not identify or verify the resulting members.

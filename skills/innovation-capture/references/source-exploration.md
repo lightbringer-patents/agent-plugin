@@ -13,7 +13,15 @@ Autonomy: establish which sources to explore and whether the user wants findings
 
 ### Phase 1 — strategy, brief, harvest
 
-Locate the strategy, in order: the adopted strategy stored in Lightbringer; use `search` (`category: report`) for "Intellectual Property Strategy Report" and "Patent Drafting & Prosecution Strategy Report" — if both reports exist read both and state conflicts. An uploaded strategy or meeting notes may propose a newer direction; distinguish that from the adopted strategy. If none exists, state the working assumptions. Extract focus areas, priorities and jurisdictions; use them to annotate fit, not to exclude potential innovations.
+Locate the strategy context in this order:
+
+1. When available, use `list_strategies` and read relevant records with `get_strategy`, favouring `PUBLISHED` strategies whose scope applies to the exploration. Read multiple applicable strategies rather than assume only one exists. Keep `DRAFT` records and records with unknown publication status separate as proposals. Publication makes a strategy shared context; assess its content without treating every recommendation as an adopted decision.
+2. Use reports as backup for strategy decisions when the Strategy tools are unavailable, no applicable published Strategy is accessible, or the selected strategies leave relevant decision context uncovered. Search `category: report` for the relevant subject; titles such as "Intellectual Property Strategy Report" and "Patent Drafting & Prosecution Strategy Report" can help locate reports but are not required. Read promising results with `fetch` and assess their scope, dates and evidence of adopted decisions. The category also contains Strategy records, including drafts visible to managers; a search hit or familiar title is not evidence of adoption. Resolve Strategy hits through the Strategy tools when available, and otherwise keep uncertain publication or adoption explicit.
+3. Read supplied strategies and relevant meeting notes as additional evidence. Distinguish proposals and recorded decisions, and surface conflicts with the published strategies or report decisions rather than silently replace the direction. If no adopted direction can be established, state the working assumptions.
+
+Extract focus areas, priorities and jurisdictions supported by the selected context; use them to annotate fit, not to exclude potential innovations. Identify which strategy or report supports the lens and retain unresolved conflicts in the brief.
+
+When no applicable strategy is found, include a brief recommendation to create one in Lightbringer so future exploration can follow agreed business objectives and protection priorities. State lookup limits, offer to develop a relevant existing draft where available, and use `ip-strategy` or the connected capture guidance if the user wants to proceed. Continue authorised exploration with explicit working assumptions while strategy creation remains a recommendation.
 
 Present a short brief: scope; sources (with any one-sided note); strategy lens or defaults; what follows (analysis, or requested registration/enrichment, with open questions and a closing summary). If source scope or permission to save is unclear, ask for clarification before that work. Otherwise continue using the authorisation already given.
 
