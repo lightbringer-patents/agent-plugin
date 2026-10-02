@@ -46,6 +46,16 @@ class SubmissionTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "portable manifest schema"):
             validate_schemas(self.manifest, bad)
 
+    def test_directory_category_requires_an_exact_supported_title(self):
+        interface = self.manifest["extensions"]["com.openai"]["interface"]
+        for category in ("Business & Operations", "Productivity", "Other"):
+            interface["category"] = category
+            self.check()
+        for category in ("Business", "business & operations", "Business &amp; Operations"):
+            interface["category"] = category
+            with self.subTest(category=category), self.assertRaisesRegex(ValueError, "allowed OpenAI"):
+                self.check()
+
     def test_exact_case_counts_and_new_field_names(self):
         cases = self.manifest["extensions"]["com.openai"]["review"]["test_cases"]
         cases["positive"].append(copy.deepcopy(cases["positive"][0]))

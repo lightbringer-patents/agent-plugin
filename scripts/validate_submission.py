@@ -16,6 +16,13 @@ from urllib.parse import urlsplit
 
 ROOT = Path(__file__).resolve().parent.parent
 
+# https://developers.openai.com/plugins/deploy/submission-errors#listing-and-interface-errors
+OPENAI_CATEGORIES = frozenset({
+    "Productivity", "Creativity", "Developer Tools", "Business & Operations",
+    "Data & Analytics", "Communication", "Education & Research", "Security",
+    "Finance", "Healthcare", "Travel", "Entertainment", "Other",
+})
+
 
 class SubmissionError(ValueError):
     pass
@@ -135,6 +142,8 @@ def validate_openai(root, manifest, mcp):
     for field, limit in {"displayName": 30, "shortDescription": 30, "longDescription": 4000,
                          "developerName": 80, "category": 120}.items():
         text(interface.get(field), field, limit)
+    if interface["category"] not in OPENAI_CATEGORIES:
+        raise SubmissionError("category must be an allowed OpenAI directory category")
     for field in ("websiteURL", "supportURL", "privacyPolicyURL", "termsOfServiceURL"):
         text(interface.get(field), field, 1024)
         https(interface[field], field)
@@ -220,6 +229,8 @@ def validate_schemas(manifest, mcp):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--root", type=Path, default=ROOT)
+    parser.add_argument("--expected-name", default="lightbringer",
+                        help="Expected manifest name when validating an extracted OpenAI update ZIP")
     parser.add_argument("--require-demo", action="store_true", help="Require a packaged walkthrough URL instead of preserving the portal's existing value")
     parser.add_argument("--tools", type=Path, help="Local tools/list JSON for checking scenario tool names")
     args = parser.parse_args()
@@ -231,7 +242,7 @@ def main():
     validate_openai(root, manifest, mcp)
     validate_schemas(manifest, mcp)
     from build_release import package_files
-    _, files = package_files(root, True)
+    _, files = package_files(root, True, expected_name=args.expected_name)
     review = manifest["extensions"]["com.openai"]["review"]
     if "demo_recording_url" not in review:
         if args.require_demo:

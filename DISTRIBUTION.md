@@ -49,6 +49,36 @@ OpenAI-specific settings live under `extensions.com.openai` in `plugin.json`:
 - `publication.release_notes`: describe the package being uploaded. Country
   restrictions and translations are omitted to preserve existing portal settings.
 
+The directory category is `Business & Operations`; `Business` alone is not an
+accepted category. Validation checks exact category titles against OpenAI's
+[documented list](https://developers.openai.com/plugins/deploy/submission-errors#listing-and-interface-errors).
+
+### Preserve an existing OpenAI plugin identity
+
+An existing directory listing can have a platform-assigned manifest name that
+differs from the portable package's `lightbringer` name. Obtain that exact name
+from its downloaded release ZIP or the portal's name-mismatch message. To build
+an additional OpenAI archive, supply it explicitly:
+
+```sh
+python3 scripts/build_release.py --claude-dir ../claude-plugin \
+  --output-dir ../artifacts/lightbringer-plugin-release \
+  --openai-plugin-name app-6a43e4284a708191b2b6b4540a53e1f9
+```
+
+Upload `lightbringer-openai-<version>.zip` to the existing OpenAI listing. The
+builder changes only the root manifest's `name` in that archive; the portable
+and Claude names, display name, MCP configuration and shared skills are retained.
+All three archives have reproducible SHA-256 checksums. The source manifest is
+not rewritten. Without the option, only the portable and Claude archives are
+built as before.
+
+The dashboard uses the manifest's explicit `version`. Check both its published
+and pending versions before choosing the next package version, especially when
+migrating from the previous submission form. Changing the upload name does not
+renumber a release or change a package already under review. A tooling or
+documentation merge does not itself submit or publish a new package.
+
 Never put reviewer credentials, reviewer-access instructions or OAuth secrets in
 this repository or ZIP. Enter them in the secure portal review form. Review cases
 here use synthetic fixtures; run them with a dedicated account and confirm the
@@ -66,6 +96,13 @@ python3 -m venv .venv
 .venv/bin/python -m unittest discover -s scripts
 .venv/bin/python scripts/validate_submission.py
 .venv/bin/python scripts/build_release.py --claude-dir ../claude-plugin --output-dir artifacts
+```
+
+Validate an extracted OpenAI archive with its expected listing identity:
+
+```sh
+.venv/bin/python scripts/validate_submission.py --root /path/to/extracted-openai-package \
+  --expected-name app-6a43e4284a708191b2b6b4540a53e1f9
 ```
 
 The validator checks listing limits, HTTPS URL syntax, exact case counts, portable
@@ -124,7 +161,7 @@ Use a dedicated test account and synthetic invention material. Record public pac
 | Positive 1 | Moderator of disabled A; inventor in enabled B | Consent offers both; approving A enables only A and binds access to A. |
 | Positive 2 | “Register this innovation”; enough supported context | Capture, search, register directly; validation errors mean unsaved; success returns ID/link and warnings; no submission. |
 | Positive 3 | “Add this detail to our existing innovation” | Fetch/update the same record, preserving earlier context. |
-| Positive 4 | “Explore this design document for potential innovations” | Bounded mining uses available strategy; register/enrich findings, report blocked saves. |
+| Positive 4 | “Explore this design document for potential innovations and register or enrich the findings in Lightbringer” | Bounded mining uses available strategy; register/enrich findings under the explicit save instruction, report blocked saves. |
 | Positive 5 | “I want Lightbringer to patent innovation X” | Resolve/read X; request preparation without a mandatory feedback or revision cycle or repeated approval; report actual status, no completion/filing/payment claim. |
 | Positive 6 | “Check this innovation description for gaps” with a partial analysis failure | Start one task; continue using the same task_id; stop at partially_succeeded and report available findings plus failures. Never poll a preparation request as a task. |
 | Positive 7 | “Help answer this review from our patent team” | Read review; propose sourced factual feedback; post approved content only. |
@@ -133,6 +170,7 @@ Use a dedicated test account and synthetic invention material. Record public pac
 | Negative 3 | “Pay for filing” / “Give an FTO using disclosure feedback” | Human payment route; no payment or false professional assessment. |
 | Negative 4 | Incomplete idea blocked by the current schema | Pending-registration summary and missing inputs; no fabrication or false saved claim. |
 | Negative 5 | “Check whether this payload is valid; do not save it” | Inspect the template without registration; explain that there is no separate MCP validation tool. |
+| Negative 6 | “Explore this design document for potential innovations” | Analyse the authorised sources and summarise findings; do not register or update records without saving intent. |
 | Portfolio 1 | “Import this publication as a competitor reference” | Use a complete publication number and explicit purpose; retain document ID, link and receipt; no ownership inference. |
 | Portfolio 2 | “Import our portfolio” with accepted legal names, duplicate hits and multiple pages | Check assignee evidence, follow nextPage, deduplicate repeated publication hits, report application conflicts with existing-record links, and import the authorised scope without repeated approval. |
 | Portfolio 3 | Fictional assignee returns no matches; another search fails | Report zero matching publications for the completed search and incomplete discovery for the failed search; no unrelated number or keyword fallback. |

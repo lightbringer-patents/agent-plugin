@@ -45,11 +45,11 @@ def skill_files(root: Path) -> dict[str, bytes]:
     return files
 
 
-def package_files(root: Path, portable: bool) -> tuple[str, dict[str, bytes]]:
+def package_files(root: Path, portable: bool, *, expected_name: str = "lightbringer") -> tuple[str, dict[str, bytes]]:
     manifest = "plugin.json" if portable else ".claude-plugin/plugin.json"
     config = "mcp.json" if portable else ".mcp.json"
     metadata = json.loads(regular_file(root, manifest).read_text())
-    if metadata["name"] != "lightbringer" or not re.fullmatch(r"\d+\.\d+\.\d+", metadata["version"]):
+    if metadata["name"] != expected_name or not re.fullmatch(r"\d+\.\d+\.\d+", metadata["version"]):
         raise ValueError(f"Invalid release identity in {manifest}")
     mcp = json.loads(regular_file(root, config).read_text())
     if mcp["mcpServers"]["lightbringer"]["url"] != "https://mcp.lightbringer.com/mcp":
@@ -81,10 +81,18 @@ def package_files(root: Path, portable: bool) -> tuple[str, dict[str, bytes]]:
     return metadata["version"], files
 
 
+def openai_plugin_name(value: str) -> str:
+    if len(value) > 64 or not re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", value):
+        raise argparse.ArgumentTypeError("Use the existing plugin name: up to 64 lowercase letters, digits and single hyphens")
+    return value
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--claude-dir", type=Path, required=True)
     parser.add_argument("--output-dir", type=Path, required=True)
+    parser.add_argument("--openai-plugin-name", type=openai_plugin_name,
+                        help="Also build an OpenAI ZIP using the existing dashboard plugin name")
     args = parser.parse_args()
     root = Path(__file__).resolve().parent.parent
     claude = args.claude_dir.resolve()
@@ -92,9 +100,16 @@ def main() -> None:
         raise ValueError("Shared skills differ; sync from agent-plugin before packaging")
     version, portable = package_files(root, True)
     claude_version, anthropic = package_files(claude, False)
+    packages = [("portable", version, portable), ("claude", claude_version, anthropic)]
+    if args.openai_plugin_name:
+        manifest = json.loads(portable["plugin.json"])
+        manifest["name"] = args.openai_plugin_name
+        openai = dict(portable)
+        openai["plugin.json"] = (json.dumps(manifest, indent=2, ensure_ascii=False) + "\n").encode("utf-8")
+        packages.append(("openai", version, openai))
     args.output_dir.mkdir(parents=True, exist_ok=True)
     checksums = []
-    for host, package_version, files in [("portable", version, portable), ("claude", claude_version, anthropic)]:
+    for host, package_version, files in packages:
         path = args.output_dir / f"lightbringer-{host}-{package_version}.zip"
         with zipfile.ZipFile(path, "w", compression=zipfile.ZIP_DEFLATED) as archive:
             for name, data in sorted(files.items()):
