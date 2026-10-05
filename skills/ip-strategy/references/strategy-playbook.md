@@ -28,6 +28,12 @@ Keep these distinctions explicit:
 
 “No relevant record found” describes the accessible material and search coverage; it does not prove that no IP exists. Preserve dates and source links where they affect the conclusion. Do not present recorded status as freshly verified status.
 
+## Establish the filing context
+
+Read the relevant priority applications’ region and the stated filing plans before choosing the jurisdictional framing. The organisation's home country can be a provisional starting point when appropriate, but does not establish where it first filed or must file. A connected adviser’s country is not necessarily the client’s country. Identify conflicting evidence and material gaps instead of assuming a route.
+
+Lead with the established first-filing office and label jurisdiction-specific analysis. For example, a US company with a relevant US first filing should receive USPTO-first framing; EPO or other-office considerations belong where target markets or filing plans support them. This is a contextual example, not a universal filing recommendation. Do not invent legal rules or deadlines; identify questions requiring qualified review.
+
 ## Connect differentiation to protection priorities
 
 Identify the capabilities that make the business outcome possible: what creates customer value, where the technical advantage lies, how durable it may be, and which dependencies matter. Ground the scope in mechanisms and evidence rather than product names or marketing claims alone.
@@ -60,6 +66,8 @@ A compact decision record can use:
 This example is fictional. Adapt its reasoning to supported facts; do not copy it as customer evidence. If the user's brief concerns just one decision, a short rationale and action may be enough.
 
 ## Turn direction into actionable work
+
+Lead with relevant actions that can be taken through the available connector, such as saving a draft Strategy, refining a selected innovation or reviewing saved portfolio records, before a long-term timeline. Offer one concrete next action and obtain any missing authorisation; proposing an action does not execute it. Once direction is clear, offer a draft save for review and reuse during innovation capture. Publication for wider context and existing monitoring is a separate explicit decision.
 
 For each major priority, describe the next step, the output needed to make a decision and the dependency it resolves. Add an owner and timing only when established. “Review patents” is too vague if the actual need is to determine whether an identified calibration feature appears in relevant claims.
 

@@ -2,6 +2,22 @@
 
 Use the schemas advertised by the connected service. Strategy reads use read consent; writes use write consent and strategy management rights, including customer moderators. `get_strategy_template` also requires strategy management rights. A tool being visible does not guarantee permission for a selected record.
 
+## Tool and skill dependencies
+
+Discover the tools and schemas in the current connection before offering actions. Installing this skill does not add tools or grant access; connecting the MCP service alone does not install the other skills.
+
+| Step | Tool dependency | If unavailable or denied |
+| --- | --- | --- |
+| Organisation context | Startup context; `whoami` when needed context is missing or the user asks to verify it | Use supplied context and ask only material gaps. `organisation.country`, `state` and `website` are optional; older connections may return only the name. Their absence does not establish company type or filing jurisdiction. |
+| Strategy context and capture | `list_strategies`, `get_strategy`, `get_strategy_template` | Explain the particular lookup or guide limitation. Continue analysis of supplied material, but do not invent a capture schema or claim no strategies exist. The capture guide requires Strategy management rights even with read consent. |
+| Supporting evidence | `list_innovations`, `get_innovation`, `search`, `fetch`, as relevant to the brief | State source/access limits; do not require every source for every strategy or infer that absent results mean no IP exists. |
+| Save or revise | `create_strategy`, or `get_strategy` plus `edit_strategy`; write consent and record permissions | Keep the proposed draft in the conversation and offer continuation in the platform. Do not promise a connector save or use a different write tool as a substitute. |
+| Publication | `set_strategy_publication` and explicit publication intent | A saved draft remains a draft. Do not claim monitoring context has been updated. |
+
+Use existing startup context first. If needed, read `whoami` once for available organisation details; do not repeatedly fetch absent optional fields. Read application-region metadata through `search` and `fetch` for filing context, keeping recorded region, planned first filing and home country distinct.
+
+Related skills are conditional handoffs, not prerequisites for strategy discussion: use [innovation-capture](../../innovation-capture/SKILL.md) for separately authorised innovation capture or updates, [patent-portfolio](../../patent-portfolio/SKILL.md) for portfolio work or authorised imports, and [patent-preparation](../../patent-preparation/SKILL.md) only for an explicit preparation request. If a related skill is not installed, use the available tool guidance; if its required tools are missing, explain the blocked action. A strategy save does not execute these workflows. Publication supplies context to existing competitor monitoring; no monitoring-configuration tool or skill is implied.
+
 ## Resolve the intended record
 
 For an existing Strategy, use the user's identifier or resolve it with `list_strategies`, then read `get_strategy`. Its response provides the current title, Markdown sections with identifiers, revision and link. Use this structured read for editing; a flattened `fetch` result does not supply the edit contract.
