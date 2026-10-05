@@ -45,7 +45,7 @@ Try:
 
 ## Packaging and publication
 
-Version 1.3.0 is prepared with five workflow skills, including IP strategy authoring and saved-portfolio family reviews. Package preparation does not establish host publication or authenticated workflow verification; see [distribution and validation](DISTRIBUTION.md).
+Version 5.1.0 is prepared with five workflow skills, including IP strategy authoring and saved-portfolio family reviews. Package preparation does not establish host publication or authenticated workflow verification; see [distribution and validation](DISTRIBUTION.md).
 
 This is the canonical `skills/` source. [claude-plugin](https://github.com/lightbringer-patents/claude-plugin) mirrors the complete tree with Anthropic-specific metadata. Edit shared skills here first and verify both packages before release.
 

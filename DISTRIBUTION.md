@@ -2,13 +2,13 @@
 
 The source contains five workflow skills: `innovation-capture`, `patent-preparation`, `patent-review`, `patent-portfolio` and `ip-strategy`. Portfolio covers assignee discovery, single and portfolio imports, and patent family updates for saved own patents. Capture covers both inventor conversations and source exploration. Preparation ends with a confirmed preparation request; review handles report and patent-draft feedback. Strategy connects business objectives and evidence to protection priorities and actions, with draft creation and revision-aware updates through the connected Strategy tools. General service orientation is supplied through MCP instructions and the README. Each skill contains its required references.
 
-## Prepared release — 1.3.0
+## Prepared portable release — 5.1.0
 
 Both packages contain five identical workflow skills. This release combines IP strategy capture, draft creation and revision-aware editing with read-only saved-portfolio reviews, structured family interpretation and readback after authorised updates. Innovation capture uses relevant published Strategies as context while keeping drafts and uncertain adoption distinct from adopted direction.
 
 Public discovery on 2026-10-01 returned service version 4.13.1, 30 tools and five prompts, including all seven Strategy tools and `draft-strategy`. The `search` and `fetch` output schemas include optional structured family information. Anonymous discovery does not verify authenticated permissions, returned family data, host installation, or successful execution of the acceptance cases below.
 
-The complete portable ZIP retains the OpenAI listing, review cases, release notes and icons introduced in 1.2.1. Both package versions advance to 1.3.0 for the changed skills. Prepared packages are not evidence of host approval or publication. Follow each host's publication route and record its actual outcome separately.
+The complete portable ZIP retains the OpenAI listing, review cases, release notes and icons introduced in 1.2.1. The portable package advances to 5.1.0 to continue the existing OpenAI listing’s 5.0.0 version sequence. Its five skills are unchanged from the prepared 1.3.0 package; the Claude package keeps its independent version. Prepared packages are not evidence of host approval or publication. Follow each host's publication route and record its actual outcome separately.
 
 ## Interface verification — 2026-09-15
 
