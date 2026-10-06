@@ -1,6 +1,12 @@
 # Distribution and validation
 
-The source contains five workflow skills: `innovation-capture`, `patent-preparation`, `patent-review`, `patent-portfolio` and `ip-strategy`. Portfolio covers assignee discovery, single and portfolio imports, and patent family updates for saved own patents. Capture covers both inventor conversations and source exploration. Preparation ends with a confirmed preparation request; review handles report and patent-draft feedback. Strategy connects business objectives and evidence to protection priorities and actions, with draft creation and revision-aware updates through the connected Strategy tools. General service orientation is supplied through MCP instructions and the README. Each skill contains its required references.
+The source contains six workflow skills: `innovation-capture`, `patent-preparation`, `patent-review`, `patent-portfolio`, `ip-strategy` and `company-context`. Portfolio covers assignee discovery, single and portfolio imports, and patent family updates for saved own patents. Capture covers both inventor conversations and source exploration. Preparation ends with a confirmed preparation request; review handles report and patent-draft feedback. Strategy connects business objectives and evidence to protection priorities and actions, with draft creation and revision-aware updates through the connected Strategy tools. General service orientation is supplied through MCP instructions and the README. Each skill contains its required references.
+
+## Prepared release — portable 5.1.0 / Claude 1.4.0
+
+The portable version follows the existing published 5.x sequence; Claude retains its independent version. Adds the sixth workflow skill, company-context, and integrates it with IP strategy. The assistant uses the live capture guide to fill material gaps and can save a shared brief with moderator rights, write consent and the current revision. Existing notes are preserved during refinement. Missing tools, denied writes and adviser/client distinctions have explicit fallbacks.
+
+The company-context guide, read and update tools must be available in the connected service. Package validation does not establish deployed availability or live host/model acceptance. Exercise the expanded strategy review case in `plugin.json` and the company-context acceptance scenarios below before host submission.
 
 ## Prepared release — 1.3.0
 
@@ -218,3 +224,17 @@ These are host acceptance scenarios to run against the intended service and pack
 | Targeted change to an identified Strategy | Reads the current record and revision, edits the same record and preserves unrelated content. No new capture interview or template fetch is required. |
 | New innovation capture versus targeted enrichment | New capture follows the live template rather than copied payload constraints. Enrichment reads the existing record and uses its update contract without re-registering it. |
 | Publication requested separately | Explains sharing and existing-monitoring effects from the operation contract, honors explicit authorization and reports the returned status. No new monitoring schedule or completed run is inferred. |
+
+### Company-context acceptance scenarios
+
+**Build useful company context from an incomplete signup profile, then reuse it for strategy.**
+
+Prompt: We just signed up. Help me explain our industrial sensor business so future Lightbringer work has useful context. Ask what you need, then save the company brief when I confirm it. After that, help me think through an IP strategy.
+
+Expected: Treats placeholders and signup-only notes as inadequate. Follows the live company-context guide conversationally, uses supplied evidence, and distinguishes confirmed facts from observations and unknowns. Makes organisation sharing clear before saving. Preserves unrelated notes and uses the latest revision. On conflict, reads and reconciles before retrying. Returns to strategy within the same conversation, without a repeated interview. Does not infer industry from website/country or claim unavailable writes succeeded.
+
+**Client-company facts must not replace an adviser organisation’s context.**
+
+Prompt: We are an IP consultancy connected to our own Lightbringer workspace. Help draft a strategy for our client, Example Sensors. Do not change our company settings.
+
+Expected: Keeps the adviser/client distinction explicit. Uses client evidence within the strategy request and does not call update_company_context or overwrite the connected organisation’s notes. Missing context prompts only material questions, without blocking on profile completion.

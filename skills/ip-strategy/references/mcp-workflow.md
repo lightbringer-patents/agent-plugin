@@ -60,3 +60,7 @@ If required tools or permissions are missing, explain the blocked action and ret
 Writing an action into Markdown does not execute it. Do not infer tools for strategy feedback, automated portfolio analysis, jurisdictional coverage assessments, professional-service milestones or monitoring configuration from a related tool name.
 
 When the user separately requests innovation registration, patent imports, filing preparation or formal review responses, use the appropriate installed workflow or the connected tool guidance. Keep strategy authorship, automated findings, professional work and actual record changes distinct in the result.
+
+## Company context
+
+`get_company_context` reads the shared brief and current revision; `get_company_context_template` returns the live capture guide. These reads require read consent. `update_company_context` requires write consent and moderator rights, and rejects stale revisions. Use the company-context skill when installed to fill material gaps in the same conversation. The current guide supplies the interview; unavailable tools do not justify treating startup identity as a complete business profile. Keep unsaved context available for strategy work when a profile update is unavailable or not authorised.

@@ -1,8 +1,8 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "lightbringer",
-  "version": "1.3.0",
-  "description": "Capture innovations, develop IP strategies, request patent preparation, respond to reviews, and review or update patent portfolios through Lightbringer.",
+  "version": "5.1.0",
+  "description": "Capture company context and innovations, develop IP strategies, request patent preparation, respond to reviews, and review patent portfolios through Lightbringer.",
   "author": {
     "name": "Lightbringer AB",
     "email": "dominic@lightbringer.com",
@@ -17,7 +17,8 @@
     "patent-review",
     "patent-portfolio",
     "lightbringer",
-    "ip-strategy"
+    "ip-strategy",
+    "company-context"
   ],
   "extensions": {
     "com.openai": {
@@ -45,10 +46,10 @@
         "test_cases": {
           "positive": [
             {
-              "description": "Create and revise a draft IP strategy from an existing innovation and meeting. Seed an adaptive-separator disclosure and an Adaptive separator design review meeting with notes and a transcript. Use an account with Strategy management rights and read/write consent.",
-              "prompt": "Show which Lightbringer organisation I am connected to. Read my adaptive-separator innovation and the meeting Adaptive separator design review. Our goal is to enter the industrial water-treatment market next year; our priority is protecting the separator control method while keeping manufacturing settings confidential. Build and save a draft IP strategy using this context. Keep unknown budgets and competitors as open questions. Then revise the saved strategy to prioritise licensing the control method. Keep it unpublished and do not import patents or request filing.",
-              "tools_triggered": "whoami, get_strategy_template, list_strategies, list_innovations, get_innovation, search, fetch, create_strategy, get_strategy, edit_strategy",
-              "expected_behavior": "Uses ip-strategy and the current capture guide. Reads the substantive innovation and meeting evidence, distinguishing notes from transcripts and missing information from facts. Checks relevant existing strategies and saved portfolio context without importing. Saves populated Markdown sections and reports the returned ID, URL, DRAFT status and revision. Reads the same Strategy before the requested edit and uses its current revision; on conflict, reads again and preserves intervening edits. Replacements apply directly, not as redlines. Reports any orphaned discussion anchors or rejected edits accurately. Does not publish, delete, request preparation, claim attorney assessment, or invent unsupported source facts. Uses available startup organisation context or whoami; country, state and website are optional, and no company type is inferred. Grounds filing context in relevant application regions and plans, with home country only a provisional fallback. Checks actual tool availability and permissions before offering a save; missing skills or tools are explained without inventing capabilities."
+              "description": "Create and revise a draft IP strategy from an existing innovation and meeting. Seed an adaptive-separator disclosure and an Adaptive separator design review meeting with notes and a transcript. Use an account with Strategy management rights and read/write consent. Seed signup-only company notes and grant moderator rights for the shared brief.",
+              "prompt": "Show which Lightbringer organisation I am connected to. Read my adaptive-separator innovation and the meeting Adaptive separator design review. Our goal is to enter the industrial water-treatment market next year; our priority is protecting the separator control method while keeping manufacturing settings confidential. Help fill the material gaps in our company background, then save a shared company brief that other organisation members and Lightbringer agents can reuse. Build and save a draft IP strategy using this context. Keep unknown budgets and competitors as open questions. Then revise the saved strategy to prioritise licensing the control method. Keep it unpublished and do not import patents or request filing.",
+              "tools_triggered": "whoami, get_strategy_template, list_strategies, list_innovations, get_innovation, search, fetch, create_strategy, get_strategy, edit_strategy, get_company_context, get_company_context_template, update_company_context",
+              "expected_behavior": "Uses ip-strategy and the current capture guide. Reads the substantive innovation and meeting evidence, distinguishing notes from transcripts and missing information from facts. Checks relevant existing strategies and saved portfolio context without importing. Saves populated Markdown sections and reports the returned ID, URL, DRAFT status and revision. Reads the same Strategy before the requested edit and uses its current revision; on conflict, reads again and preserves intervening edits. Replacements apply directly, not as redlines. Reports any orphaned discussion anchors or rejected edits accurately. Does not publish, delete, request preparation, claim attorney assessment, or invent unsupported source facts. Uses available startup organisation context or whoami; country, state and website are optional, and no company type is inferred. Grounds filing context in relevant application regions and plans, with home country only a provisional fallback. Checks actual tool availability and permissions before offering a save; missing skills or tools are explained without inventing capabilities. Treats placeholders and signup-only notes as inadequate. Follows the live company-context guide conversationally, uses supplied evidence, and distinguishes confirmed facts from observations and unknowns. Makes organisation sharing clear before saving. Preserves unrelated notes and uses the latest revision. On conflict, reads and reconciles before retrying. Returns to strategy within the same conversation, without a repeated interview. Does not infer industry from website/country or claim unavailable writes succeeded."
             },
             {
               "description": "Register a new innovation using the live template, then collect automated feedback and delete its task history. Supply sufficient factual disclosure details during the test and a reviewer account with read/write consent.",
@@ -95,7 +96,7 @@
         }
       },
       "publication": {
-        "release_notes": "Version 1.3.0 adds IP strategy capture, draft creation and revision-aware editing, plus read-only saved-portfolio reviews and verification after authorised family updates. Innovation capture uses relevant published strategies as context. The complete package includes all five workflow skills, the MCP connection, listing assets and updated review scenarios. Strategy publication remains a separate explicit action."
+        "release_notes": "Version 5.1.0 adds a company-context skill for establishing and maintaining a shared business brief. IP strategy fills material background gaps in the same conversation. Context tools require connected-service support; profile updates require moderator rights and write consent."
       }
     }
   }
