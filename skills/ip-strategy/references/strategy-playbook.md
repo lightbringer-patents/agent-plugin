@@ -28,6 +28,12 @@ Keep these distinctions explicit:
 
 “No relevant record found” describes the accessible material and search coverage; it does not prove that no IP exists. Preserve dates and source links where they affect the conclusion. Do not present recorded status as freshly verified status.
 
+## Establish the filing context
+
+When filing choices or jurisdiction affect the decision, read the relevant priority applications’ region and the stated filing plans before choosing the jurisdictional framing. Do not make a first-filing interview a prerequisite for strategy work that does not depend on it. The organisation's home country can be a provisional starting point when appropriate, but does not establish where it first filed or must file. A connected adviser’s country is not necessarily the client’s country. Identify conflicting evidence and material gaps instead of assuming a route.
+
+For that analysis, use the established filing context and label jurisdiction-specific conclusions. For example, a US company with a relevant US first filing should receive USPTO-first framing; EPO or other-office considerations belong where target markets or filing plans support them. This is a contextual example, not a universal filing recommendation. Do not invent legal rules or deadlines; identify questions requiring qualified review.
+
 ## Connect differentiation to protection priorities
 
 Identify the capabilities that make the business outcome possible: what creates customer value, where the technical advantage lies, how durable it may be, and which dependencies matter. Ground the scope in mechanisms and evidence rather than product names or marketing claims alone.
@@ -60,6 +66,8 @@ A compact decision record can use:
 This example is fictional. Adapt its reasoning to supported facts; do not copy it as customer evidence. If the user's brief concerns just one decision, a short rationale and action may be enough.
 
 ## Turn direction into actionable work
+
+Prioritise actions by their contribution to the business decision and their dependencies. Available connector actions may help carry out a separately authorised next step; availability alone does not make an action strategically important.
 
 For each major priority, describe the next step, the output needed to make a decision and the dependency it resolves. Add an owner and timing only when established. “Review patents” is too vague if the actual need is to determine whether an identified calibration feature appears in relevant claims.
 
