@@ -2,7 +2,7 @@
 
 ## Locating and reading
 
-- `list_reviews`: reviews the user participates in or created — status, own response status, awaited participants. Default `open`; use `closed` for historical outcomes.
+- `list_reviews`: reviews the user participates in or created — status, own response status, awaited participants. Default `open`; use `closed` for historical outcomes. Preserve the distinct `strategy`, `report` and `document` targets and use the returned record references to identify what is being reviewed.
 - `get_review`: metadata, `artifact.markdown`, document comment threads with stable IDs, and the review discussion feed. Read all of them before proposing feedback to avoid repeating an existing point. Attorney redlines carry original/replacement/rationale.
 - Inspect `artifact.amendments` separately: these are proposed block changes with baseline/proposed text, redline and patch; the document body still shows baseline text. Do not describe an agent-drafted proposal as an accepted amendment or attorney-authored change.
 - Check `artifact.status` and `artifact.reason` when the document cannot be rendered. A rendering notice is not the document. Explain the limitation and use the supplied platform link for document review; do not infer missing content or recommend approval from metadata alone.
@@ -58,3 +58,7 @@ Classify each finding under the regimes before drafting it.
 ## Channel
 
 Feedback stays in Lightbringer comments (data security; comments stay attached to the right application and claim). Asked to email → cite this rule and offer to post on-platform; capture any commenting blockers for the user to raise with the drafting team.
+
+## Formal responses
+
+`respond_to_review` requires the user's explicit choice of `approve` or `request_changes`. Its optional `message` accepts at most 2,000 characters. Present the exact final text, including any provenance tag, before sending; never silently truncate an approved message. It records a decision and sends review-response notification emails. Approval cannot be withdrawn through this tool; a request for changes can later be upgraded to approval. Read the returned review state and report the actual outcome without claiming email delivery.

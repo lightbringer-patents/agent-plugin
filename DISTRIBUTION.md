@@ -1,14 +1,14 @@
 # Distribution and validation
 
-The source contains five workflow skills: `innovation-capture`, `patent-preparation`, `patent-review`, `patent-portfolio` and `ip-strategy`. Portfolio covers assignee discovery, single and portfolio imports, and patent family updates for saved own patents. Capture covers both inventor conversations and source exploration. Preparation ends with a confirmed preparation request; review handles report and patent-draft feedback. Strategy connects business objectives and evidence to protection priorities and actions, with draft creation and revision-aware updates through the connected Strategy tools. General service orientation is supplied through MCP instructions and the README. Each skill contains its required references.
+The source contains five workflow skills: `innovation-capture`, `patent-preparation`, `patent-review`, `patent-portfolio` and `ip-strategy`. Portfolio covers assignee discovery, single and portfolio imports, and patent family updates for saved own patents. Capture covers both inventor conversations and source exploration. Preparation ends with a confirmed preparation request; review handles Strategy, report and patent-draft feedback. Strategy connects business objectives and evidence to protection priorities and actions, with draft creation and revision-aware updates through the connected Strategy tools. General service orientation is supplied through MCP instructions and the README. Each skill contains its required references.
 
-## Prepared portable release — 5.1.0
+## Prepared release — portable 5.1.0 / Claude 1.4.0
 
-Both packages contain five identical workflow skills. This release combines IP strategy capture, draft creation and revision-aware editing with read-only saved-portfolio reviews, structured family interpretation and readback after authorised updates. Innovation capture uses relevant published Strategies as context while keeping drafts and uncertain adoption distinct from adopted direction.
+Both packages contain five identical workflow skills. This release uses live capture guides, distinguishes capture from reads and targeted edits, clarifies Strategy tool dependencies, and adds Strategy review routing and the 2,000-character formal-response limit. Preparation guidance reflects the current email recipients. Tool-issue reports require write consent, exact report approval and recipient disclosure, without confidential content or automatic account/client metadata.
 
-Public discovery on 2026-10-01 returned service version 4.13.1, 30 tools and five prompts, including all seven Strategy tools and `draft-strategy`. The `search` and `fetch` output schemas include optional structured family information. Anonymous discovery does not verify authenticated permissions, returned family data, host installation, or successful execution of the acceptance cases below.
+Public discovery on 2026-10-06 returned service version 4.14.0, 30 tools and five prompts. Review schemas distinguish Strategy, report and document targets. `whoami` offers optional organisation details and a bounded member roster. Preparation, review-notification and developer-feedback tools advertise open-world effects. Anonymous discovery does not verify authenticated permissions, host installation or successful execution of the acceptance cases below.
 
-The complete portable ZIP retains the OpenAI listing, review cases, release notes and icons introduced in 1.2.1. The portable package advances to 5.1.0 to continue the existing OpenAI listing’s 5.0.0 version sequence. Its five skills are unchanged from the prepared 1.3.0 package; the Claude package keeps its independent version. Prepared packages are not evidence of host approval or publication. Follow each host's publication route and record its actual outcome separately.
+The portable package advances to 5.1.0 to continue the existing OpenAI listing's 5.0.0 sequence; Claude advances independently to 1.4.0. The portable ZIP retains the listing, review cases, release notes and icons. Prepared packages are not evidence of host approval or publication. Follow each host's publication route and record its actual outcome separately.
 
 ## Interface verification — 2026-09-15
 
@@ -218,3 +218,16 @@ These are host acceptance scenarios to run against the intended service and pack
 | Targeted change to an identified Strategy | Reads the current record and revision, edits the same record and preserves unrelated content. No new capture interview or template fetch is required. |
 | New innovation capture versus targeted enrichment | New capture follows the live template rather than copied payload constraints. Enrichment reads the existing record and uses its update contract without re-registering it. |
 | Publication requested separately | Explains sharing and existing-monitoring effects from the operation contract, honors explicit authorization and reports the returned status. No new monitoring schedule or completed run is inferred. |
+
+## Service 4.14.0 acceptance cases
+
+These cases need a dedicated account and synthetic fixtures; package validation does not execute them.
+
+| Case | Expected behavior |
+| --- | --- |
+| Authorization completes after anonymous initialization | Recover identity and accessible records using tools; do not require another startup snapshot or an MCP prompt. Use the optional member roster only when relevant; distinguish an unavailable lookup from an empty roster. |
+| Review visible to its creator, with `target: strategy` | Locate the review, retain its Strategy identity and references, read its artifact and discussion, and post only authorised feedback. Do not assume creator visibility grants every write permission. |
+| Formal review response exceeds 2,000 characters | Prepare a shorter response for approval; do not silently truncate or send an oversized message. Explain that recorded approval cannot be withdrawn through the tool. |
+| Preparation requested for a selected innovation | Explain email recipients: assigned specialist and submitter, with the organisation primary contact copied when applicable. Preserve requested/already-requested outcomes without claiming delivery or completed preparation. |
+| User asks to report tool friction | Show the exact report fields and engineering-channel recipient before approval. Require write consent; exclude confidential content and transcripts, and do not attach account/client metadata. Report delivered/not-delivered accurately. |
+| Read-only consent or unapproved/confidential tool-issue report | Do not send developer feedback. Keep a suitable draft if requested and explain the specific consent or content limitation without disrupting the main workflow. |
