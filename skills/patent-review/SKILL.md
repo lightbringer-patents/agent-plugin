@@ -1,23 +1,23 @@
 ---
 name: patent-review
-description: Help the user read and respond to Lightbringer report and patent-draft reviews. Use for attorney redlines, proposed amendments, document comments, review discussion and explicit approve/request-changes responses. Innovation capture and requests to start patent preparation are separate workflows.
+description: Help the user read and respond to Lightbringer Strategy, report and patent-draft reviews. Use for attorney redlines, proposed amendments, document comments, review discussion and explicit approve/request-changes responses. Innovation capture and requests to start patent preparation are separate workflows.
 ---
 
 # Patent review
 
 Read the review and its actual artifacts, prepare sourced feedback in the user's voice, and post only authorised comments or decisions. Read [service conduct](references/service-conduct.md) and [review guidance](references/review-workflows.md).
 
-Use the connected organisation and accessible reviews. Locate the requested review with `list_reviews`, then read `get_review`, including the document, threads and review discussion. If the review is ambiguous, clarify it. If document rendering is unavailable, explain the limitation and offer the platform link; do not infer missing content or recommend approval from metadata alone.
+Use the connected organisation and accessible reviews where the user is a participant or creator. Locate the requested review with `list_reviews`, preserving its `target` (`strategy`, `report` or `document`) and available Strategy, report, case and innovation references. Do not relabel a Strategy review as a report. Then read `get_review`, including the document, threads and review discussion. If the review is ambiguous, clarify it. If document rendering is unavailable, explain the limitation and offer the platform link; do not infer missing content or recommend approval from metadata alone.
 
 Comments belong to a review. Use `add_comment` for an exact document passage, `reply_to_comment` with a stable document comment ID for a thread, and `add_discussion_comment` for a general review remark. If a required action is unavailable, keep the feedback as a draft and provide the platform continuation.
 
 ## Authorisation
 
-Autonomy: comments post in the user's name, so nothing posts unapproved. Assemble one confirmation batch — each item verbatim with its document anchor, thread ID or review discussion destination, classification, and provenance tag — then post approved items without further questions. `respond_to_review` is never covered by batch approval: it needs the user's explicit approve/request-changes instruction, message confirmed verbatim.
+Autonomy: comments post in the user's name, so nothing posts unapproved. Assemble one confirmation batch — each item verbatim with its document anchor, thread ID or review discussion destination, classification, and provenance tag — then post approved items without further questions. `respond_to_review` is never covered by batch approval: it needs the user's explicit approve/request-changes instruction, message confirmed verbatim. Keep the optional response message within 2,000 characters, including any provenance text; if a longer message needs shortening, get approval for the revised text before sending. An approval cannot be withdrawn through this tool. These review tools can trigger in-app or email notifications; posting success is not proof of notification delivery.
 
-## Report review
+## Strategy or report review
 
-1. `list_reviews` (open) → the review carrying the report. No review → `search`/`fetch` read-only, and tell the user commenting requires one.
+1. `list_reviews` (open) → the review carrying the selected Strategy or report. No review → `search`/`fetch` read-only, and tell the user commenting requires one.
 2. `get_review`; read the document, all threads and the review discussion before drafting — a point already in a thread becomes a reply, never a new comment.
 3. Assess: internal consistency, unsupported claims, portfolio and strategy fit (`search`/`fetch`/`get_innovation` for context), plus the user's specific asks.
 4. Classify (rules below) → discovery screen → batch confirmation → `add_comment` with exact `quoted_text` anchors (`target_user_ids` only on request); general review remarks use `add_discussion_comment` when available.
