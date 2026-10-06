@@ -198,7 +198,23 @@ Use a dedicated test account and synthetic invention material. Record public pac
 | Strategy 4 | Explore an IP strategy without saving, or save a draft without publishing | Do not create during exploration or publish during draft creation. Do not infer authority for imports, preparation, deletion or external sharing. |
 | Strategy 5 | Explicitly publish, unpublish or delete a selected synthetic Strategy | Resolve the record, explain the applicable effect and use the requested action; verify returned status. Publication does not create a monitoring schedule or complete professional review. |
 | Strategy 6 | Missing management rights, read-only consent or an uncertain save outcome | Explain denied operations; after uncertain creation inspect existing records before retrying, avoiding duplicates. Never infer permission from tool visibility. |
+| Strategy 7 | Startup context lacks country; compare `whoami` with and without optional organisation details | Read available context once. Use relevant priority-application regions and plans; do not infer company type or first-filing jurisdiction from home country. Missing optional fields are not errors and do not justify repeated lookups. |
+| Strategy 8 | Strategy skill installed but capture/save tools unavailable; then connector available without bundled skills | Distinguish skill installation, tool availability and permission. Retain analysis or a proposed draft, offer the platform for blocked actions, and use available capture guidance when the skill is absent. Do not claim a save, import, preparation request or monitoring configuration occurred. |
 
 Exercise fresh and existing connections to the Lightbringer MCP service, then scan and submit the tested packages. Package versions are separate from service updates. Existing installations can retain old automatic-submission instructions until updated; confirm that registration alone does not request patent preparation.
 
 Verify `list_tasks` recovery and `delete_task` with write consent. Task reads require ownership and current access to the associated innovation; owners can delete their own task history after losing access to the innovation. Tasks and findings expire after 30 days, and reads do not extend retention. Deletion does not cancel analysis or withdraw a patent-preparation request. Public discovery alone does not verify these authenticated workflows.
+
+## Instruction-layer acceptance cases
+
+These are host acceptance scenarios to run against the intended service and package versions; their presence is not evidence they have passed. Run natural-language cases with and without skills, and test first-time authorization as well as an existing connection. Protocol and package tests cannot establish model behavior.
+
+| Entry path | Expected behavior |
+| --- | --- |
+| Natural-language request to develop and save a new Strategy | Retrieves the live capture guide, follows its authoring procedure and saves a draft under the existing authorization. An installed skill adds evidence selection and strategic reasoning. No prompt selection is required. |
+| User selects the draft-strategy prompt | The visible title says it will develop and save a draft. Retrieving the prompt returns a scoped user request; it does not itself write. Capture follows the same live guide. |
+| Analysis-only discussion | Discusses supplied evidence and accessible records without saving or publishing. Missing capture access does not block discussion or establish that records are absent. |
+| Read-only member reviewing a selected Strategy | Uses the record read without requiring the management-only capture guide or write consent. Reports actual access limits. |
+| Targeted change to an identified Strategy | Reads the current record and revision, edits the same record and preserves unrelated content. No new capture interview or template fetch is required. |
+| New innovation capture versus targeted enrichment | New capture follows the live template rather than copied payload constraints. Enrichment reads the existing record and uses its update contract without re-registering it. |
+| Publication requested separately | Explains sharing and existing-monitoring effects from the operation contract, honors explicit authorization and reports the returned status. No new monitoring schedule or completed run is inferred. |

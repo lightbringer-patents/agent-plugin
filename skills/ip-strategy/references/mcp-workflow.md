@@ -2,6 +2,23 @@
 
 Use the schemas advertised by the connected service. Strategy reads use read consent; writes use write consent and strategy management rights, including customer moderators. `get_strategy_template` also requires strategy management rights. A tool being visible does not guarantee permission for a selected record.
 
+## Tool and skill dependencies
+
+Discover the tools and schemas in the current connection before offering actions. Installing this skill does not add tools or grant access; connecting the MCP service alone does not install the other skills.
+
+| Step | Tool dependency | If unavailable or denied |
+| --- | --- | --- |
+| Organisation context | Startup context; `whoami` when needed context is missing or the user asks to verify it | Use supplied context and ask only material gaps. `organisation.country`, `state` and `website` are optional; older connections may return only the name. Their absence does not establish company type or filing jurisdiction. |
+| Read or assess a Strategy | `get_strategy`; `list_strategies` when the record needs resolving | Explain lookup limits without claiming no strategies exist. Reading does not depend on the capture guide or management rights. |
+| New capture | `get_strategy_template` | The guide requires Strategy management rights even with read consent. If unavailable, continue discussion of supplied material without inventing a capture procedure or payload. |
+| Supporting evidence | `list_innovations`, `get_innovation`, `search`, `fetch`, as relevant to the brief | State source/access limits; do not require every source for every strategy or infer that absent results mean no IP exists. |
+| Save or revise | `create_strategy`, or `get_strategy` plus `edit_strategy`; write consent and record permissions | Keep the proposed draft in the conversation and offer continuation in the platform. Do not promise a connector save or use a different write tool as a substitute. |
+| Publication | `set_strategy_publication` and explicit publication intent | A saved draft remains a draft. Do not claim monitoring context has been updated. |
+
+Use existing startup context first. If needed, read `whoami` once for available organisation details; do not repeatedly fetch absent optional fields. Read application-region metadata through `search` and `fetch` for filing context, keeping recorded region, planned first filing and home country distinct.
+
+Related skills are conditional handoffs, not prerequisites for strategy discussion: use [innovation-capture](../../innovation-capture/SKILL.md) for separately authorised innovation capture or updates, [patent-portfolio](../../patent-portfolio/SKILL.md) for portfolio work or authorised imports, and [patent-preparation](../../patent-preparation/SKILL.md) only for an explicit preparation request. If a related skill is not installed, use the available tool guidance; if its required tools are missing, explain the blocked action. A strategy save does not execute these workflows. Publication supplies context to existing competitor monitoring; no monitoring-configuration tool or skill is implied.
+
 ## Resolve the intended record
 
 For an existing Strategy, use the user's identifier or resolve it with `list_strategies`, then read `get_strategy`. Its response provides the current title, Markdown sections with identifiers, revision and link. Use this structured read for editing; a flattened `fetch` result does not supply the edit contract.
@@ -10,27 +27,15 @@ For a new Strategy, `get_strategy_template` supplies current capture guidance, r
 
 ## Create a populated draft
 
-`create_strategy` takes a title and an ordered array of sections containing `title` and Markdown `content`. Use substantive, nonempty bodies and the current guide's schema. Do not send invented section IDs, publication settings or extra fields. Creation validates before saving and returns the saved ID, reference, draft status, URL and revision.
+Follow the live capture guide for readiness, authoring, creation payload and save recovery. Use the advertised `create_strategy` contract for validation and returned fields; use the current schema rather than a remembered payload. Honour existing save authorisation without asking for the same approval again. Exploration alone does not authorise a save.
 
-Summarise the proposed direction and remaining uncertainties as the guide describes. Honour an existing instruction to draft or save; do not ask for duplicate confirmation. Analysis or exploration alone does not authorise saving. If nothing can support an objective and scope, explain the missing basis instead of saving boilerplate.
-
-- **Explicit validation rejection:** nothing was created. Correct the indicated fields using supported facts and retry when the correction is clear. Schema validation is not a legal or professional quality assessment.
-- **Timeout, transport failure or unclear success receipt:** the save may have happened. Inspect `list_strategies` and likely records with `get_strategy` before any retry. Compare available content and identifiers; title similarity alone is insufficient. If the outcome remains ambiguous, retain the unsaved/uncertain work and explain the limitation rather than risk a duplicate.
-- **Successful creation:** retain the returned ID and link for refinement. A warning does not justify creating a second record.
-
-Creation completes with `DRAFT`. It does not publish, request preparation or update related assets.
+Retain the confirmed ID and link for refinement. Creation saves a draft; it does not publish, request preparation or update related assets.
 
 ## Edit the same Strategy
 
 Read `get_strategy` before editing. Call `edit_strategy` with the selected `strategy_id`, the revision from that read and an atomic batch of operations. The revision is an opaque concurrency value, not a document version to generate or increment.
 
-| Operation | Use |
-| --- | --- |
-| `replace_section` | Supply the observed `section_id` and the complete replacement `content`, `title`, or both. Preserve unaffected text, Markdown, links and attachment references. It is not a quoted-substring patch. |
-| `insert_section` | Supply `section: {title, content}` and an optional position `index`; the service assigns the new identifier. Read returned identifiers before later addressing the new section. |
-| `delete_section` | Remove a selected section only when that removal follows the requested change. At least one section must remain. |
-| `reorder_sections` | Include every current section identifier exactly once in `section_ids`. |
-| `rename` | Supply the new strategy `title`. |
+Use the advertised operation schemas for complete replacement content, section identifiers and ordering. A targeted edit needs the current record and tool contract, not the creation template.
 
 Use the smallest coherent set of changes that satisfies the request. Whole-document regeneration can unnecessarily disturb collaborators' work and discussions. An update to a published strategy changes that record; do not assume it becomes a draft or automatically unpublish it.
 
