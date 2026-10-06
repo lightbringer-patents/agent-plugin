@@ -21,7 +21,7 @@ If no applicable strategy is found in the accessible sources, recommend creating
 
 Adapt to the request; a conversation can lead to source exploration and back again.
 
-- **Conversation or inventor interview:** reuse what the user already supplied. Ask focused questions about missing context, one theme at a time: the idea, problem, proposed approach, implementation, observed benefit and evidence. Separate facts, inferences and open questions.
+- **Conversation or inventor interview:** for new capture, retrieve `get_innovation_template` and follow its current interactive guidance and readiness criteria. Reuse supplied context. For a targeted enrichment, read the existing record and clarify only what the requested change needs; do not restart capture.
 - **Source exploration or patent mining:** read [source exploration](references/source-exploration.md). Investigate the authorised material, trace supporting evidence and retain identified innovations even when incomplete. Do not require a broad mining exercise for a single idea.
 
 ## Match, register or enrich

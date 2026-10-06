@@ -204,3 +204,17 @@ Use a dedicated test account and synthetic invention material. Record public pac
 Exercise fresh and existing connections to the Lightbringer MCP service, then scan and submit the tested packages. Package versions are separate from service updates. Existing installations can retain old automatic-submission instructions until updated; confirm that registration alone does not request patent preparation.
 
 Verify `list_tasks` recovery and `delete_task` with write consent. Task reads require ownership and current access to the associated innovation; owners can delete their own task history after losing access to the innovation. Tasks and findings expire after 30 days, and reads do not extend retention. Deletion does not cancel analysis or withdraw a patent-preparation request. Public discovery alone does not verify these authenticated workflows.
+
+## Instruction-layer acceptance cases
+
+These are host acceptance scenarios to run against the intended service and package versions; their presence is not evidence they have passed. Run natural-language cases with and without skills, and test first-time authorization as well as an existing connection. Protocol and package tests cannot establish model behavior.
+
+| Entry path | Expected behavior |
+| --- | --- |
+| Natural-language request to develop and save a new Strategy | Retrieves the live capture guide, follows its authoring procedure and saves a draft under the existing authorization. An installed skill adds evidence selection and strategic reasoning. No prompt selection is required. |
+| User selects the draft-strategy prompt | The visible title says it will develop and save a draft. Retrieving the prompt returns a scoped user request; it does not itself write. Capture follows the same live guide. |
+| Analysis-only discussion | Discusses supplied evidence and accessible records without saving or publishing. Missing capture access does not block discussion or establish that records are absent. |
+| Read-only member reviewing a selected Strategy | Uses the record read without requiring the management-only capture guide or write consent. Reports actual access limits. |
+| Targeted change to an identified Strategy | Reads the current record and revision, edits the same record and preserves unrelated content. No new capture interview or template fetch is required. |
+| New innovation capture versus targeted enrichment | New capture follows the live template rather than copied payload constraints. Enrichment reads the existing record and uses its update contract without re-registering it. |
+| Publication requested separately | Explains sharing and existing-monitoring effects from the operation contract, honors explicit authorization and reports the returned status. No new monitoring schedule or completed run is inferred. |

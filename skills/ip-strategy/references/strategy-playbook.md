@@ -30,9 +30,9 @@ Keep these distinctions explicit:
 
 ## Establish the filing context
 
-Read the relevant priority applications’ region and the stated filing plans before choosing the jurisdictional framing. The organisation's home country can be a provisional starting point when appropriate, but does not establish where it first filed or must file. A connected adviser’s country is not necessarily the client’s country. Identify conflicting evidence and material gaps instead of assuming a route.
+When filing choices or jurisdiction affect the decision, read the relevant priority applications’ region and the stated filing plans before choosing the jurisdictional framing. Do not make a first-filing interview a prerequisite for strategy work that does not depend on it. The organisation's home country can be a provisional starting point when appropriate, but does not establish where it first filed or must file. A connected adviser’s country is not necessarily the client’s country. Identify conflicting evidence and material gaps instead of assuming a route.
 
-Lead with the established first-filing office and label jurisdiction-specific analysis. For example, a US company with a relevant US first filing should receive USPTO-first framing; EPO or other-office considerations belong where target markets or filing plans support them. This is a contextual example, not a universal filing recommendation. Do not invent legal rules or deadlines; identify questions requiring qualified review.
+For that analysis, use the established filing context and label jurisdiction-specific conclusions. For example, a US company with a relevant US first filing should receive USPTO-first framing; EPO or other-office considerations belong where target markets or filing plans support them. This is a contextual example, not a universal filing recommendation. Do not invent legal rules or deadlines; identify questions requiring qualified review.
 
 ## Connect differentiation to protection priorities
 
@@ -67,7 +67,7 @@ This example is fictional. Adapt its reasoning to supported facts; do not copy i
 
 ## Turn direction into actionable work
 
-Lead with relevant actions that can be taken through the available connector, such as saving a draft Strategy, refining a selected innovation or reviewing saved portfolio records, before a long-term timeline. Offer one concrete next action and obtain any missing authorisation; proposing an action does not execute it. Once direction is clear, offer a draft save for review and reuse during innovation capture. Publication for wider context and existing monitoring is a separate explicit decision.
+Prioritise actions by their contribution to the business decision and their dependencies. Available connector actions may help carry out a separately authorised next step; availability alone does not make an action strategically important.
 
 For each major priority, describe the next step, the output needed to make a decision and the dependency it resolves. Add an owner and timing only when established. “Review patents” is too vague if the actual need is to determine whether an identified calibration feature appears in relevant claims.
 
