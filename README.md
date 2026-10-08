@@ -4,9 +4,10 @@ Work with [Lightbringer's patent service](https://lightbringer.com) from your AI
 
 ## Included
 
-The package includes five workflow skills. Patent discovery uses `search_public_patents`; `import_patent` saves publications and automatically attempts family grouping for own patents. `refresh_patent_family` supports targeted updates to saved families when needed. Use the tools available in the connected MCP catalog.
+The source includes six workflow skills; novelty exploration is an unreleased addition. Patent discovery uses `search_public_patents`; `import_patent` saves publications and automatically attempts family grouping for own patents. `refresh_patent_family` supports targeted updates to saved families when needed. Use the tools available in the connected MCP catalog.
 
 - **MCP connector:** `https://mcp.lightbringer.com/mcp`, with OAuth and organisation-scoped access.
+- **novelty-exploration:** clarify the technical problem, mechanism and effect, search related and competitor patents, and import relevant findings when authorised. No existing portfolio is required; exploration does not establish novelty or freedom to operate.
 - **innovation-capture:** identify, register and enrich innovations from a conversation, inventor interview or authorised source exploration.
 - **patent-preparation:** request preparation of a selected innovation for patent filing and report the confirmed status and next steps. Refinement is optional; an explicit request does not require an automated feedback or revision cycle.
 - **patent-review:** read and respond to Lightbringer Strategy, report and patent-draft reviews, including comments, discussion and formal responses.
@@ -35,6 +36,7 @@ Install the skills-plus-MCP plugin through a supported host distribution channel
 
 Try:
 
+- “Help me explain how our solution works, search for related patents, and shortlist relevant findings before saving anything.”
 - “Register the technical approach we just developed in Lightbringer. Keep open questions and do not request patent preparation.”
 - “Explore this project's technical work using our IP strategy. Register or enrich the potential innovations.”
 - “Add this implementation detail to our existing innovation.”

@@ -32,7 +32,8 @@ class SubmissionTests(unittest.TestCase):
         self.check()
         _, files = package_files(self.root, True)
         self.assertEqual(files["assets/logo-square-light.png"], (ROOT / "assets/logo-square-light.png").read_bytes())
-        self.assertEqual(len([p for p in files if p.endswith("/SKILL.md")]), 5)
+        self.assertEqual(len([p for p in files if p.endswith("/SKILL.md")]), 6)
+        self.assertIn("skills/novelty-exploration/SKILL.md", files)
         self.assertFalse(any(p.startswith("scripts/") for p in files))
 
     def test_portable_schemas_reject_unknown_fields_and_transport(self):
