@@ -1,10 +1,14 @@
 # Distribution and validation
 
-The source contains five workflow skills: `innovation-capture`, `patent-preparation`, `patent-review`, `patent-portfolio` and `ip-strategy`. Portfolio covers assignee discovery, single and portfolio imports, and patent family updates for saved own patents. Capture covers both inventor conversations and source exploration. Preparation ends with a confirmed preparation request; review handles Strategy, report and patent-draft feedback. Strategy connects business objectives and evidence to protection priorities and actions, with draft creation and revision-aware updates through the connected Strategy tools. General service orientation is supplied through MCP instructions and the README. Each skill contains its required references.
+The source contains six workflow skills: `novelty-exploration`, `innovation-capture`, `patent-preparation`, `patent-review`, `patent-portfolio` and `ip-strategy`. Novelty exploration clarifies the technical problem and mechanism, offers guided innovation registration as an optional starting point, searches related and competitor patents, and handles authorised competitor imports directly without requiring an existing portfolio. Portfolio covers assignee discovery, single and portfolio imports, and patent family updates for saved own patents. Capture covers both inventor conversations and source exploration. Preparation ends with a confirmed preparation request; review handles Strategy, report and patent-draft feedback. Strategy connects business objectives and evidence to protection priorities and actions, with draft creation and revision-aware updates through the connected Strategy tools. General service orientation is supplied through MCP instructions and the README. Each skill contains its required references.
+
+## Unreleased source addition
+
+`novelty-exploration` is mirrored in both packages. It provides preliminary technical exploration, not a legal assessment. Package versions and published listings have not been advanced for this addition. Before distributing it, bump both package versions and update their release metadata. The prepared release described below contains the previous five-skill set.
 
 ## Prepared release — portable 5.1.0 / Claude 1.4.0
 
-Both packages contain five identical workflow skills. This release uses live capture guides, distinguishes capture from reads and targeted edits, clarifies Strategy tool dependencies, and adds Strategy review routing and the 2,000-character formal-response limit. Preparation guidance reflects the current email recipients. Tool-issue reports require write consent, exact report approval and recipient disclosure, without confidential content or automatic account/client metadata.
+The prepared release contains five identical workflow skills in both packages. This release uses live capture guides, distinguishes capture from reads and targeted edits, clarifies Strategy tool dependencies, and adds Strategy review routing and the 2,000-character formal-response limit. Preparation guidance reflects the current email recipients. Tool-issue reports require write consent, exact report approval and recipient disclosure, without confidential content or automatic account/client metadata.
 
 Public discovery on 2026-10-06 returned service version 4.14.0, 30 tools and five prompts. Review schemas distinguish Strategy, report and document targets. `whoami` offers optional organisation details and a bounded member roster. Preparation, review-notification and developer-feedback tools advertise open-world effects. Anonymous discovery does not verify authenticated permissions, host installation or successful execution of the acceptance cases below.
 
@@ -231,3 +235,17 @@ These cases need a dedicated account and synthetic fixtures; package validation 
 | Preparation requested for a selected innovation | Explain email recipients: assigned specialist and submitter, with the organisation primary contact copied when applicable. Preserve requested/already-requested outcomes without claiming delivery or completed preparation. |
 | User asks to report tool friction | Show the exact report fields and engineering-channel recipient before approval. Require write consent; exclude confidential content and transcripts, and do not attach account/client metadata. Report delivered/not-delivered accurately. |
 | Read-only consent or unapproved/confidential tool-issue report | Do not send developer feedback. Keep a suitable draft if requested and explain the specific consent or content limitation without disrupting the main workflow. |
+
+## Novelty exploration acceptance cases
+
+These are expected behaviours to verify in a host; they are not completed model tests.
+
+| Entry path | Expected behaviour |
+| --- | --- |
+| A new workspace; “Has anyone patented our solution?” with only a product goal | Select novelty-exploration and recommend optional guided innovation registration first. If the user chooses capture, use innovation-capture and resume from the description. If they prefer a small exploration, ask focused technical questions and search without requiring registration or an own portfolio. |
+| A technical explanation and named competitors; search only | Search mechanism variants as well as supported assignee names; distinguish summary matches from passage-backed comparisons. Retain coverage limits and make no imports. |
+| Search and import relevant findings explicitly authorised | Select a justified shortlist and use the competitor-import instructions in novelty-exploration directly. Save with competitor purpose, preserve receipts and warnings, and read back records. Handle conflicts and uncertain outcomes without changing purpose or refreshing own-patent families; no repeated approval for the agreed scope. |
+| User declines registration, or already has an innovation | Continue the requested small exploration without a capture gate or repeated registration suggestion; reuse an existing description and do not create a duplicate. |
+| No search matches, truncated results or provider failure | Distinguish each outcome, revisit terminology where useful, and avoid concluding novelty or completeness. |
+| User asks whether selling in a target market is safe | Preserve the commercial concern and explain that Lightbringer offers full novelty searches and FTO assessments through contact with sales. Offer a focused brief; do not claim clearance, sales contact or a confirmed engagement, or use patent preparation to order those services. |
+| Missing import access or incomplete patent text | Retain a linked shortlist and identify unavailable evidence or unsaved items; do not invent comparisons or saved records. |
