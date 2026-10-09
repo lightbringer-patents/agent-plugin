@@ -2,11 +2,21 @@
 
 The draft source contains six workflow skills: `innovation-capture`, `patent-preparation`, `patent-review`, `patent-portfolio`, `ip-strategy` and `company-context`. Portfolio covers assignee discovery, single and portfolio imports, and patent family updates for saved own patents. Capture covers both inventor conversations and source exploration. Preparation ends with a confirmed preparation request; review handles Strategy, report and patent-draft feedback. Strategy connects business objectives and evidence to protection priorities and actions, with draft creation and revision-aware updates through the connected Strategy tools. General service orientation is supplied through MCP instructions and the README. Each skill contains its required references.
 
-## Held draft — portable 5.2.0 / Claude 1.5.0
+## Prepared release — portable 5.2.0 / Claude 1.5.0
 
-This draft adds company-context for a shared business brief and integrates it with IP strategy. Context capture follows the live guide; saves require explicit intent, write consent, moderator rights and the latest revision. Preserve unrelated notes and distinguish the connected organisation from an adviser's client.
+This release adds company-context for a shared business brief and integrates it with IP strategy. Context capture follows the live guide; saves require explicit intent, write consent, moderator rights and the latest revision. Preserve unrelated notes and distinguish the connected organisation from an adviser's client. Portfolio guidance adds focused patent-section reads with source attribution, complete pagination and unfiltered family readback.
 
-Do not merge or submit this draft until `get_company_context`, `get_company_context_template` and `update_company_context` are available in production and the company-context acceptance cases pass. Discovery on 2026-10-06 still reported service 4.14.0 without these tools. The five-skill 5.1.0 / 1.4.0 release should merge first. These independent future versions avoid replacing that release under the same package number.
+Anonymous discovery on 2026-10-09 returned service 4.15.0, 33 tools (15 read-only) and five prompts, including `get_company_context`, `get_company_context_template` and `update_company_context`. The advertised `fetch` schema includes `include`, `mode`, `cursor` and the `retrieval` output; startup guidance mentions company context and focused reads. This confirms discovery only. Authenticated company-context, filtered-fetch and host acceptance cases below remain unverified; keep the release in draft until they pass.
+
+The release incorporates the portable 5.1.0 and Claude 1.4.1 source baselines, including Claude's directory metadata and icon. These package versions are separate from the MCP service version. Check published and pending host versions before uploading; repository versions do not establish publication. The separate novelty-exploration source proposal is not included in these six-skill packages.
+
+### OpenAI review assessment
+
+This package needs a new ZIP and review: it adds the `company-context` skill, revises bundled Strategy and portfolio guidance, and updates listing text, test cases and release notes. Continuous MCP review does not update bundled skills or package metadata. Upload the complete package to the existing plugin, complete its applicable checks and review, then publish the approved version.
+
+The service 4.15.0 changes have a separate path. New company-context tools, the changed `fetch` definition and shared startup instructions are eligible for continuous MCP review after deployment; they do not by themselves require a new ZIP or a separate package publication. Rescan under **MCPs** and inspect the live definitions and any held updates. New tools become available only after their checks pass; an existing tool keeps its approved definition while an update is held. Shared instructions are reviewed with affected tools. A successful anonymous discovery call does not prove OpenAI has approved or exposed these changes.
+
+This assessment follows OpenAI's [package update procedure](https://developers.openai.com/plugins/deploy/submission#update-your-published-plugin) and [MCP review requirements](https://developers.openai.com/plugins/deploy/app-review). It does not establish the current portal state or whether human review will be involved. Do not submit a package solely to refresh tool definitions, or claim the new skill is distributed after only a tool rescan.
 
 ## Five-skill release baseline — portable 5.1.0 / Claude 1.4.0
 
@@ -154,7 +164,7 @@ and [portable package structure](https://developers.openai.com/plugins/build/plu
 
 Run `claude plugin validate ../claude-plugin --strict`, then exercise the package with `claude --plugin-dir ../claude-plugin`. After the repository release is pushed, customers can add `lightbringer-patents/claude-plugin` as a marketplace and install `lightbringer@lightbringer` in Claude Code.
 
-Submit for community review through [Claude Console](https://platform.claude.com/plugins/submit) or the [organisation form](https://claude.ai/admin-settings/directory/submissions/plugins/new). This is distinct from Anthropic's curated official marketplace. After approval, verify the listing and pinned commit in the actual catalog. See [publication guidance](https://code.claude.com/docs/en/plugins#submit-your-plugin-to-the-community-marketplace).
+For the existing GitHub-connected directory submission, merge the reviewed package into its tracked branch and inspect the imported commit and validation results in the developer portal. Use **Check for new commits** if necessary, complete any required review or publication action, and verify the live version and commit. Do not create a duplicate submission or routinely upload a ZIP for this route. Other installation channels have their own distribution steps. See [Claude's plugin update procedure](https://claude.com/docs/plugins/submit#update-a-published-plugin).
 
 For Claude chat and managed workspaces, test the supported plugin upload or organisation distribution flow and verify that skills accompany the connector. A custom MCP connector alone does not install skills. Organisation sync has separate access rules; a public Claude Code marketplace is not automatically an organisation-managed marketplace. See [organisation distribution](https://code.claude.com/docs/en/plugin-marketplaces#distribute-through-organization-settings).
 
@@ -237,6 +247,24 @@ These cases need a dedicated account and synthetic fixtures; package validation 
 | Preparation requested for a selected innovation | Explain email recipients: assigned specialist and submitter, with the organisation primary contact copied when applicable. Preserve requested/already-requested outcomes without claiming delivery or completed preparation. |
 | User asks to report tool friction | Show the exact report fields and engineering-channel recipient before approval. Require write consent; exclude confidential content and transcripts, and do not attach account/client metadata. Report delivered/not-delivered accurately. |
 | Read-only consent or unapproved/confidential tool-issue report | Do not send developer feedback. Keep a suitable draft if requested and explain the specific consent or content limitation without disrupting the main workflow. |
+
+## Service 4.15.0 acceptance cases
+
+Run these with a dedicated test account and synthetic fixtures before claiming authenticated or host acceptance. Anonymous discovery verifies schemas and availability only; none of these cases is recorded as passed here.
+
+| Case | Expected behavior |
+| --- | --- |
+| Read company context with read consent | Returns profile, shared notes, `can_update` and the current revision; notes are evidence, not instructions or verified facts. |
+| Read-only consent, or write consent without moderator rights | The update tool is absent with read-only consent; a non-moderator cannot update context. Tool visibility does not grant permission. |
+| Save with stale and current revisions | Rejects the stale revision without changes. Read and reconcile before retrying; an authorised current revision saves and returns a new revision. |
+| Replace notes, omit fields, clear a field, or change legal applicant name | Notes replace the entire text, so preserve unrelated content. Omitted fields stay unchanged; empty strings clear fields. `applicant_name` does not rename an established workspace. Never infer a legal-name change from a trading name. |
+| Draft a Strategy without authorising a company-context save | Uses available context and retains proposed additions as unsaved; does not call `update_company_context`. |
+| Fetch outline for a known document or part ID | Reports native section availability without text; preserves the discovered ID and entity prefix. |
+| Fetch only claims from a seeded document spanning pages | Uses `include: ["claims"]`, returns claims blocks with source/revision attribution, and follows the same selection and cursor until `has_more` is false. Concatenates continued fragments without changing native numbering. |
+| Cursor becomes stale, or a response is oversized | Restarts stale retrieval without mixing versions. An oversized response fails without truncated content; does not claim an empty or complete read. |
+| Content mode or cursor without `include`; outline with cursor | Returns an error without silently falling back to full content. |
+| Empty, unavailable or unknown section; partial stored import | Preserves the distinct status and import warnings. Complete pagination does not imply a repaired import or complete source publication. |
+| Fetch without options, including after a family update | Preserves full-content behavior and available family/part metadata; filtered pages are not used to verify family updates. |
 
 ### Company-context acceptance scenarios
 
