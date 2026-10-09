@@ -11,7 +11,11 @@ Read the [strategy playbook](references/strategy-playbook.md) when developing or
 
 ## Establish the brief and available context
 
-Start with the connected organisation and the user's existing context. If needed organisation context is absent from startup instructions, use `whoami` once; country, state and website may be absent in older connections. Do not infer company type from these fields. Establish the business decision, strategic area and intended outcome. A company-wide strategy, a product strategy and a technology strategy may coexist; do not force them into one document.
+Start with the user's existing evidence and establish which company, client or business unit the strategy concerns. Use `get_company_context` when available to recover the shared brief; `whoami` supplies account identity only. Settings and signup notes may be empty, placeholders or stale. Do not infer company type, industry, customers or differentiation from a country or website.
+
+Use the `company-context` skill when installed to assess and fill material background gaps within the same conversation. Otherwise use the available `get_company_context_template` guide. Read supplied material and current notes first, ask only what can change the strategic direction, and return to strategy once the context is adequate for the brief. A complete company profile is not a prerequisite for a scoped strategy. If tools are missing, work from the user's material and explain the evidence limits. Saving shared company notes requires its own intent and permission; a Strategy save does not update them.
+
+Establish the business decision, strategic area and intended outcome. A company-wide strategy, a product strategy and a technology strategy may coexist; do not force them into one document.
 
 Choose the entry path from the request. For new capture, retrieve `get_strategy_template` and follow its current interview guidance, readiness criteria, document voice, schema and saving procedure. For analysis or review, read the selected Strategy with `get_strategy`, resolving it with `list_strategies` only when needed. For a targeted update, read the selected Strategy and use the edit workflow. Reading and editing do not require the capture guide or a new interview. This skill owns evidence selection, strategic reasoning and the handoffs between these paths.
 
