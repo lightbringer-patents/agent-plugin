@@ -9,15 +9,18 @@ These interfaces address the same Strategy records. Choose from the tools and
 schemas advertised by this connection, not the host name or installed package
 version. Installing a skill does not make a tool available.
 
-Prefer each available asset operation for new work. If that operation or its
-required read contract is not advertised, use its available Strategy-specific
+Use each available asset operation for new work, including edits to existing
+Strategies. `create_strategy`, `edit_strategy`, `delete_strategy`,
+`list_strategies` and `get_strategy` are deprecated compatibility tools. Do not
+choose a deprecated tool when its replacement and required reads are usable.
+If the replacement operation or its required read contract is not advertised, use its available Strategy-specific
 counterpart before attempting the write. Retain that choice for the intended
 write. Errors, conflicts, denied access and uncertain responses are not signals
 to switch tool families and replay the request. Read back and reconcile first.
 Never create a duplicate Strategy to change interfaces; the user does not need to
 choose between them or migrate records.
 
-| Operation | Preferred when advertised | Compatibility path |
+| Operation | Preferred when advertised | Deprecated compatibility fallback |
 | --- | --- | --- |
 | Discover/read | `search` with `category: "strategy"` when that category is supported; `fetch` returning complete `asset` state | Available `list_strategies` and `get_strategy` |
 | Create | `create_asset` with `asset.type: "strategy"` and `asset.data` | `create_strategy` |
@@ -31,7 +34,8 @@ asset-edit read. New capture still uses `get_strategy_template`; its guide owns
 readiness and document content, while the chosen write tool's advertised schema
 owns the envelope. A guide example naming a legacy tool does not require using
 that interface when its asset counterpart and necessary reads are available.
-Publication stays on `set_strategy_publication` in both paths.
+`get_strategy_template` and `set_strategy_publication` are not deprecated.
+Capture guidance and publication continue to use them in both paths.
 
 ## Tool and skill dependencies
 
