@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "lightbringer",
-  "version": "5.2.0",
+  "version": "5.3.0",
   "description": "Capture company context and innovations, develop IP strategies, request patent preparation, respond to reviews, and review patent portfolios through Lightbringer.",
   "author": {
     "name": "Lightbringer AB",
@@ -96,7 +96,7 @@
         }
       },
       "publication": {
-        "release_notes": "Version 5.2.0 adds the company-context skill for a reusable shared business brief, with revision-aware saves requiring explicit intent, write consent and moderator rights. IP strategy uses that context within the same conversation. Patent portfolio guidance now supports focused section reads with source attribution and complete pagination, while retaining unfiltered reads for family verification. The six workflow skills use the tools advertised by the connected service."
+        "release_notes": "Version 5.3.0 updates Strategy guidance to prefer create_asset, update_asset and delete_asset when the connected tools and required read schemas support them. Discovery and reading use search and fetch when supported. Strategy-specific tools remain the compatibility path, with unchanged records and separate publication. The workflow handles partial tool availability, revision conflicts and uncertain write outcomes without replaying writes through another interface. Includes all six workflow skills, company-context capture and focused patent-section reads."
       }
     }
   }

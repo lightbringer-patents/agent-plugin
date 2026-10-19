@@ -2,7 +2,7 @@
 
 The draft source contains six workflow skills: `innovation-capture`, `patent-preparation`, `patent-review`, `patent-portfolio`, `ip-strategy` and `company-context`. Portfolio covers assignee discovery, single and portfolio imports, and patent family updates for saved own patents. Capture covers both inventor conversations and source exploration. Preparation ends with a confirmed preparation request; review handles Strategy, report and patent-draft feedback. Strategy connects business objectives and evidence to protection priorities and actions, with draft creation and revision-aware updates through the connected Strategy tools. General service orientation is supplied through MCP instructions and the README. Each skill contains its required references.
 
-## Strategy interface guidance — unreleased
+## Prepared Strategy update — portable 5.3.0 / Claude 1.6.0
 
 The next skill update selects the Strategy interface from advertised tools and
 schemas. It prefers shared asset operations when available and retains the
@@ -24,7 +24,7 @@ through the other interface. Test these paths in each supported host before
 claiming authenticated compatibility. Record package publication separately from
 MCP tool approval.
 
-## Prepared release — portable 5.2.0 / Claude 1.5.0
+## Company-context baseline — portable 5.2.0 / Claude 1.5.0
 
 This release adds company-context for a shared business brief and integrates it with IP strategy. Context capture follows the live guide; saves require explicit intent, write consent, moderator rights and the latest revision. Preserve unrelated notes and distinguish the connected organisation from an adviser's client. Portfolio guidance adds focused patent-section reads with source attribution, complete pagination and unfiltered family readback.
 
