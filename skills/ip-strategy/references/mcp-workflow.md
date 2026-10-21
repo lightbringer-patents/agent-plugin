@@ -22,13 +22,16 @@ choose between them or migrate records.
 
 | Operation | Preferred when advertised | Deprecated compatibility fallback |
 | --- | --- | --- |
-| Discover/read | `search` with `category: "strategy"` when that category is supported; `fetch` returning complete `asset` state | Available `list_strategies` and `get_strategy` |
+| Discover/read | `search` with `category: "strategy"` when that category is supported; `fetch` with advertised `include_asset: true`, returning complete `asset` state | Available `list_strategies` and `get_strategy` |
 | Create | `create_asset` with `asset.type: "strategy"` and `asset.data` | `create_strategy` |
 | Update | `update_asset` with the reference, revision and desired changes from a complete structured fetch | `get_strategy` followed by `edit_strategy` using its existing operation schema |
 | Delete | `delete_asset` with the resolved typed reference | `delete_strategy` |
 
 Use canonical references from results: asset tools use `report:<id>`; legacy tools
 use the corresponding bare Strategy ID. Do not invent a `strategy:` prefix.
+Request `include_asset: true` only when that input is advertised. Ordinary fetch
+responses preserve the existing content contract and do not provide asset state.
+If the opt-in input is unavailable, use the available Strategy-specific read.
 A plain-text fetch without `asset.data` and `asset.revision` is not a complete
 asset-edit read. New capture still uses `get_strategy_template`; its guide owns
 readiness and document content, while the chosen write tool's advertised schema
@@ -56,7 +59,7 @@ Related skills are conditional handoffs, not prerequisites for strategy discussi
 
 ## Resolve the intended record
 
-For an existing Strategy, resolve the user's identifier through the available discovery path and read the selected record. A complete asset fetch provides `asset.type`, `asset.id`, `asset.revision` and `asset.data` containing title and ordered Markdown sections with IDs. Fetch without patent-specific `include`, `mode` or `cursor` options for this state. If that structured read is unavailable, use `get_strategy` and its matching legacy edit contract. Follow search pagination where present; a first page is not a complete inventory.
+For an existing Strategy, resolve the user's identifier through the available discovery path and read the selected record. A complete asset fetch provides `asset.type`, `asset.id`, `asset.revision` and `asset.data` containing title and ordered Markdown sections with IDs. Request `include_asset: true` when advertised, without patent-specific `include`, `mode` or `cursor` options, for this state. If that structured read is unavailable, use `get_strategy` and its matching legacy edit contract. Follow search pagination where present; a first page is not a complete inventory.
 
 For a new Strategy, `get_strategy_template` supplies current capture guidance, readiness criteria, a creation schema and a fictional example. Follow the guide before capture and creation. Similar strategies can coexist, including multiple published strategies. Do not convert a request for a new product strategy into an update solely because a title looks similar. Clarify genuinely ambiguous create-versus-revise intent before writing.
 
@@ -68,7 +71,7 @@ Retain the confirmed ID and link for refinement. Creation saves a draft; it does
 
 ## Edit the same Strategy
 
-For `update_asset`, read complete structured state with `fetch` first. Supply the returned typed reference and revision, with `changes.title` and/or `changes.sections`. Omitted fields stay unchanged. A supplied sections array is the **complete desired ordered collection**: keep every section that must remain, preserve existing IDs, omit IDs only for new sections, and retain unchanged content. Omitting an existing ID deletes that section. Empty body text clears it; null is not a clearing instruction. Use the advertised limits and required fields.
+For `update_asset`, read complete structured state with `fetch` and the advertised `include_asset: true` option first. Supply the returned typed reference and revision, with `changes.title` and/or `changes.sections`. Omitted fields stay unchanged. A supplied sections array is the **complete desired ordered collection**: keep every section that must remain, preserve existing IDs, omit IDs only for new sections, and retain unchanged content. Omitting an existing ID deletes that section. Empty body text clears it; null is not a clearing instruction. Use the advertised limits and required fields.
 
 For the compatibility path, read `get_strategy`, then call `edit_strategy` with its bare `strategy_id`, revision and an atomic batch of advertised operations. Do not send asset fields to that tool or operation arrays to `update_asset`.
 
