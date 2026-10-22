@@ -24,6 +24,18 @@ through the other interface. Test these paths in each supported host before
 claiming authenticated compatibility. Record package publication separately from
 MCP tool approval.
 
+The service 4.18.3 candidate changes the nonblank-section patterns for both
+Strategy creation tools without changing their accepted content or permissions.
+It does not require another package version beyond the prepared 5.3.0 / 1.6.0
+updates. Before claiming acceptance, verify the intended service version and
+host tool definitions, then create a synthetic draft containing full paragraphs,
+multiline Markdown and Unicode text. Read back the saved text, perform a
+revision-checked edit and clean up the disposable record under explicit test
+authorization. Exercise both creation interfaces as separate test cases. A tool
+scan or schema-validation pass is not a substitute for these authenticated calls;
+do not shorten real content or replay a failed save through another interface to
+work around a rejection. Post-update host acceptance remains pending.
+
 ## Company-context baseline — portable 5.2.0 / Claude 1.5.0
 
 This release adds company-context for a shared business brief and integrates it with IP strategy. Context capture follows the live guide; saves require explicit intent, write consent, moderator rights and the latest revision. Preserve unrelated notes and distinguish the connected organisation from an adviser's client. Portfolio guidance adds focused patent-section reads with source attribution, complete pagination and unfiltered family readback.
