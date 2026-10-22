@@ -24,7 +24,7 @@ through the other interface. Test these paths in each supported host before
 claiming authenticated compatibility. Record package publication separately from
 MCP tool approval.
 
-The service 4.18.3 candidate changes the nonblank-section patterns for both
+Service 4.18.3 changes the nonblank-section patterns for both
 Strategy creation tools without changing their accepted content or permissions.
 It does not require another package version beyond the prepared 5.3.0 / 1.6.0
 updates. Before claiming acceptance, verify the intended service version and
@@ -34,7 +34,17 @@ revision-checked edit and clean up the disposable record under explicit test
 authorization. Exercise both creation interfaces as separate test cases. A tool
 scan or schema-validation pass is not a substitute for these authenticated calls;
 do not shorten real content or replay a failed save through another interface to
-work around a rejection. Post-update host acceptance remains pending.
+work around a rejection.
+
+On 2026-10-22, authenticated calls in a connected Codex session passed both
+creation interfaces as independent cases. Each draft preserved normal paragraphs,
+multiline Markdown and Unicode exactly on creation and revision-checked update.
+Both stale-revision attempts returned 409 without changing the saved state.
+Both disposable records were deleted, with subsequent reads returning 404.
+No Strategy was published and no patent service was requested. This closes the
+populated-content execution check for that session. It does not establish
+installation of this prepared package, model behavior with its skills, Claude
+execution acceptance, or package publication.
 
 ## Company-context baseline — portable 5.2.0 / Claude 1.5.0
 
