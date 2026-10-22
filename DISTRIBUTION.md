@@ -2,7 +2,51 @@
 
 The draft source contains six workflow skills: `innovation-capture`, `patent-preparation`, `patent-review`, `patent-portfolio`, `ip-strategy` and `company-context`. Portfolio covers assignee discovery, single and portfolio imports, and patent family updates for saved own patents. Capture covers both inventor conversations and source exploration. Preparation ends with a confirmed preparation request; review handles Strategy, report and patent-draft feedback. Strategy connects business objectives and evidence to protection priorities and actions, with draft creation and revision-aware updates through the connected Strategy tools. General service orientation is supplied through MCP instructions and the README. Each skill contains its required references.
 
-## Prepared release — portable 5.2.0 / Claude 1.5.0
+## Prepared Strategy update — portable 5.3.0 / Claude 1.6.0
+
+The next skill update selects the Strategy interface from advertised tools and
+schemas. It prefers shared asset operations when available and retains the
+Strategy-specific workflow otherwise. The two paths address the same records;
+publication stays separate. This guidance does not establish that the asset tools
+are available or approved in any host.
+
+Publish each host package under a new package version when ready; do not reuse a
+published version for these edits. Existing installations remain supported during
+review and migration. New-package publication alone is not evidence that those
+installations have upgraded. Any later retirement of Strategy-specific tools
+requires a separate compatibility notice and support window.
+
+Validate an existing package with the compatibility tools, the updated skills
+with only legacy tools, and the updated skills with both interfaces. In the mixed
+case, check that the assistant selects the available asset operation, preserves
+record identity and permissions, and does not retry failed or uncertain writes
+through the other interface. Test these paths in each supported host before
+claiming authenticated compatibility. Record package publication separately from
+MCP tool approval.
+
+Service 4.18.3 changes the nonblank-section patterns for both
+Strategy creation tools without changing their accepted content or permissions.
+It does not require another package version beyond the prepared 5.3.0 / 1.6.0
+updates. Before claiming acceptance, verify the intended service version and
+host tool definitions, then create a synthetic draft containing full paragraphs,
+multiline Markdown and Unicode text. Read back the saved text, perform a
+revision-checked edit and clean up the disposable record under explicit test
+authorization. Exercise both creation interfaces as separate test cases. A tool
+scan or schema-validation pass is not a substitute for these authenticated calls;
+do not shorten real content or replay a failed save through another interface to
+work around a rejection.
+
+On 2026-10-22, authenticated calls in a connected Codex session passed both
+creation interfaces as independent cases. Each draft preserved normal paragraphs,
+multiline Markdown and Unicode exactly on creation and revision-checked update.
+Both stale-revision attempts returned 409 without changing the saved state.
+Both disposable records were deleted, with subsequent reads returning 404.
+No Strategy was published and no patent service was requested. This closes the
+populated-content execution check for that session. It does not establish
+installation of this prepared package, model behavior with its skills, Claude
+execution acceptance, or package publication.
+
+## Company-context baseline — portable 5.2.0 / Claude 1.5.0
 
 This release adds company-context for a shared business brief and integrates it with IP strategy. Context capture follows the live guide; saves require explicit intent, write consent, moderator rights and the latest revision. Preserve unrelated notes and distinguish the connected organisation from an adviser's client. Portfolio guidance adds focused patent-section reads with source attribution, complete pagination and unfiltered family readback.
 
@@ -32,7 +76,7 @@ Public discovery confirmed the Lightbringer MCP innovation tools and four prompt
 
 The packages use the renamed innovation tools, including `register_innovation` and `request_patent_preparation`. Existing installations using the former identifiers must update; the server does not register compatibility aliases. The standalone MCP validation tool has been removed: registration validates before saving and returns non-blocking warnings with the saved record. The preparation action is `request_patent_preparation`, and its MCP prompt is `request-patent-preparation` with only an innovation selector. Update saved tool and prompt references when installing the new packages. Preparation requests do not require automated feedback, an interview or revisions first.
 
-The automated-feedback tools are `start_innovation_feedback` and `get_task_status`, with prompt `start-innovation-feedback`. Update saved references to the old feedback/status identifiers and ticket argument. The public status input is `task_id`, and one ID covers the entire feedback run. Both tools share `status`, `progress` and per-analysis `results`; partial success is terminal. Findings use readable `title`/`description` fields and documented analysis names. Report `findings_error` as unavailable findings, without retrying terminal tasks. Both tools are annotated non-read-only and available under read consent: starting dispatches analysis; status retrieval persists refreshed status and findings. Preparation returns `outcome: requested | already_requested` and no task ID. The MCP surface has no old-tool aliases.
+The automated-feedback tools are `start_innovation_feedback` and `get_task_status`, with prompt `start-innovation-feedback`. Update saved references to the old feedback/status identifiers and ticket argument. The public status input is `task_id`, and one ID covers the entire feedback run. Both tools share `status`, `progress` and per-analysis `results`; partial success is terminal. Findings use readable `title`/`description` fields and documented analysis names. Report `findings_error` as unavailable findings, without retrying terminal tasks. Both tools are annotated non-read-only and available under read consent: starting dispatches analysis; status retrieval persists refreshed status and findings. Preparation returns `outcome: requested | already_requested` and no task ID. Those retired feedback identifiers have no compatibility aliases.
 
 ## Build
 
