@@ -1,6 +1,25 @@
 # Distribution and validation
 
-The draft source contains six workflow skills: `innovation-capture`, `patent-preparation`, `patent-review`, `patent-portfolio`, `ip-strategy` and `company-context`. Portfolio covers assignee discovery, single and portfolio imports, and patent family updates for saved own patents. Capture covers both inventor conversations and source exploration. Preparation ends with a confirmed preparation request; review handles Strategy, report and patent-draft feedback. Strategy connects business objectives and evidence to protection priorities and actions, with draft creation and revision-aware updates through the connected Strategy tools. General service orientation is supplied through MCP instructions and the README. Each skill contains its required references.
+The draft source contains seven workflow skills: `innovation-capture`, `patent-preparation`, `patent-review`, `patent-portfolio`, `ip-strategy`, `company-context` and `trade-secrets`. Portfolio covers assignee discovery, single and portfolio imports, and patent family updates for saved own patents. Capture covers both inventor conversations and source exploration. Preparation ends with a confirmed preparation request; review handles Strategy, report and patent-draft feedback. Strategy connects business objectives and evidence to protection priorities and actions, with draft creation and revision-aware updates through the connected Strategy tools. General service orientation is supplied through MCP instructions and the README. Each skill contains its required references.
+
+## Prepared trade secret register update — portable 5.4.0 / Claude 1.7.0
+
+This update adds the `trade-secrets` skill. It explains trade secrets, how they
+differ from patents and the Keep confidential decision, and how the register's
+entries, statuses, access grants and declared parties work. With
+`list_trade_secrets` it lists the register entries the user can open, as index
+rows without entry content. The tool requires the optional `mcp:trade-secrets`
+scope, which is never granted by default, and the organisation must allow
+listing its register in AI assistants. The other six skills are unchanged.
+
+Publish only once `list_trade_secrets` and the optional scope are available
+from the live service and advertised to the host. Before claiming acceptance,
+verify with an authenticated connection that lacks the optional scope that the
+tool is absent and the skill explains how to grant it. With the scope, verify
+listing and paging as a Moderator and as a member with an access grant, an
+empty list for a member without grants, and the unavailable response when the
+organisation has not allowed listing. Confirm that responses never contain
+entry content and that the assistant does not infer content from titles.
 
 ## Prepared Strategy update — portable 5.3.0 / Claude 1.6.0
 
