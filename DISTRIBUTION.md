@@ -8,14 +8,15 @@ This update adds the `trade-secrets` skill. It explains trade secrets, how they
 differ from patents and the Keep confidential decision, and how the register's
 entries, statuses, access grants and declared parties work. With
 `list_trade_secrets` it lists the register entries the user can open, as index
-rows without entry content. The tool requires the optional `mcp:trade-secrets`
-scope, which is never granted by default, and the organisation must allow
-listing its register in AI assistants. The other six skills are unchanged.
+rows without entry content. The tool requires the `mcp:trade-secrets` scope,
+which clients that request every supported scope ask for at sign-in, and the
+organisation must allow listing its register in AI assistants. The other six
+skills are unchanged.
 
-Publish only once `list_trade_secrets` and the optional scope are available
-from the live service and advertised to the host. Before claiming acceptance,
-verify with an authenticated connection that lacks the optional scope that the
-tool is absent and the skill explains how to grant it. With the scope, verify
+Publish only once `list_trade_secrets` and the scope are available from the
+live service and advertised to the host. Before claiming acceptance, verify that
+a new connection receives the scope, and that a connection without it lacks the
+tool while the skill explains how to add it. With the scope, verify
 listing and paging as a Moderator and as a member with an access grant, an
 empty list for a member without grants, and the unavailable response when the
 organisation has not allowed listing. Confirm that responses never contain

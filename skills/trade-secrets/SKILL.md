@@ -33,7 +33,7 @@ Use `list_trade_secrets` when the connection advertises it. It returns up to 25 
 - The listing shows only the entries the user can open: every entry for a Moderator, otherwise the entries they hold an access grant to. References can therefore have gaps, and the list can be shorter than the register table some roles see in Lightbringer.
 - An empty list means there is nothing the user can open. It is not evidence that the organisation holds no trade secrets.
 - If the tool reports that no register is available, the organisation does not use the register or has not allowed listing it in AI assistants. An organisation moderator controls this in Lightbringer's settings.
-- If `list_trade_secrets` is not advertised, or the tool reports missing permission, the connection was not granted the optional trade secret register permission, `mcp:trade-secrets`. It is never granted by default. The user can reconnect Lightbringer and approve it separately at sign-in, where the host requests it.
+- If `list_trade_secrets` is not advertised, or the tool reports missing permission, the connection does not hold the trade secret register permission, `mcp:trade-secrets`. Connections made before it was available, or by clients that request only some permissions, lack it. The user can remove the Lightbringer connection and add it again to grant it at sign-in.
 - If the tool reports too many requests, wait a minute before listing again.
 
 The listing contains no descriptions, frozen content, attachments, owners, access grants, declared parties or history. To read an entry, the user opens it in Lightbringer. The connector cannot register, edit or un-register entries, grant access or declare parties; a Moderator does that in Lightbringer.
