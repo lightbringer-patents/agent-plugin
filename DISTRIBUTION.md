@@ -1,6 +1,27 @@
 # Distribution and validation
 
-The draft source contains six workflow skills: `innovation-capture`, `patent-preparation`, `patent-review`, `patent-portfolio`, `ip-strategy` and `company-context`. Portfolio covers assignee discovery, single and portfolio imports, and patent family updates for saved own patents. Capture covers both inventor conversations and source exploration. Preparation ends with a confirmed preparation request; review handles Strategy, report and patent-draft feedback. Strategy connects business objectives and evidence to protection priorities and actions, with draft creation and revision-aware updates through the connected Strategy tools. General service orientation is supplied through MCP instructions and the README. Each skill contains its required references.
+The draft source contains seven workflow skills: `setup`, `innovation-capture`, `patent-preparation`, `patent-review`, `patent-portfolio`, `ip-strategy` and `company-context`. Portfolio covers assignee discovery, single and portfolio imports, and patent family updates for saved own patents. Capture covers both inventor conversations and source exploration. Preparation ends with a confirmed preparation request; review handles Strategy, report and patent-draft feedback. Strategy connects business objectives and evidence to protection priorities and actions, with draft creation and revision-aware updates through the connected Strategy tools. General service orientation is supplied through MCP instructions and the README. Each skill contains its required references.
+
+## Prepared onboarding update — portable 5.4.0 / Claude 1.7.0
+
+The setup skill introduces Lightbringer, establishes the current situation and
+uses the Strategy workflow to save an authorised first plan. The OpenAI extension
+declares `onboardingSkill` and puts getting started first in `defaultPrompt`.
+The three starter prompts cover getting started, innovation capture and portfolio
+priorities, in that order. The listing description also gives examples for
+Strategy creation, company context, public patent research, description feedback,
+patent preparation and review collaboration. These are entry points, not promises
+that the required records or permissions already exist. OpenAI permits up to three
+starter prompts of 128 characters each; see the [listing metadata reference](https://developers.openai.com/plugins/deploy/submission#listing-metadata).
+
+Run Setup is host-controlled; OAuth connection alone does not establish that it
+has run. Test both fresh setup and installation during an existing conversation.
+
+Validate novice, existing external portfolio, returning-user and specific-task
+cases, including save permission and unavailable tools. Conversation tests do not
+verify ChatGPT/Codex installation, entry-point rendering or automatic skill selection
+in those hosts. Verify these separately before publishing. The first plan may
+precede imports; detailed portfolio conclusions still need substantive evidence.
 
 ## Prepared Strategy update — portable 5.3.0 / Claude 1.6.0
 
