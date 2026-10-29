@@ -23,4 +23,4 @@ Refinement is optional. Offer it only when the user asks for it or the service r
 
 A recorded preparation request does not establish that a separate invention disclosure was created, a paid engagement was accepted or a patent was filed. Report those outcomes only if the service explicitly confirms them. Payment and acceptance steps require a human handoff.
 
-For a subsequent review from the patent team, use `patent-review` when installed or the connected review guidance. General advice, strategy, novelty assessments and other professional-service requests are outside this workflow; use the service's available instructions and continuation routes.
+For a subsequent review from the patent team, follow the connected review guidance. General advice, strategy, novelty assessments and other professional-service requests are outside this workflow; use the service's available instructions and continuation routes.

@@ -14,7 +14,6 @@
   "keywords": [
     "innovations",
     "patents",
-    "patent-review",
     "patent-portfolio",
     "lightbringer",
     "ip-strategy",
@@ -64,10 +63,10 @@
               "expected_behavior": "Uses the patent-preparation skill. Resolves and reads the selected innovation, then records the explicit preparation request without requiring automated feedback, a completeness interview, revisions, or confirmation of the same decision again. Reports the first transition and repeat no-op accurately. Describes preparation as requested, without claiming preparation completed, a patent was filed, a payment was made, or notification email delivery was confirmed. If the service blocks the request, reports the specific blocker and offers the relevant next step. Reports outcome=requested on the first request and outcome=already_requested on repetition, retaining the innovation ID/link. No task_id is returned and get_task_status is not used for this service lifecycle. Explains notifications to the assigned specialist and submitter, with the organisation primary contact copied when applicable."
             },
             {
-              "description": "Collaborate on a seeded open review with a document, comment thread and authorised participant; repeat with a Strategy review and a creator-visible review. Exercise quote ambiguity without guessing.",
-              "prompt": "Open my pending adaptive-separator review and show me its document and discussion. Add the comment “Please explain the pressure threshold” to the passage about pressure measurement, asking me to choose if the quote is ambiguous. Reply to the existing sensor-placement thread: “The sensor sits upstream of the separator.” Add a general discussion comment: “Please check the control-loop explanation.” Then record my response as requesting changes, with the message “Please address these comments before approval.”",
-              "tools_triggered": "list_reviews, get_review, add_comment, reply_to_comment, add_discussion_comment, respond_to_review",
-              "expected_behavior": "Uses the patent-review skill. Retrieves the actual review and available document, resolves ambiguous quotes before posting, adds the requested comments and reply, and records request_changes; accurately reflects notification effects and never marks the review approved. Preserves strategy, report and document targets and the returned record references. Reads creator-visible reviews without assuming write permission. Keeps the exact approved response within 2,000 characters and explains that approval cannot be withdrawn through the tool; never silently truncates an approved message."
+              "description": "Enrich an existing registered innovation with a targeted update, then recover and read a feedback task whose ID was lost. Seed an adaptive-separator disclosure with one completed automated-feedback run and no pending professional request.",
+              "prompt": "Open my adaptive-separator innovation. Update only its further details to add: the purge interval is adjusted between 30 and 120 seconds based on the measured pressure drop. Keep everything else as it is. Then find the feedback run I started earlier on this innovation; I lost its ID. Show me its status and findings without starting a new analysis.",
+              "tools_triggered": "list_innovations, get_innovation, update_innovation, list_tasks, get_task_status",
+              "expected_behavior": "Uses the innovation-capture skill. Reads the current record before editing, sends complete replacement text for only the further-details section using the tool's section names, and preserves the other sections unchanged. Inspects each section's applied or error result and reports any unsaved change; does not re-register the record to validate the update. Recovers the task through list_tasks filtered by the innovation, following next_cursor if a page is empty, and reads it with get_task_status using the recovered task_id. Reports the recorded status and findings as automated analysis, not a novelty search or professional assessment, and does not start a new feedback run, request preparation or delete the task."
             },
             {
               "description": "Use patent-portfolio to discover and import a third-party publication, then separately refresh a seeded own-patent family. Provide import permission, provider availability and two related saved own patents, one titled Portfolio family test A. Seed saved claims long enough to require multiple retrieval pages.",

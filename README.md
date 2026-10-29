@@ -4,12 +4,11 @@ Work with [Lightbringer's patent service](https://lightbringer.com) from your AI
 
 ## Included
 
-The package includes six workflow skills. Patent discovery uses `search_public_patents`; `import_patent` saves publications and automatically attempts family grouping for own patents. `refresh_patent_family` supports targeted updates to saved families when needed. Use the tools available in the connected MCP catalog.
+The package includes five workflow skills. Patent discovery uses `search_public_patents`; `import_patent` saves publications and automatically attempts family grouping for own patents. `refresh_patent_family` supports targeted updates to saved families when needed. Use the tools available in the connected MCP catalog.
 
 - **MCP connector:** `https://mcp.lightbringer.com/mcp`, with OAuth and organisation-scoped access.
 - **innovation-capture:** identify, register and enrich innovations from a conversation, inventor interview or authorised source exploration.
 - **patent-preparation:** request preparation of a selected innovation for patent filing and report the confirmed status and next steps. Refinement is optional; an explicit request does not require an automated feedback or revision cycle.
-- **patent-review:** read and respond to Lightbringer Strategy, report and patent-draft reviews, including comments, discussion and formal responses.
 - **patent-portfolio:** review saved applications and patent families, read selected patent sections, compare with public publications, carry out authorised imports or family updates, and read back the results. Structured family overviews depend on the connected service; family grouping does not update patent text or legal status.
 - **company-context:** establish and maintain a shared company brief from conversation and evidence, for use across patent workflows. Context reads and saves depend on the connected tools; saves require moderator rights.
 - **ip-strategy:** develop and revise an actionable company, product or technology strategy, connecting business objectives, evidence, protection options and next actions. Save and maintain a Strategy through the connected tools when available; publication is a separate explicit action.
@@ -30,7 +29,7 @@ Tasks and findings expire 30 days after creation; reading does not consume them 
 
 The connector uses OAuth 2.1 (Authorization Code + PKCE, S256) with Dynamic Client Registration. The server advertises its authorization server via RFC 9728 protected-resource metadata (`/.well-known/oauth-protected-resource`); on first use, clients prompt you to sign in to Lightbringer. Supported scopes are `mcp:read` and `mcp:write`.
 
-Tool-issue reports through `send_developer_feedback` require write consent and explicit approval of the report fields after explaining the engineering Slack recipient. The user cannot view that channel. Reports exclude confidential content and receive no automatic account or client metadata; they are separate from patent-review comments.
+Tool-issue reports through `send_developer_feedback` require write consent and explicit approval of the report fields after explaining the engineering Slack recipient. The user cannot view that channel. Reports exclude confidential content and receive no automatic account or client metadata; they are separate from review comments on Lightbringer documents.
 
 Install the skills-plus-MCP plugin through a supported host distribution channel, then complete the host's OAuth flow. Select the Lightbringer organisation you want to connect; existing record permissions still apply. Never paste passwords or access tokens into chat. If connection is blocked, follow the account or organisation remedy shown by the host.
 
