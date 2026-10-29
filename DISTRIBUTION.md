@@ -432,3 +432,26 @@ skill behavior from the existing server guidance.
 | “Has this already been requested?” after an uncertain request result | Reconciles available evidence before retrying or directing resubmission; does not claim success or failure without confirmation. |
 | “What next for our portfolio?” | Offers relevant portfolio/strategy paths based on context without defaulting to filing, ordering management services or claiming monitoring is configured. |
 
+
+## Prepared trade secret register update — portable 5.4.0 / Claude 1.7.0
+
+This update adds the `trade-secrets` skill. It explains trade secrets, how they
+differ from patents, and how the register's entries, statuses, access grants and
+declared parties work. With `list_trade_secrets` it lists the register entries
+the user can open, as index rows without entry content. The tool requires the `mcp:trade-secrets` scope,
+which clients that request every supported scope ask for at sign-in, and the
+organisation must allow listing its register in AI assistants. The other six
+skills are unchanged.
+
+Publish only once `list_trade_secrets` and the scope are available from the
+live service and advertised to the host. Before claiming acceptance, verify that
+a new connection receives the scope. Without the scope, check both cases: the
+host does not offer the tool, and the host offers it to a connection that lacks
+the scope. In each case the assistant must describe the permission accurately
+and must not promise that reconnecting makes the tool appear. With the scope,
+verify listing and paging as a Moderator and as a member with an access grant,
+an empty list for a member without grants, the unavailable response when the
+organisation has not allowed listing, and the contact message for an
+organisation without the register. Confirm that responses never contain entry
+content and that the assistant does not infer content from titles.
+

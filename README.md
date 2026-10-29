@@ -18,6 +18,7 @@ The package includes nine workflow skills. Patent discovery uses `search_public_
 - **patent-portfolio:** review saved applications and patent families, read selected patent sections, compare with public publications, carry out authorised imports or family updates, and read back the results. Structured family overviews depend on the connected service; family grouping does not update patent text or legal status.
 - **company-context:** establish and maintain a shared company brief from conversation and evidence, for use across patent workflows. Context reads and saves depend on the connected tools; saves require moderator rights.
 - **ip-strategy:** develop and revise an actionable company, product or technology strategy, connecting business objectives, evidence, protection options and next actions. Save and maintain a Strategy through the connected tools when available; publication is a separate explicit action.
+- **trade-secrets:** explain trade secrets, how they differ from patents, and how the trade secret register works. With the `mcp:trade-secrets` scope and where the organisation allows it, list the register entries the user can open by reference, title, status and dates, without entry content. Where the organisation does not have the register, explain how to add it.
 
 MCP startup guidance supplies service-wide rules and entry points. The [navigation skill](skills/lightbringer-navigation/SKILL.md) adds contextual orientation and a general patent-process reference without replacing specialist requirements or confirming live capability availability. Tool descriptions define individual operations. Live capture guides own the interview, readiness and creation schema; skills coordinate evidence, decisions and handoffs. MCP prompts are optional task starters, including explicit requests to capture and save. Natural-language requests do not require selecting a prompt. Reading or making a targeted update to a saved record does not require restarting capture.
 
@@ -33,7 +34,7 @@ Tasks and findings expire 30 days after creation; reading does not consume them 
 
 ## Connect and use
 
-The connector uses OAuth 2.1 (Authorization Code + PKCE, S256) with Dynamic Client Registration. The server advertises its authorization server via RFC 9728 protected-resource metadata (`/.well-known/oauth-protected-resource`); on first use, clients prompt you to sign in to Lightbringer. Supported scopes are `mcp:read` and `mcp:write`.
+The connector uses OAuth 2.1 (Authorization Code + PKCE, S256) with Dynamic Client Registration. The server advertises its authorization server via RFC 9728 protected-resource metadata (`/.well-known/oauth-protected-resource`); on first use, clients prompt you to sign in to Lightbringer. Supported scopes are `mcp:read`, `mcp:write` and `mcp:trade-secrets`, which allows listing the trade secret register. Clients that request every supported scope ask for it at sign-in. The sign-in screen lists it on its own line, and approving the sign-in grants all requested permissions together. Connections made before it was available may not include it. Some clients ask you to sign in again when a tool needs it; otherwise remove the Lightbringer connection and add it again.
 
 When supported by the connected tool, `send_developer_feedback` can report tool issues or customer problems the available assistance could not resolve. Reports describe the desired outcome, help provided and remaining obstacle, without prescribing solutions. Sending requires write consent and explicit approval of the report fields after explaining the engineering Slack recipient. The user cannot view that channel. Reports exclude confidential content and receive no automatic account or client metadata; they are separate from patent-review comments and professional service requests.
 
@@ -56,6 +57,7 @@ Try:
 - “Check for new publications and update the patent families in our saved portfolio.”
 - “Use our launch brief and saved innovations to build and save an IP strategy for this product.”
 - “Update our existing strategy for the changed target market, preserving the other priorities.”
+- “Which trade secret register entries can I open, and which are not yet assessed?”
 
 ## Packaging and publication
 

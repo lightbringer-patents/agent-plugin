@@ -37,6 +37,7 @@ class SubmissionTests(unittest.TestCase):
             {
                 "skills/setup/SKILL.md",
                 "skills/novelty-exploration/SKILL.md",
+                "skills/trade-secrets/SKILL.md",
                 "skills/company-context/SKILL.md",
                 "skills/innovation-capture/SKILL.md",
                 "skills/ip-strategy/SKILL.md",
