@@ -12,7 +12,7 @@ An opening grounded in existing context might be: “The launch brief identifies
 
 ## Establish the current position
 
-Build the portfolio baseline from records already saved in Lightbringer and recommend importing existing patents and applications that are missing before strategy development. Use authorised imports to make the portfolio available as shared context, then read the records relevant to the strategic area. Importing records is separate from engaging Lightbringer for portfolio management.
+Build the portfolio baseline from relevant available records and what the user reports, distinguishing the two. Recommend importing missing patents and applications when needed for the decision, without making a complete import a prerequisite for an initial plan. That plan can prioritise evidence gathering; substantive coverage or portfolio decisions need the relevant records. Use authorised imports to make them shared context. Importing records is separate from engaging Lightbringer for portfolio management.
 
 Read enough evidence to understand what the user has, what matters commercially and what is still uncertain. Useful sources may include existing strategies, substantive disclosures, saved patents and applications, engineering material, launch plans, meeting decisions and the user's account of existing arrangements.
 

@@ -1,6 +1,55 @@
 # Distribution and validation
 
-The draft source contains six workflow skills: `innovation-capture`, `patent-preparation`, `patent-review`, `patent-portfolio`, `ip-strategy` and `company-context`. Portfolio covers assignee discovery, single and portfolio imports, and patent family updates for saved own patents. Capture covers both inventor conversations and source exploration. Preparation ends with a confirmed preparation request; review handles Strategy, report and patent-draft feedback. Strategy connects business objectives and evidence to protection priorities and actions, with draft creation and revision-aware updates through the connected Strategy tools. General service orientation is supplied through MCP instructions and the README. Each skill contains its required references.
+The prepared package contains nine workflow skills: `setup`, `lightbringer-navigation`, `novelty-exploration`, `innovation-capture`, `patent-preparation`, `patent-portfolio`, `ip-strategy`, `company-context` and `trade-secrets`. Each skill includes its references. Review collaboration remains available through connected tools and guidance; the standalone patent-review skill is removed.
+
+## Prepared package update — portable 5.4.0 / Claude 1.7.0
+
+The setup skill introduces Lightbringer, establishes the current situation and
+uses the Strategy workflow to save an authorised first plan. The OpenAI extension
+declares `onboardingSkill` and puts getting started first in `defaultPrompt`.
+The three starter prompts cover getting started, innovation capture and portfolio
+priorities, in that order. The listing description also gives examples for
+Strategy creation, company context, public patent research, description feedback,
+patent preparation and review collaboration. These are entry points, not promises
+that the required records or permissions already exist. OpenAI permits up to three
+starter prompts of 128 characters each; see the [listing metadata reference](https://developers.openai.com/plugins/deploy/submission#listing-metadata).
+
+Run Setup is host-controlled; OAuth connection alone does not establish that it
+has run. Test both fresh setup and installation during an existing conversation.
+
+Validate novice, existing external portfolio, returning-user and specific-task
+cases, including save permission and unavailable tools. Conversation tests do not
+verify ChatGPT/Codex installation, entry-point rendering or automatic skill selection
+in those hosts. Verify these separately before publishing. The first plan may
+precede imports; detailed portfolio conclusions still need substantive evidence.
+
+### Unresolved customer needs
+
+The prepared onboarding update now provides useful help before completing intake,
+then checks what still prevents the user from moving forward. All nine workflows
+share problem-focused feedback guidance: desired outcome, help provided and the
+remaining obstacle, with timing and alternatives only when established.
+
+Use the advertised feedback-tool scope. Older definitions limited to tool issues
+must not receive broader service needs. Reports require approval of their exact
+fields and the engineering Slack recipient; no new category, identifier or
+customer metadata is introduced. Delivery is not a service request or a promised
+resolution. These edits remain part of the unreleased 5.4.0 / 1.7.0 packages.
+
+Before claiming conversational acceptance, exercise these cases in each host:
+
+| Situation | Expected behaviour |
+| --- | --- |
+| User has an urgent outcome and partial help is possible | Gives useful progress early, identifies the remaining problem and offers an optional report without prescribing a feature. |
+| User is exploring with no deadline | Helps without manufacturing urgency or making a complete intake a prerequisite. |
+| Existing adviser, missing access or missing evidence | Uses relevant available help and describes the observed limitation; does not assert that the whole service lacks a capability. |
+| User proposes a feature without explaining its purpose | Recovers or clarifies the underlying problem without inventing the rationale or forwarding a solution proposal. |
+| User corrects a report, approves it, or declines | Shows the exact fields and recipient; sends only the approved version, or continues helping without sending or repeated prompting. |
+| Older tool definition, missing tool or read-only access | Keeps reporting within the advertised scope and permissions; does not reroute broader needs or claim receipt. |
+| Delivery failure or uncertain response | Reports the actual outcome, continues the task and does not automatically resend an uncertain report. |
+| Direct task or returning user | Uses the relevant workflow immediately and can report a material gap without restarting onboarding. |
+
+Structural package validation does not establish these conversational outcomes.
 
 ## Prepared Strategy update — portable 5.3.0 / Claude 1.6.0
 
@@ -323,3 +372,70 @@ Expected: Treats placeholders and signup-only notes as inadequate. Follows the l
 Prompt: We are an IP consultancy connected to our own Lightbringer workspace. Help draft a strategy for our client, Example Sensors. Do not change our company settings.
 
 Expected: Keeps the adviser/client distinction explicit. Uses client evidence within the strategy request and does not call update_company_context or overwrite the connected organisation’s notes. Missing context prompts only material questions, without blocking on profile completion.
+
+## Novelty exploration acceptance cases
+
+These are expected behaviours to verify in a host; they are not completed model tests.
+
+| Entry path | Expected behaviour |
+| --- | --- |
+| A new workspace; “Has anyone patented our solution?” with only a product goal | Select novelty-exploration and recommend optional guided innovation registration first. If the user chooses capture, use innovation-capture and resume from the description. If they prefer a small exploration, ask focused technical questions and search without requiring registration or an own portfolio. |
+| A technical explanation and named competitors; search only | Search mechanism variants as well as supported assignee names; distinguish summary matches from passage-backed comparisons. Retain coverage limits and make no imports. |
+| Search and import relevant findings explicitly authorised | Select a justified shortlist and use the competitor-import instructions in novelty-exploration directly. Save with competitor purpose, preserve receipts and warnings, and read back records. Handle conflicts and uncertain outcomes without changing purpose or refreshing own-patent families; no repeated approval for the agreed scope. |
+| User declines registration, or already has an innovation | Continue the requested small exploration without a capture gate or repeated registration suggestion; reuse an existing description and do not create a duplicate. |
+| No search matches, truncated results or provider failure | Distinguish each outcome, revisit terminology where useful, and avoid concluding novelty or completeness. |
+| User asks whether selling in a target market is safe | Preserve the commercial concern and explain that Lightbringer offers full novelty searches and FTO assessments through contact with sales. Offer a focused brief; do not claim clearance, sales contact or a confirmed engagement, or use patent preparation to order those services. |
+| Missing import access or incomplete patent text | Retain a linked shortlist and identify unavailable evidence or unsaved items; do not invent comparisons or saved records. |
+
+## Navigation in portable 5.4.0 / Claude 1.7.0
+
+`lightbringer-navigation` adds orientation, contextual next-step selection, a general patent-process reference using a Swedish baseline, and platform/team fallbacks. Specialist skills and live guides retain detailed workflow requirements; direct actions bypass unnecessary navigation. Preliminary patent research routes to the bundled `novelty-exploration` skill. Patent-preparation guidance explains team follow-up without assuming a paid plan, an assigned professional or immediate drafting. Package validation and host acceptance remain separate checks.
+
+### Navigation acceptance cases
+
+Run these as conversations with the intended package actually loaded. Record the
+skill and tool definitions exposed to the assistant, selected workflow, calls,
+visible answer and resulting record state. These expected outcomes are not passed
+host tests; package validation or wording checks cannot establish routing behavior.
+Use synthetic fixtures and do not execute a professional service request without
+explicit test authorisation. Include connector-only comparisons to distinguish
+skill behavior from the existing server guidance.
+
+| Case | Expected behavior |
+| --- | --- |
+| “What can Lightbringer help me with?” without a selected record | Gives a useful orientation without account lookups, a company interview or a fixed filing funnel. |
+| Saved innovation with open implementation questions; “Is this enough? What next?” | Reads the relevant record and guidance, distinguishes gaps from service blockers, explains preparation and optional refinement, and performs no save or preparation request. |
+| Continue with “I want Lightbringer to patent that innovation” | Carries the selection and intent into patent-preparation, explains its effects and acts without another navigation choice or mandatory feedback cycle. |
+| “Can I patent this?” versus an explicit preparation request | Does not turn a patentability/readiness question into consent. Clarifies only action-changing ambiguity and uses professional guidance for a patentability assessment. |
+| “What happens if I say begin patent preparation?” with unknown plan and no confirmed professional assignment | Explains that the request notifies the Lightbringer team, who will get back to the user before further work proceeds. Does not assume a paid plan, an assigned specialist or attorney, immediate assessment/drafting, or send a request from the hypothetical question. Keeps later professional stages conditional on follow-up and engagement. |
+| “Import this publication as a competitor reference” | Goes directly to patent-portfolio under the existing instruction; no orientation questionnaire or repeated decision. |
+| “What happens after filing?” with no case selected | Gives a general process explanation, keeps internal work general, separates Swedish and international routes and does not invent customer deadlines or live status. |
+| “What is happening with my application?” with no professional progress tool | Reads available evidence, preserves unknown progress, gives the actual record/platform link and team continuation; does not poll a preparation request as an automated task. |
+| “Please file this prosecution response”; no supported application workflow | Does not re-request preparation or claim submission. Preserves the response and selected application, explains the platform/team continuation and sends no unauthorised message. |
+| Selected specialist skill absent but suitable tools/guidance available; then required tools absent | Uses the available contracts in the first case; explains the concrete fallback in the second. Does not equate missing skills, missing tools and denied permission. |
+| Service rejects an authorised preparation request with a genuine blocker | Reports the actual blocker, retains the record and intent, and follows relevant guidance without creating a duplicate or converting optional suggestions into requirements. |
+| “Has this already been requested?” after an uncertain request result | Reconciles available evidence before retrying or directing resubmission; does not claim success or failure without confirmation. |
+| “What next for our portfolio?” | Offers relevant portfolio/strategy paths based on context without defaulting to filing, ordering management services or claiming monitoring is configured. |
+
+
+## Prepared trade secret register update — portable 5.4.0 / Claude 1.7.0
+
+This update adds the `trade-secrets` skill. It explains trade secrets, how they
+differ from patents, and how the register's entries, statuses, access grants and
+declared parties work. With `list_trade_secrets` it lists the register entries
+the user can open, as index rows without entry content. The tool requires the `mcp:trade-secrets` scope,
+which clients that request every supported scope ask for at sign-in, and the
+organisation must allow listing its register in AI assistants. It is included alongside the other eight skills in this package.
+
+Publish only once `list_trade_secrets` and the scope are available from the
+live service and advertised to the host. Before claiming acceptance, verify that
+a new connection receives the scope. Without the scope, check both cases: the
+host does not offer the tool, and the host offers it to a connection that lacks
+the scope. In each case the assistant must describe the permission accurately
+and must not promise that reconnecting makes the tool appear. With the scope,
+verify listing and paging as a Moderator and as a member with an access grant,
+an empty list for a member without grants, the unavailable response when the
+organisation has not allowed listing, and the contact message for an
+organisation without the register. Confirm that responses never contain entry
+content and that the assistant does not infer content from titles.
+

@@ -2,21 +2,26 @@
 
 Work with [Lightbringer's patent service](https://lightbringer.com) from your AI assistant. Lightbringer has qualified patent attorneys on its team providing advice, strategy assessment, novelty searches, FTO, drafting, filing and prosecution through professional engagements.
 
+To begin, ask: “Help me get started with Lightbringer and work out our next steps.” Hosts supporting the declared onboarding skill can offer **Run Setup**. A specific task can go straight to its workflow.
+
 ## Included
 
-The package includes six workflow skills. Patent discovery uses `search_public_patents`; `import_patent` saves publications and automatically attempts family grouping for own patents. `refresh_patent_family` supports targeted updates to saved families when needed. Use the tools available in the connected MCP catalog.
+The package includes nine workflow skills. Patent discovery uses `search_public_patents`; `import_patent` saves publications and automatically attempts family grouping for own patents. `refresh_patent_family` supports targeted updates to saved families when needed. Use the tools available in the connected MCP catalog.
 
 - **MCP connector:** `https://mcp.lightbringer.com/mcp`, with OAuth and organisation-scoped access.
+- **setup:** get oriented from your current IP situation and develop a practical first plan, saved as a draft Strategy when requested. No patent expertise is needed.
+- **novelty-exploration:** clarify a technical solution, explore related and competitor patents, and import selected references when authorised. Preliminary exploration does not establish novelty or freedom to operate.
+- **lightbringer-navigation:** explain relevant workflows and the patent process, choose a next step from current context and provide platform or team continuations when execution is unavailable.
 - **innovation-capture:** identify, register and enrich innovations from a conversation, inventor interview or authorised source exploration.
 - **patent-preparation:** request preparation of a selected innovation for patent filing and report the confirmed status and next steps. Refinement is optional; an explicit request does not require an automated feedback or revision cycle.
-- **patent-review:** read and respond to Lightbringer Strategy, report and patent-draft reviews, including comments, discussion and formal responses.
 - **patent-portfolio:** review saved applications and patent families, read selected patent sections, compare with public publications, carry out authorised imports or family updates, and read back the results. Structured family overviews depend on the connected service; family grouping does not update patent text or legal status.
 - **company-context:** establish and maintain a shared company brief from conversation and evidence, for use across patent workflows. Context reads and saves depend on the connected tools; saves require moderator rights.
 - **ip-strategy:** develop and revise an actionable company, product or technology strategy, connecting business objectives, evidence, protection options and next actions. Save and maintain a Strategy through the connected tools when available; publication is a separate explicit action.
+- **trade-secrets:** explain trade secrets, how they differ from patents, and how the trade secret register works. With the `mcp:trade-secrets` scope and where the organisation allows it, list the register entries the user can open by reference, title, status and dates, without entry content. Where the organisation does not have the register, explain how to add it.
 
-MCP startup guidance supplies service-wide rules and entry points. Tool descriptions define individual operations. Live capture guides own the interview, readiness and creation schema; skills coordinate evidence, decisions and handoffs. MCP prompts are optional task starters, including explicit requests to capture and save. Natural-language requests do not require selecting a prompt. Reading or making a targeted update to a saved record does not require restarting capture.
+MCP startup guidance supplies service-wide rules and entry points. The [navigation skill](skills/lightbringer-navigation/SKILL.md) adds contextual orientation and a general patent-process reference without replacing specialist requirements or confirming live capability availability. Tool descriptions define individual operations. Live capture guides own the interview, readiness and creation schema; skills coordinate evidence, decisions and handoffs. MCP prompts are optional task starters, including explicit requests to capture and save. Natural-language requests do not require selecting a prompt. Reading or making a targeted update to a saved record does not require restarting capture.
 
-Strategy authoring uses the tools advertised by the connected service. Use shared asset writes and search/fetch reads when their required contracts are available. The superseded Strategy CRUD tools are deprecated and retained only as compatibility fallbacks; capture guidance and publication tools remain supported. Both interfaces address the same records. The [Strategy workflow](skills/ip-strategy/references/mcp-workflow.md) lists the read, capture and write dependencies and the fallbacks when tools or related skills are missing. Company background comes from `get_company_context` when available. The company-context workflow fills material gaps without restarting the conversation. Startup instructions and `whoami` provide identity; their optional country, state and website do not establish a business profile or first-filing office. The assistant follows the current `get_strategy_template` guide, authors the document and uses revision-aware edits to preserve collaborators' changes. Importing the existing patent portfolio into Lightbringer is recommended to provide strategy context. Engaging Lightbringer to manage the portfolio is a separate service. See [distribution and validation](DISTRIBUTION.md) for package release status.
+Strategy authoring uses the tools advertised by the connected service. Use shared asset writes and search/fetch reads when their required contracts are available. The superseded Strategy CRUD tools are deprecated and retained only as compatibility fallbacks; capture guidance and publication tools remain supported. Both interfaces address the same records. The [Strategy workflow](skills/ip-strategy/references/mcp-workflow.md) lists the read, capture and write dependencies and the fallbacks when tools or related skills are missing. Company background comes from `get_company_context` when available. The company-context workflow fills material gaps without restarting the conversation. Startup instructions and `whoami` provide identity; their optional country, state and website do not establish a business profile or first-filing office. The assistant follows the current `get_strategy_template` guide, authors the document and uses revision-aware edits to preserve collaborators' changes. Import relevant existing patent records when they are needed for a decision. A first plan can identify the evidence to gather without waiting for a complete portfolio import. Engaging Lightbringer to manage the portfolio is a separate service. See [distribution and validation](DISTRIBUTION.md) for package release status.
 
 **Register first; prepare for patent filing when requested.** The current `register_innovation` tool saves an innovation description and completes registration. `request_patent_preparation` separately requests patent preparation. Capturing an idea or completing its innovation description does not request filing. Agents cannot make payments.
 
@@ -28,14 +33,18 @@ Tasks and findings expire 30 days after creation; reading does not consume them 
 
 ## Connect and use
 
-The connector uses OAuth 2.1 (Authorization Code + PKCE, S256) with Dynamic Client Registration. The server advertises its authorization server via RFC 9728 protected-resource metadata (`/.well-known/oauth-protected-resource`); on first use, clients prompt you to sign in to Lightbringer. Supported scopes are `mcp:read` and `mcp:write`.
+The connector uses OAuth 2.1 (Authorization Code + PKCE, S256) with Dynamic Client Registration. The server advertises its authorization server via RFC 9728 protected-resource metadata (`/.well-known/oauth-protected-resource`); on first use, clients prompt you to sign in to Lightbringer. Supported scopes are `mcp:read`, `mcp:write` and `mcp:trade-secrets`, which allows listing the trade secret register. Clients that request every supported scope ask for it at sign-in. The sign-in screen lists it on its own line, and approving the sign-in grants all requested permissions together. Connections made before it was available may not include it. Some clients ask you to sign in again when a tool needs it; otherwise remove the Lightbringer connection and add it again.
 
-Tool-issue reports through `send_developer_feedback` require write consent and explicit approval of the report fields after explaining the engineering Slack recipient. The user cannot view that channel. Reports exclude confidential content and receive no automatic account or client metadata; they are separate from patent-review comments.
+When supported by the connected tool, `send_developer_feedback` can report tool issues or customer problems the available assistance could not resolve. Reports describe the desired outcome, help provided and remaining obstacle, without prescribing solutions. Sending requires write consent and explicit approval of the report fields after explaining the engineering Slack recipient. The user cannot view that channel. Reports exclude confidential content and receive no automatic account or client metadata; they are separate from patent-review comments and professional service requests.
 
 Install the skills-plus-MCP plugin through a supported host distribution channel, then complete the host's OAuth flow. Select the Lightbringer organisation you want to connect; existing record permissions still apply. Never paste passwords or access tokens into chat. If connection is blocked, follow the account or organisation remedy shown by the host.
 
 Try:
 
+- “Help me get started with Lightbringer and work out our next steps.”
+- “Help me identify and capture potential innovations in what we're building.”
+- “Review our patent portfolio against our business priorities and identify what needs attention.”
+- “Help me establish our company background for future IP work.”
 - “Register the technical approach we just developed in Lightbringer. Keep open questions and do not request patent preparation.”
 - “Explore this project's technical work using our IP strategy. Register or enrich the potential innovations.”
 - “Add this implementation detail to our existing innovation.”
@@ -47,10 +56,11 @@ Try:
 - “Check for new publications and update the patent families in our saved portfolio.”
 - “Use our launch brief and saved innovations to build and save an IP strategy for this product.”
 - “Update our existing strategy for the changed target market, preserving the other priorities.”
+- “Which trade secret register entries can I open, and which are not yet assessed?”
 
 ## Packaging and publication
 
-Version 5.3.0 is prepared with six workflow skills and capability-aware Strategy authoring. It retains company-context capture, its integration with IP strategy, and focused patent-section retrieval. Authenticated acceptance and host publication remain separate steps; see [distribution and validation](DISTRIBUTION.md).
+Version 5.4.0 is prepared with nine workflow skills, conversational setup and capability-aware Strategy authoring. It retains company-context capture, its integration with IP strategy, and focused patent-section retrieval. Authenticated acceptance and host publication remain separate steps; see [distribution and validation](DISTRIBUTION.md).
 
 This is the canonical `skills/` source. [claude-plugin](https://github.com/lightbringer-patents/claude-plugin) mirrors the complete tree with Anthropic-specific metadata. Edit shared skills here first and verify both packages before release.
 
