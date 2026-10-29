@@ -50,3 +50,5 @@ Autonomy: comments post in the user's name, so nothing posts unapproved. Assembl
 ## Completion
 
 Summarise what was read, which approved comments or decisions were recorded, and anything still pending. Include the review link when supplied. A drafted response is not a posted response; comments do not constitute formal approval. For capture or enrichment outside the review, use `innovation-capture` when installed. A separate request to start patent preparation belongs to `patent-preparation`.
+
+If useful assistance leaves a material customer problem unresolved, follow the shared [unresolved-needs guidance](../setup/references/unresolved-needs.md) to understand and optionally report the remaining gap. Keep helping; reporting is not a prerequisite and requires approval of the exact report and recipient.

@@ -25,10 +25,17 @@ Explore the gaps that change the next decision, conversationally and in plain la
 
 - What the company is building or selling, and what matters commercially.
 - Why IP matters now and the outcome the user wants.
+- How this person handles the work today, which alternatives they have considered and what those approaches leave unresolved.
 - Existing ideas, confidential know-how, applications or patents, including those outside Lightbringer and work with existing advisers.
 - Relevant launches, disclosures, business deadlines and resource constraints.
 
 These are lenses, not required fields. Offer a brief useful interpretation as the picture emerges, then ask the most consequential follow-up. Avoid combining a long explanation, an intake checklist and several action offers in one reply. A novice may need a small investigation plan; an experienced user may need a portfolio decision framework. An empty search means no accessible saved records were found, not that the company has no IP. Do not require imports, a complete company profile or all these answers before helping.
+
+Use PULL as a reasoning lens: the person's project, why it is unavoidable now, their list of options and those options' limitations. Ask in everyday language and reuse known answers. Lack of urgency is a valid situation, not a reason to withhold help or manufacture a deadline. An existing adviser may already be the right option. Focus on the person's reason for seeking help; exploring demand for their own product is a separate strategy question.
+
+Give useful progress as soon as the immediate obstacle is clear: clarify a decision, interpret available evidence or outline an actionable next step before completing intake or saving a Strategy. Then check what remains unresolved, for example, “Does this let you move forward, or is something still missing?” Ask only when the answer is not already clear. If needed, clarify what they still cannot do or decide; do not ask them to design a feature. Continue helping with what can be resolved.
+
+When a material customer problem remains unresolved, follow the shared [unresolved-needs guidance](references/unresolved-needs.md). Reporting is optional and must not interrupt useful progress or become another onboarding requirement.
 
 If the user has already onboarded or supplies an existing Strategy, read the relevant record and continue from it. A new host connection does not reset company progress. Similar titles alone do not identify the record to revise.
 
@@ -39,6 +46,8 @@ Briefly reflect the understood situation and proposed priorities so the user can
 Load the `ip-strategy` skill before creating or revising a Strategy, and use it for strategic reasoning and document authoring. Carry forward the context and existing authorisation; do not restart its interview. When that skill is unavailable, use the advertised `get_strategy_template` guide and supported tool contracts. The live guide owns the creation schema and readiness criteria. Missing guidance or write permission is a limitation to explain, not a reason to claim a save or invent a contract.
 
 The Strategy should stand alone: describe the scope and business objective, the current IP position and evidence limits, the few priorities that matter and why, and concrete next actions with unresolved dependencies. Include owners or timing only when established. Its depth should match the situation; record unknowns that later work must resolve. Do not prescribe filings, portfolio abandonment or legal conclusions from a high-level intake.
+
+Carry the desired outcome, established timing, current approach and remaining obstacle into those existing sections where relevant. No PULL section or complete set of answers is required. Keep a proposed customer plan separate from any optional feedback report.
 
 A possible demo or launch raises a disclosure-timing question; it does not establish that a filing is needed or feasible. Frame the next decision and evidence needed, considering disclosure choices and qualified advice before proposing a filing route. Do not defer investigation of others' rights merely because protecting the user's own work sounds urgent. Avoid unsupported legal deadlines or procedural recipes; identify the specific question for qualified review.
 

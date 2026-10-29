@@ -96,7 +96,7 @@
         }
       },
       "publication": {
-        "release_notes": "Version 5.4.0 adds setup: an approachable introduction to Lightbringer, adaptive discovery of the company’s current IP situation and a practical first plan saved as a draft Strategy when requested. Setup uses existing context and hands off to the next relevant workflow without repeating the interview. A complete portfolio import is not required for an initial plan; deeper portfolio decisions remain evidence-based. Includes seven workflow skills. The three starter prompts now cover getting started, innovation capture and portfolio priorities, with further listing examples across the patent journey."
+        "release_notes": "Version 5.4.0 adds setup: an approachable introduction to Lightbringer, adaptive discovery of the company’s current IP situation and a practical first plan saved as a draft Strategy when requested. Setup uses existing context and hands off to the next relevant workflow without repeating the interview. It provides useful progress early and identifies what still prevents the customer from moving forward. All workflows can offer a problem-focused report of unresolved needs when the connected feedback tool supports it, with explicit report and recipient approval. A complete portfolio import is not required for an initial plan; deeper portfolio decisions remain evidence-based. Includes seven workflow skills. The three starter prompts now cover getting started, innovation capture and portfolio priorities, with further listing examples across the patent journey."
       },
       "onboardingSkill": "./skills/setup/SKILL.md"
     }

@@ -52,3 +52,5 @@ Read the saved portfolio first and retain the relevant record identities and fam
 ## Results
 
 Summarise newly imported and already-saved records, unresolved conflicts, failed or pending items, and any family updates. Include saved record links and actionable warnings. Describe the searched names and coverage limits so the user can judge what the search covered. A successful search or import does not establish a complete portfolio or verified current ownership.
+
+If useful assistance leaves a material customer problem unresolved, follow the shared [unresolved-needs guidance](../setup/references/unresolved-needs.md) to understand and optionally report the remaining gap. Keep helping; reporting is not a prerequisite and requires approval of the exact report and recipient.

@@ -23,6 +23,34 @@ verify ChatGPT/Codex installation, entry-point rendering or automatic skill sele
 in those hosts. Verify these separately before publishing. The first plan may
 precede imports; detailed portfolio conclusions still need substantive evidence.
 
+### Unresolved customer needs
+
+The prepared onboarding update now provides useful help before completing intake,
+then checks what still prevents the user from moving forward. All seven workflows
+share problem-focused feedback guidance: desired outcome, help provided and the
+remaining obstacle, with timing and alternatives only when established.
+
+Use the advertised feedback-tool scope. Older definitions limited to tool issues
+must not receive broader service needs. Reports require approval of their exact
+fields and the engineering Slack recipient; no new category, identifier or
+customer metadata is introduced. Delivery is not a service request or a promised
+resolution. These edits remain part of the unreleased 5.4.0 / 1.7.0 packages.
+
+Before claiming conversational acceptance, exercise these cases in each host:
+
+| Situation | Expected behaviour |
+| --- | --- |
+| User has an urgent outcome and partial help is possible | Gives useful progress early, identifies the remaining problem and offers an optional report without prescribing a feature. |
+| User is exploring with no deadline | Helps without manufacturing urgency or making a complete intake a prerequisite. |
+| Existing adviser, missing access or missing evidence | Uses relevant available help and describes the observed limitation; does not assert that the whole service lacks a capability. |
+| User proposes a feature without explaining its purpose | Recovers or clarifies the underlying problem without inventing the rationale or forwarding a solution proposal. |
+| User corrects a report, approves it, or declines | Shows the exact fields and recipient; sends only the approved version, or continues helping without sending or repeated prompting. |
+| Older tool definition, missing tool or read-only access | Keeps reporting within the advertised scope and permissions; does not reroute broader needs or claim receipt. |
+| Delivery failure or uncertain response | Reports the actual outcome, continues the task and does not automatically resend an uncertain report. |
+| Direct task or returning user | Uses the relevant workflow immediately and can report a material gap without restarting onboarding. |
+
+Structural package validation does not establish these conversational outcomes.
+
 ## Prepared Strategy update — portable 5.3.0 / Claude 1.6.0
 
 The next skill update selects the Strategy interface from advertised tools and
