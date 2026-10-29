@@ -1,8 +1,8 @@
 # Distribution and validation
 
-The draft source contains seven workflow skills: `setup`, `innovation-capture`, `patent-preparation`, `patent-review`, `patent-portfolio`, `ip-strategy` and `company-context`. Portfolio covers assignee discovery, single and portfolio imports, and patent family updates for saved own patents. Capture covers both inventor conversations and source exploration. Preparation ends with a confirmed preparation request; review handles Strategy, report and patent-draft feedback. Strategy connects business objectives and evidence to protection priorities and actions, with draft creation and revision-aware updates through the connected Strategy tools. General service orientation is supplied through MCP instructions and the README. Each skill contains its required references.
+The prepared package contains nine workflow skills: `setup`, `lightbringer-navigation`, `novelty-exploration`, `innovation-capture`, `patent-preparation`, `patent-portfolio`, `ip-strategy`, `company-context` and `trade-secrets`. Each skill includes its references. Review collaboration remains available through connected tools and guidance; the standalone patent-review skill is removed.
 
-## Prepared onboarding update — portable 5.4.0 / Claude 1.7.0
+## Prepared package update — portable 5.4.0 / Claude 1.7.0
 
 The setup skill introduces Lightbringer, establishes the current situation and
 uses the Strategy workflow to save an authorised first plan. The OpenAI extension
@@ -26,7 +26,7 @@ precede imports; detailed portfolio conclusions still need substantive evidence.
 ### Unresolved customer needs
 
 The prepared onboarding update now provides useful help before completing intake,
-then checks what still prevents the user from moving forward. All seven workflows
+then checks what still prevents the user from moving forward. All nine workflows
 share problem-focused feedback guidance: desired outcome, help provided and the
 remaining obstacle, with timing and alternatives only when established.
 
@@ -387,24 +387,9 @@ These are expected behaviours to verify in a host; they are not completed model 
 | User asks whether selling in a target market is safe | Preserve the commercial concern and explain that Lightbringer offers full novelty searches and FTO assessments through contact with sales. Offer a focused brief; do not claim clearance, sales contact or a confirmed engagement, or use patent preparation to order those services. |
 | Missing import access or incomplete patent text | Retain a linked shortlist and identify unavailable evidence or unsaved items; do not invent comparisons or saved records. |
 
-## Unreleased navigation skill
+## Navigation in portable 5.4.0 / Claude 1.7.0
 
-`lightbringer-navigation` adds broad orientation, contextual next-step selection,
-a general patent-process reference using a Swedish baseline, and platform/team
-fallbacks. Internal professional work stays general. Specialist skills and live
-guides retain detailed workflow requirements; direct actions bypass unnecessary
-navigation. Prior-art search is an optional route when a suitable workflow is
-installed; otherwise navigation uses available guidance or a team continuation.
-
-This is an unreleased source addition, not a package release or a verified host result.
-No MCP tool contracts or server instructions change. Patent-preparation guidance
-also clarifies the team follow-up before professional work proceeds, without
-assuming a paid plan or an assigned specialist or attorney.
-Older connections use their advertised tools and guidance, or a platform/team
-continuation. Existing packages remain supported. Before publishing, include the
-complete mirrored tree, select new package versions, update each host's listing,
-review cases and release notes, and follow the publication routes below. Remove
-or revise this unreleased status only after the corresponding release work.
+`lightbringer-navigation` adds orientation, contextual next-step selection, a general patent-process reference using a Swedish baseline, and platform/team fallbacks. Specialist skills and live guides retain detailed workflow requirements; direct actions bypass unnecessary navigation. Preliminary patent research routes to the bundled `novelty-exploration` skill. Patent-preparation guidance explains team follow-up without assuming a paid plan, an assigned professional or immediate drafting. Package validation and host acceptance remain separate checks.
 
 ### Navigation acceptance cases
 
@@ -440,8 +425,7 @@ differ from patents, and how the register's entries, statuses, access grants and
 declared parties work. With `list_trade_secrets` it lists the register entries
 the user can open, as index rows without entry content. The tool requires the `mcp:trade-secrets` scope,
 which clients that request every supported scope ask for at sign-in, and the
-organisation must allow listing its register in AI assistants. The other six
-skills are unchanged.
+organisation must allow listing its register in AI assistants. It is included alongside the other eight skills in this package.
 
 Publish only once `list_trade_secrets` and the scope are available from the
 live service and advertised to the host. Before claiming acceptance, verify that

@@ -42,3 +42,5 @@ If execution is unavailable, give the specific platform or team continuation des
 ## Finish
 
 Answer the user's question first. Summarise the relevant current state, available next action and any decision still needed, using existing links where helpful. If the user only wanted an explanation, finish there. If they authorised an action, continue into that workflow and report its actual result. State evidence or access limits when they affect the answer; do not infer live progress from a typical process stage or elapsed time.
+
+If useful assistance leaves a material customer problem unresolved, follow the shared [unresolved-needs guidance](../setup/references/unresolved-needs.md). Keep helping and obtain approval of the exact report and recipient before sending. Do not include confidential information, including register references or titles.
