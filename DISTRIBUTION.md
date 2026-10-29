@@ -386,3 +386,49 @@ These are expected behaviours to verify in a host; they are not completed model 
 | No search matches, truncated results or provider failure | Distinguish each outcome, revisit terminology where useful, and avoid concluding novelty or completeness. |
 | User asks whether selling in a target market is safe | Preserve the commercial concern and explain that Lightbringer offers full novelty searches and FTO assessments through contact with sales. Offer a focused brief; do not claim clearance, sales contact or a confirmed engagement, or use patent preparation to order those services. |
 | Missing import access or incomplete patent text | Retain a linked shortlist and identify unavailable evidence or unsaved items; do not invent comparisons or saved records. |
+
+## Unreleased navigation skill
+
+`lightbringer-navigation` adds broad orientation, contextual next-step selection,
+a general patent-process reference using a Swedish baseline, and platform/team
+fallbacks. Internal professional work stays general. Specialist skills and live
+guides retain detailed workflow requirements; direct actions bypass unnecessary
+navigation. Prior-art search is an optional route when a suitable workflow is
+installed; otherwise navigation uses available guidance or a team continuation.
+
+This is an unreleased source addition, not a package release or a verified host result.
+No MCP tool contracts or server instructions change. Patent-preparation guidance
+also clarifies the team follow-up before professional work proceeds, without
+assuming a paid plan or an assigned specialist or attorney.
+Older connections use their advertised tools and guidance, or a platform/team
+continuation. Existing packages remain supported. Before publishing, include the
+complete mirrored tree, select new package versions, update each host's listing,
+review cases and release notes, and follow the publication routes below. Remove
+or revise this unreleased status only after the corresponding release work.
+
+### Navigation acceptance cases
+
+Run these as conversations with the intended package actually loaded. Record the
+skill and tool definitions exposed to the assistant, selected workflow, calls,
+visible answer and resulting record state. These expected outcomes are not passed
+host tests; package validation or wording checks cannot establish routing behavior.
+Use synthetic fixtures and do not execute a professional service request without
+explicit test authorisation. Include connector-only comparisons to distinguish
+skill behavior from the existing server guidance.
+
+| Case | Expected behavior |
+| --- | --- |
+| “What can Lightbringer help me with?” without a selected record | Gives a useful orientation without account lookups, a company interview or a fixed filing funnel. |
+| Saved innovation with open implementation questions; “Is this enough? What next?” | Reads the relevant record and guidance, distinguishes gaps from service blockers, explains preparation and optional refinement, and performs no save or preparation request. |
+| Continue with “I want Lightbringer to patent that innovation” | Carries the selection and intent into patent-preparation, explains its effects and acts without another navigation choice or mandatory feedback cycle. |
+| “Can I patent this?” versus an explicit preparation request | Does not turn a patentability/readiness question into consent. Clarifies only action-changing ambiguity and uses professional guidance for a patentability assessment. |
+| “What happens if I say begin patent preparation?” with unknown plan and no confirmed professional assignment | Explains that the request notifies the Lightbringer team, who will get back to the user before further work proceeds. Does not assume a paid plan, an assigned specialist or attorney, immediate assessment/drafting, or send a request from the hypothetical question. Keeps later professional stages conditional on follow-up and engagement. |
+| “Import this publication as a competitor reference” | Goes directly to patent-portfolio under the existing instruction; no orientation questionnaire or repeated decision. |
+| “What happens after filing?” with no case selected | Gives a general process explanation, keeps internal work general, separates Swedish and international routes and does not invent customer deadlines or live status. |
+| “What is happening with my application?” with no professional progress tool | Reads available evidence, preserves unknown progress, gives the actual record/platform link and team continuation; does not poll a preparation request as an automated task. |
+| “Please file this prosecution response”; no supported application workflow | Does not re-request preparation or claim submission. Preserves the response and selected application, explains the platform/team continuation and sends no unauthorised message. |
+| Selected specialist skill absent but suitable tools/guidance available; then required tools absent | Uses the available contracts in the first case; explains the concrete fallback in the second. Does not equate missing skills, missing tools and denied permission. |
+| Service rejects an authorised preparation request with a genuine blocker | Reports the actual blocker, retains the record and intent, and follows relevant guidance without creating a duplicate or converting optional suggestions into requirements. |
+| “Has this already been requested?” after an uncertain request result | Reconciles available evidence before retrying or directing resubmission; does not claim success or failure without confirmation. |
+| “What next for our portfolio?” | Offers relevant portfolio/strategy paths based on context without defaulting to filing, ordering management services or claiming monitoring is configured. |
+

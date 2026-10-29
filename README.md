@@ -6,11 +6,12 @@ To begin, ask: “Help me get started with Lightbringer and work out our next st
 
 ## Included
 
-The package includes eight workflow skills. Patent discovery uses `search_public_patents`; `import_patent` saves publications and automatically attempts family grouping for own patents. `refresh_patent_family` supports targeted updates to saved families when needed. Use the tools available in the connected MCP catalog.
+The package includes nine workflow skills. Patent discovery uses `search_public_patents`; `import_patent` saves publications and automatically attempts family grouping for own patents. `refresh_patent_family` supports targeted updates to saved families when needed. Use the tools available in the connected MCP catalog.
 
 - **MCP connector:** `https://mcp.lightbringer.com/mcp`, with OAuth and organisation-scoped access.
 - **setup:** get oriented from your current IP situation and develop a practical first plan, saved as a draft Strategy when requested. No patent expertise is needed.
 - **novelty-exploration:** clarify a technical solution, explore related and competitor patents, and import selected references when authorised. Preliminary exploration does not establish novelty or freedom to operate.
+- **lightbringer-navigation:** explain relevant workflows and the patent process, choose a next step from current context and provide platform or team continuations when execution is unavailable.
 - **innovation-capture:** identify, register and enrich innovations from a conversation, inventor interview or authorised source exploration.
 - **patent-preparation:** request preparation of a selected innovation for patent filing and report the confirmed status and next steps. Refinement is optional; an explicit request does not require an automated feedback or revision cycle.
 - **patent-review:** read and respond to Lightbringer Strategy, report and patent-draft reviews, including comments, discussion and formal responses.
@@ -18,7 +19,7 @@ The package includes eight workflow skills. Patent discovery uses `search_public
 - **company-context:** establish and maintain a shared company brief from conversation and evidence, for use across patent workflows. Context reads and saves depend on the connected tools; saves require moderator rights.
 - **ip-strategy:** develop and revise an actionable company, product or technology strategy, connecting business objectives, evidence, protection options and next actions. Save and maintain a Strategy through the connected tools when available; publication is a separate explicit action.
 
-MCP startup guidance supplies service-wide rules and entry points. Tool descriptions define individual operations. Live capture guides own the interview, readiness and creation schema; skills coordinate evidence, decisions and handoffs. MCP prompts are optional task starters, including explicit requests to capture and save. Natural-language requests do not require selecting a prompt. Reading or making a targeted update to a saved record does not require restarting capture.
+MCP startup guidance supplies service-wide rules and entry points. The [navigation skill](skills/lightbringer-navigation/SKILL.md) adds contextual orientation and a general patent-process reference without replacing specialist requirements or confirming live capability availability. Tool descriptions define individual operations. Live capture guides own the interview, readiness and creation schema; skills coordinate evidence, decisions and handoffs. MCP prompts are optional task starters, including explicit requests to capture and save. Natural-language requests do not require selecting a prompt. Reading or making a targeted update to a saved record does not require restarting capture.
 
 Strategy authoring uses the tools advertised by the connected service. Use shared asset writes and search/fetch reads when their required contracts are available. The superseded Strategy CRUD tools are deprecated and retained only as compatibility fallbacks; capture guidance and publication tools remain supported. Both interfaces address the same records. The [Strategy workflow](skills/ip-strategy/references/mcp-workflow.md) lists the read, capture and write dependencies and the fallbacks when tools or related skills are missing. Company background comes from `get_company_context` when available. The company-context workflow fills material gaps without restarting the conversation. Startup instructions and `whoami` provide identity; their optional country, state and website do not establish a business profile or first-filing office. The assistant follows the current `get_strategy_template` guide, authors the document and uses revision-aware edits to preserve collaborators' changes. Import relevant existing patent records when they are needed for a decision. A first plan can identify the evidence to gather without waiting for a complete portfolio import. Engaging Lightbringer to manage the portfolio is a separate service. See [distribution and validation](DISTRIBUTION.md) for package release status.
 
@@ -58,7 +59,7 @@ Try:
 
 ## Packaging and publication
 
-Version 5.4.0 is prepared with eight workflow skills, conversational setup and capability-aware Strategy authoring. It retains company-context capture, its integration with IP strategy, and focused patent-section retrieval. Authenticated acceptance and host publication remain separate steps; see [distribution and validation](DISTRIBUTION.md).
+Version 5.4.0 is prepared with nine workflow skills, conversational setup and capability-aware Strategy authoring. It retains company-context capture, its integration with IP strategy, and focused patent-section retrieval. Authenticated acceptance and host publication remain separate steps; see [distribution and validation](DISTRIBUTION.md).
 
 This is the canonical `skills/` source. [claude-plugin](https://github.com/lightbringer-patents/claude-plugin) mirrors the complete tree with Anthropic-specific metadata. Edit shared skills here first and verify both packages before release.
 
