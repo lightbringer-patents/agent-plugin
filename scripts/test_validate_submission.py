@@ -44,7 +44,6 @@ class SubmissionTests(unittest.TestCase):
                 "skills/lightbringer-navigation/SKILL.md",
                 "skills/patent-portfolio/SKILL.md",
                 "skills/patent-preparation/SKILL.md",
-                "skills/patent-review/SKILL.md",
             },
         )
         for reference in ("patent-process.md", "workflow-routes.md"):
