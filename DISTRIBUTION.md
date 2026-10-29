@@ -372,3 +372,17 @@ Expected: Treats placeholders and signup-only notes as inadequate. Follows the l
 Prompt: We are an IP consultancy connected to our own Lightbringer workspace. Help draft a strategy for our client, Example Sensors. Do not change our company settings.
 
 Expected: Keeps the adviser/client distinction explicit. Uses client evidence within the strategy request and does not call update_company_context or overwrite the connected organisation’s notes. Missing context prompts only material questions, without blocking on profile completion.
+
+## Novelty exploration acceptance cases
+
+These are expected behaviours to verify in a host; they are not completed model tests.
+
+| Entry path | Expected behaviour |
+| --- | --- |
+| A new workspace; “Has anyone patented our solution?” with only a product goal | Select novelty-exploration and recommend optional guided innovation registration first. If the user chooses capture, use innovation-capture and resume from the description. If they prefer a small exploration, ask focused technical questions and search without requiring registration or an own portfolio. |
+| A technical explanation and named competitors; search only | Search mechanism variants as well as supported assignee names; distinguish summary matches from passage-backed comparisons. Retain coverage limits and make no imports. |
+| Search and import relevant findings explicitly authorised | Select a justified shortlist and use the competitor-import instructions in novelty-exploration directly. Save with competitor purpose, preserve receipts and warnings, and read back records. Handle conflicts and uncertain outcomes without changing purpose or refreshing own-patent families; no repeated approval for the agreed scope. |
+| User declines registration, or already has an innovation | Continue the requested small exploration without a capture gate or repeated registration suggestion; reuse an existing description and do not create a duplicate. |
+| No search matches, truncated results or provider failure | Distinguish each outcome, revisit terminology where useful, and avoid concluding novelty or completeness. |
+| User asks whether selling in a target market is safe | Preserve the commercial concern and explain that Lightbringer offers full novelty searches and FTO assessments through contact with sales. Offer a focused brief; do not claim clearance, sales contact or a confirmed engagement, or use patent preparation to order those services. |
+| Missing import access or incomplete patent text | Retain a linked shortlist and identify unavailable evidence or unsaved items; do not invent comparisons or saved records. |
