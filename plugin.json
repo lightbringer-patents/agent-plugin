@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "lightbringer",
-  "version": "5.4.0",
+  "version": "5.4.1",
   "description": "Capture company context and innovations, develop IP strategies, request patent preparation, respond to reviews, and review patent portfolios through Lightbringer.",
   "author": {
     "name": "Lightbringer AB",
@@ -99,7 +99,7 @@
         }
       },
       "publication": {
-        "release_notes": "Adds conversational setup, contextual navigation, preliminary novelty exploration and trade secret register guidance. Delivers useful help early and captures optional problem-focused feedback with explicit report consent. Includes nine workflow skills, removes the standalone review skill while retaining connected review tools, and handles innovation edit receipts and validation-country selection through available tools."
+        "release_notes": "Version 5.4.1 updates the trade-secrets skill. Where the trade secret register listing is not available, it explains that the organisation can add the register by contacting Lightbringer, instead of pointing to connection settings. The other eight workflow skills are unchanged from 5.4.0."
       },
       "onboardingSkill": "./skills/setup/SKILL.md"
     }

@@ -2,6 +2,21 @@
 
 The prepared package contains nine workflow skills: `setup`, `lightbringer-navigation`, `novelty-exploration`, `innovation-capture`, `patent-preparation`, `patent-portfolio`, `ip-strategy`, `company-context` and `trade-secrets`. Each skill includes its references. Review collaboration remains available through connected tools and guidance; the standalone patent-review skill is removed.
 
+## Prepared trade secret listing update — portable 5.4.1 / Claude 1.7.1
+
+This update changes only the `trade-secrets` skill. When the host does not offer
+`list_trade_secrets`, the assistant assumes the organisation does not have the
+trade secret register and explains that it can be added by contacting Lightbringer.
+It mentions the trade secret register permission only if the user says the
+organisation already has the register, and never promises that reconnecting makes
+the tool appear. This replaces the missing-tool check in the 5.4.0 trade secret
+section below. The other eight skills are unchanged.
+
+Before claiming acceptance, check that a connection without `list_trade_secrets`
+offers the register once, without blaming connection settings; that a user who
+says the organisation has the register hears about the permission; and that the
+tool's own answers keep their existing guidance.
+
 ## Prepared package update — portable 5.4.0 / Claude 1.7.0
 
 The setup skill introduces Lightbringer, establishes the current situation and
