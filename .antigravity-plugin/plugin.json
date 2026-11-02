@@ -1,0 +1,30 @@
+{
+  "$schema": "https://antigravity.google/schemas/v1/plugin.json",
+  "name": "lightbringer",
+  "displayName": "Lightbringer",
+  "description": "Capture innovations, build IP strategies, review patent portfolios and request patent preparation with Lightbringer's patent service.",
+  "version": "5.4.1",
+  "logo": "assets/logo-square-light.png",
+  "author": {
+    "name": "Lightbringer AB",
+    "url": "https://lightbringer.com"
+  },
+  "suggestedPrompts": [
+    "Help me get started with Lightbringer and work out our next steps.",
+    "Help me identify and capture potential innovations in what we're building.",
+    "Review our patent portfolio against our business priorities and identify what needs attention."
+  ],
+  "homepage": "https://lightbringer.com",
+  "repository": "https://github.com/lightbringer-patents/agent-plugin",
+  "license": "MIT",
+  "keywords": [
+    "innovations",
+    "patents",
+    "patent-portfolio",
+    "lightbringer",
+    "ip-strategy",
+    "company-context",
+    "trade-secrets",
+    "novelty-exploration"
+  ]
+}

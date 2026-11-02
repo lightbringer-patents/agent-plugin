@@ -215,6 +215,57 @@ def validate_openai(root, manifest, mcp):
         regular_file(root, onboarding[2:])
 
 
+ANTIGRAVITY_MANIFEST = ".antigravity-plugin/plugin.json"
+ANTIGRAVITY_MCP = "mcp_config.json"
+
+
+def validate_antigravity(root, portable):
+    """Check the Antigravity Marketplace fields and keep them in step with the portable package.
+
+    https://antigravity.google/docs/build-plugins
+    This does not replace `agy plugin validate --strict`.
+    """
+    manifest = json.loads(regular_file(root, ANTIGRAVITY_MANIFEST).read_text())
+    mcp = json.loads(regular_file(root, ANTIGRAVITY_MCP).read_text())
+    no_credentials(manifest)
+    no_credentials(mcp)
+    for field in ("name", "version"):
+        if manifest.get(field) != portable.get(field):
+            raise SubmissionError(f"Antigravity {field} must match plugin.json")
+    text(manifest.get("displayName"), "displayName", 80)
+    text(manifest.get("description"), "description", 160)
+    author = manifest.get("author")
+    if isinstance(author, dict):
+        text(author.get("name"), "author.name", 80)
+        if "url" in author:
+            https(author["url"], "author.url")
+    else:
+        text(author, "author", 80)
+    for field in ("homepage", "repository"):
+        if field in manifest:
+            https(manifest[field], field)
+    prompts = manifest.get("suggestedPrompts", [])
+    if not isinstance(prompts, list) or len(prompts) > 3:
+        raise SubmissionError("Use at most three suggestedPrompts")
+    for prompt in prompts:
+        text(prompt, "suggestedPrompts", 200)
+    keywords = manifest.get("keywords", [])
+    if not isinstance(keywords, list) or any(not isinstance(k, str) or k != k.lower() for k in keywords):
+        raise SubmissionError("keywords must be lowercase strings")
+    logo = manifest.get("logo")
+    if not isinstance(logo, str) or not logo.startswith("assets/"):
+        raise SubmissionError("logo must reference an assets/ file")
+    width, height = png_dimensions(regular_file(root, logo).read_bytes(), "logo")
+    if width != height or width < 128:
+        raise SubmissionError("logo must be square and at least 128 px")
+
+    servers = mcp.get("mcpServers", {})
+    if set(servers) != {"lightbringer"}:
+        raise SubmissionError(f"{ANTIGRAVITY_MCP} must contain exactly the Lightbringer MCP server")
+    if servers["lightbringer"] != {"url": "https://mcp.lightbringer.com/mcp"}:
+        raise SubmissionError(f"Unexpected MCP connection configuration in {ANTIGRAVITY_MCP}")
+
+
 def validate_schemas(manifest, mcp):
     from jsonschema import Draft202012Validator
     for name, value in (("plugin", manifest), ("mcp", mcp)):
@@ -241,6 +292,9 @@ def main():
         raise SubmissionError("OpenAI submission metadata is missing")
     validate_openai(root, manifest, mcp)
     validate_schemas(manifest, mcp)
+    # Extracted OpenAI ZIPs carry a platform-assigned name and no Antigravity files.
+    if (root / ANTIGRAVITY_MANIFEST).exists() or args.expected_name == "lightbringer":
+        validate_antigravity(root, manifest)
     from build_release import package_files
     _, files = package_files(root, True, expected_name=args.expected_name)
     review = manifest["extensions"]["com.openai"]["review"]

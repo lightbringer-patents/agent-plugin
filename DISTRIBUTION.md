@@ -276,6 +276,22 @@ For the existing GitHub-connected directory submission, merge the reviewed packa
 
 For Claude chat and managed workspaces, test the supported plugin upload or organisation distribution flow and verify that skills accompany the connector. A custom MCP connector alone does not install skills. Organisation sync has separate access rules; a public Claude Code marketplace is not automatically an organisation-managed marketplace. See [organisation distribution](https://code.claude.com/docs/en/plugin-marketplaces#distribute-through-organization-settings).
 
+## Google Antigravity
+
+Antigravity installs the plugin from this repository. It reads `.antigravity-plugin/plugin.json` ahead of the root `plugin.json`, uses the shared `skills/` and `assets/`, and reads MCP servers from `mcp_config.json` rather than `mcp.json`. The bundled server appears to agents as `lightbringer_lightbringer`. Sign-in uses the connector's OAuth discovery and Dynamic Client Registration; no client secret or token belongs in the repository.
+
+`scripts/validate_submission.py` checks the Antigravity listing fields, logo, endpoint and that `name` and `version` match `plugin.json`. Bump all three manifests together. These offline checks do not replace Antigravity's own validator:
+
+```sh
+agy plugin validate --strict .     # must report 0 errors and 0 warnings
+agy plugin install .
+agy plugin list
+```
+
+Then sign in, select a test organisation and run the suggested prompts and at least one skill, for example `/innovation-capture`, with synthetic material. Users can install directly with `agy plugin install https://github.com/lightbringer-patents/agent-plugin`.
+
+To list the plugin in the [Antigravity Marketplace](https://antigravity.google/docs/marketplace), submit the strictly validated plugin through the interest form linked from that page. Submission is reviewed by Google and is not publication. Verify the live listing and its version before recording the outcome. See [Build plugins](https://antigravity.google/docs/build-plugins).
+
 ## Acceptance cases for both hosts
 
 Use a dedicated test account and synthetic invention material. Record public package versions, endpoint, host, date and actual results. These are expected outcomes, not claims of completed host tests.

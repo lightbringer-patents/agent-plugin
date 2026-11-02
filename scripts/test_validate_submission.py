@@ -10,7 +10,7 @@ import unittest
 import zlib
 
 from build_release import package_files
-from validate_submission import ROOT, validate_openai, validate_schemas, no_credentials
+from validate_submission import ROOT, validate_antigravity, validate_openai, validate_schemas, no_credentials
 
 
 class SubmissionTests(unittest.TestCase):
@@ -170,6 +170,29 @@ class SubmissionTests(unittest.TestCase):
             icon.write_bytes(bad)
             with self.assertRaisesRegex(ValueError, "PNG"):
                 self.check()
+
+    def test_antigravity_listing_matches_portable_package(self):
+        (self.root / ".antigravity-plugin").mkdir()
+        target = self.root / ".antigravity-plugin/plugin.json"
+        shutil.copyfile(ROOT / ".antigravity-plugin/plugin.json", target)
+        shutil.copyfile(ROOT / "mcp_config.json", self.root / "mcp_config.json")
+        validate_antigravity(self.root, self.manifest)
+        listing = json.loads(target.read_text())
+        for field, value, message in (
+            ("version", "0.0.1", "version must match"),
+            ("description", "x" * 161, "description"),
+            ("suggestedPrompts", ["a", "b", "c", "d"], "suggestedPrompts"),
+            ("logo", "assets/../plugin.json", "Invalid package path"),
+        ):
+            bad = dict(listing, **{field: value})
+            target.write_text(json.dumps(bad))
+            with self.subTest(field=field), self.assertRaisesRegex(ValueError, message):
+                validate_antigravity(self.root, self.manifest)
+        target.write_text(json.dumps(listing))
+        (self.root / "mcp_config.json").write_text(json.dumps(
+            {"mcpServers": {"lightbringer": {"url": "https://example.com/mcp"}}}))
+        with self.assertRaisesRegex(ValueError, "Unexpected MCP"):
+            validate_antigravity(self.root, self.manifest)
 
     def test_onboarding_must_resolve_to_packaged_skill(self):
         extension = self.manifest["extensions"]["com.openai"]
