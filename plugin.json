@@ -40,10 +40,10 @@
           "Help me identify and capture potential innovations in what we're building.",
           "Review our patent portfolio against our business priorities and identify what needs attention."
         ],
-        "logo": "./assets/logo-square-light.png",
-        "logoDark": "./assets/logo-square-dark.png",
-        "composerIcon": "./assets/logo-square-light.png",
-        "composerIconDark": "./assets/logo-square-dark.png"
+        "logo": "./assets/lightbringer-icon-light.png",
+        "logoDark": "./assets/lightbringer-icon-dark.png",
+        "composerIcon": "./assets/lightbringer-icon-light.png",
+        "composerIconDark": "./assets/lightbringer-icon-dark.png"
       },
       "review": {
         "test_cases": {
@@ -99,7 +99,7 @@
         }
       },
       "publication": {
-        "release_notes": "Version 5.4.1 updates the trade-secrets skill. Where the trade secret register listing is not available, it explains that the organisation can add the register by contacting Lightbringer, instead of pointing to connection settings. The other eight workflow skills are unchanged from 5.4.0."
+        "release_notes": "Version 5.4.1 updates the trade-secrets skill. Where the trade secret register listing is not available, it explains that the organisation can add the register by contacting Lightbringer, instead of pointing to connection settings. The other eight workflow skills are unchanged from 5.4.0. Listing and composer icons now use larger Lightbringer symbols on transparent backgrounds, with black and white variants for light and dark themes."
       },
       "onboardingSkill": "./skills/setup/SKILL.md"
     }
