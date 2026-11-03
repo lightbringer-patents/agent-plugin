@@ -1,0 +1,30 @@
+name: Validate GitHub Copilot candidate
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  copilot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24.15.0'
+          cache: npm
+          cache-dependency-path: scripts/copilot/package-lock.json
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: npm ci --prefix scripts/copilot --ignore-scripts --no-audit --no-fund
+      - name: Check Agent Plugins manifest and package
+        run: |
+          python -m pip install -r scripts/requirements-validation.txt
+          python scripts/validate_submission.py
+      - name: Lint skills with Vally
+        run: node scripts/copilot/lint.mjs
+      - name: Check CLI installation and capability discovery
+        run: python scripts/check_copilot.py

@@ -58,6 +58,36 @@ Try:
 - “Update our existing strategy for the changed target market, preserving the other priorities.”
 - “Which trade secret register entries can I open, and which are not yet assessed?”
 
+## GitHub Copilot
+
+The portable plugin is the candidate for GitHub Copilot CLI. It uses the root
+`plugin.json`, `mcp.json` and the same nine skills; no separate Copilot plugin
+repository is required. See [Copilot validation and distribution](DISTRIBUTION.md#github-copilot)
+for tested versions and remaining acceptance checks.
+
+With [Copilot CLI installed](https://docs.github.com/en/copilot/how-tos/copilot-cli/set-up-copilot-cli/install-copilot-cli),
+install directly from this public repository:
+
+```sh
+copilot plugin install lightbringer-patents/agent-plugin
+```
+
+Start a new Copilot session, check that the Lightbringer skills and MCP server
+are available, then complete Lightbringer's OAuth sign-in and choose your
+organisation. A Lightbringer account with access to that organisation is required;
+applicable Lightbringer service fees and Copilot access requirements still apply.
+Installation alone does not establish an authenticated connection.
+
+For an engineering workflow, try: “Help me identify potential innovations in this
+project. Discuss the candidates with me before saving anything to Lightbringer.”
+Provide only technical material you are authorised to share. Registering an
+innovation does not request patent preparation; that remains a separate action.
+
+Update with `copilot plugin update lightbringer` or remove it with
+`copilot plugin uninstall lightbringer`. Existing organisation policies can restrict
+plugin use. Marketplace listing and support in other Copilot surfaces are tracked
+separately from direct CLI installation.
+
 ## Packaging and publication
 
 Version 5.4.2 is prepared with nine workflow skills, conversational setup and capability-aware Strategy authoring. It retains company-context capture, its integration with IP strategy, and focused patent-section retrieval. Authenticated acceptance and host publication remain separate steps; see [distribution and validation](DISTRIBUTION.md).

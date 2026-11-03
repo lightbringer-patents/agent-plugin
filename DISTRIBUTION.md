@@ -2,6 +2,83 @@
 
 The prepared package contains nine workflow skills: `setup`, `lightbringer-navigation`, `novelty-exploration`, `innovation-capture`, `patent-preparation`, `patent-portfolio`, `ip-strategy`, `company-context` and `trade-secrets`. Each skill includes its references. Review collaboration remains available through connected tools and guidance; the standalone patent-review skill is removed.
 
+## GitHub Copilot
+
+The registration target is the external-plugin catalogue in
+[`github/awesome-copilot`](https://github.com/github/awesome-copilot/blob/main/CONTRIBUTING.md#adding-external-plugins).
+It can point to an immutable revision of this repository. The root Agent Plugins
+1.0 manifest, `mcp.json` and canonical `skills/` tree are the candidate; no separate
+Copilot manifest, skill mirror or repository is needed. This track does not submit
+a Microsoft 365 Marketplace offer or establish support in Copilot Cowork or Chat.
+
+### Compatibility checks
+
+The checks use Copilot CLI 1.0.105 and Vally 0.20.0, pinned with transitive
+dependencies in `scripts/copilot/package-lock.json`. With Node 24.15 or later and
+the Python validation requirements installed, run:
+
+```sh
+npm ci --prefix scripts/copilot --ignore-scripts
+python scripts/validate_submission.py
+node scripts/copilot/lint.mjs
+python scripts/check_copilot.py
+```
+
+Vally checks skill frontmatter and references using the same lint API as the
+marketplace intake. The CLI check installs through a temporary marketplace and
+checks plugin identity, enabled skills, MCP configuration and deactivation after
+uninstall. Its state and cache are disposable; it does not start an AI session or call Lightbringer
+tools. CI runs these checks on pull requests.
+
+For the final candidate, check out the exact clean commit to submit, then run the
+GitHub-source check. Replace `COMMIT_SHA` with that full 40-character commit SHA:
+
+```sh
+python scripts/check_copilot.py --source-sha COMMIT_SHA --entry-output /tmp/lightbringer-copilot-entry.json
+```
+
+The generated listing takes metadata from the candidate manifest and pins its
+GitHub source. It is a submission aid, not a second maintained manifest. This
+check requires network access to the public repository. Do not submit a moving
+branch as the reviewed source.
+
+### Acceptance and registration
+
+Before requesting marketplace review, record the exact tested commit, CLI version
+and results for these host checks:
+
+- OAuth sign-in, organisation selection and reconnection in an approved test
+  organisation; verify existing access permissions.
+- Skill discovery and selection in a fresh session and an existing project.
+- Identify an innovation from authorised technical context, save it with consent,
+  and read it back. Verify that capture does not request patent preparation.
+- A read-only workflow, unavailable-tool behaviour and an explicitly declined
+  write. Avoid real service orders during acceptance.
+
+Static lint and installation checks do not establish authenticated workflow
+acceptance. VS Code and other Copilot surfaces require their own checks before
+being advertised as tested.
+
+Submit through the **external plugin issue form** linked from the target
+repository's [contribution guide](https://github.com/github/awesome-copilot/blob/main/CONTRIBUTING.md#adding-external-plugins),
+not a direct PR adding an unreviewed entry to `plugins/external.json`. Use the
+candidate's name, description, version, author, licence, keywords and immutable
+source locator. Disclose the Lightbringer affiliation, required account, service
+fees and supported host. Lead with the practical innovation-capture workflow;
+follow the [guidance for commercial services](https://github.com/github/awesome-copilot/discussions/968).
+
+The upstream process includes manifest compliance, Vally lint, installation,
+version/source consistency checks and human review. Passing local checks or
+merging this support does not create a listing. Record the submission issue and
+approved version here when available; subsequent listed-version updates follow
+the upstream contribution process.
+
+On 3 November 2026, Vally 0.20.0 passed all nine skills and their references, and
+Copilot CLI 1.0.105 passed local marketplace installation, nine-skill discovery,
+plugin-owned MCP configuration and deactivation checks for portable 5.4.2. The
+existing 24 packaging tests and portable submission validator also passed.
+Registration status: not submitted. Authenticated Copilot acceptance is pending.
+
 ## Self-contained skills — portable 5.4.2 / Claude 1.7.2
 
 Agent Skills linters reject links from one skill into another skill's directory.
