@@ -26,7 +26,7 @@ class SubmissionTests(unittest.TestCase):
         self.root = Path(self.tmp.name).resolve()
         for name in ("plugin.json", "mcp.json", "README.md", "LICENSE", "DISTRIBUTION.md"):
             shutil.copyfile(ROOT / name, self.root / name)
-        for name in ("skills", "assets"):
+        for name in ("skills", "assets", "antigravity-assets"):
             shutil.copytree(ROOT / name, self.root / name)
         self.manifest = json.loads((self.root / "plugin.json").read_text())
         self.mcp = json.loads((self.root / "mcp.json").read_text())
@@ -201,7 +201,7 @@ class SubmissionTests(unittest.TestCase):
             ("version", "0.0.1", "version must match"),
             ("description", "x" * 161, "description"),
             ("suggestedPrompts", ["a", "b", "c", "d"], "suggestedPrompts"),
-            ("logo", "assets/../plugin.json", "Invalid package path"),
+            ("logo", "antigravity-assets/../plugin.json", "Invalid package path"),
         ):
             bad = dict(listing, **{field: value})
             target.write_text(json.dumps(bad))
@@ -211,6 +211,26 @@ class SubmissionTests(unittest.TestCase):
         (self.root / "mcp_config.json").write_text(json.dumps(
             {"mcpServers": {"lightbringer": {"url": "https://example.com/mcp"}}}))
         with self.assertRaisesRegex(ValueError, "Unexpected MCP"):
+            validate_antigravity(self.root, self.manifest)
+
+    def test_antigravity_logo_must_be_bundled_and_not_a_symlink(self):
+        shutil.copytree(ROOT / ".antigravity-plugin", self.root / ".antigravity-plugin")
+        shutil.copyfile(ROOT / "mcp_config.json", self.root / "mcp_config.json")
+        target = self.root / ".antigravity-plugin/plugin.json"
+        listing = json.loads(target.read_text())
+        original = (self.root / listing["logo"]).read_bytes()
+        for path in ("antigravity-assets/.hidden.png", "antigravity-assets/__pycache__/logo.png"):
+            image = self.root / path
+            image.parent.mkdir(exist_ok=True)
+            image.write_bytes(original)
+            target.write_text(json.dumps(dict(listing, logo=path)))
+            with self.assertRaisesRegex(ValueError, "Marketplace bundler"):
+                validate_antigravity(self.root, self.manifest)
+        target.write_text(json.dumps(listing))
+        logo = self.root / listing["logo"]
+        logo.unlink()
+        logo.symlink_to(ROOT / listing["logo"])
+        with self.assertRaisesRegex(ValueError, "symlink"):
             validate_antigravity(self.root, self.manifest)
 
     def validate_cli(self, root, *args):

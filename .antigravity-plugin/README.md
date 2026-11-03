@@ -4,6 +4,13 @@ Work with [Lightbringer's patent service](https://lightbringer.com) from Antigra
 
 The plugin connects to your private Lightbringer organisation through the Lightbringer MCP server (`https://mcp.lightbringer.com/mcp`). On first use, sign in to Lightbringer in the browser and choose the organisation to connect. Existing record permissions still apply. Never paste passwords or access tokens into chat.
 
+## Install
+
+Extract `lightbringer-antigravity-<version>.zip`, then install the extracted
+directory with `agy plugin install <directory>`. Use this generated native
+package; the repository root also contains other hosts' distribution files.
+See [distribution status and validation](https://github.com/lightbringer-patents/agent-plugin/blob/main/DISTRIBUTION.md#google-antigravity).
+
 ## Skills
 
 - **setup:** get oriented from your current IP situation and develop a practical first plan, saved as a draft Strategy when requested.

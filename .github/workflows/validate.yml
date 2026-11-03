@@ -16,3 +16,16 @@ jobs:
       - run: python -m pip install -r scripts/requirements-validation.txt
       - run: python -m unittest discover -s scripts
       - run: python scripts/validate_submission.py --require-antigravity
+      - name: Build Antigravity archive
+        run: |
+          python scripts/build_release.py --antigravity-only --output-dir "$RUNNER_TEMP/packages"
+          python -m zipfile -e "$RUNNER_TEMP"/packages/lightbringer-antigravity-*.zip "$RUNNER_TEMP/antigravity-package"
+          python scripts/validate_submission.py --root "$RUNNER_TEMP/antigravity-package" --antigravity-package
+      - name: Validate with Antigravity CLI 1.4.12
+        run: |
+          curl --fail --silent --show-error --location --retry 3 \
+            https://storage.googleapis.com/antigravity-public/antigravity-cli/1.4.12-4768735748292608/linux-x64/cli_linux_x64.tar.gz \
+            --output "$RUNNER_TEMP/agy.tar.gz"
+          printf '%s  %s\n' ea01c73b772187bca928852cf96235f0d846d6da5ebdac188b9ae719597465737f325540d483ee5f3f62d151029001713344972a187ddfb98cc7b97f7204b7f4 "$RUNNER_TEMP/agy.tar.gz" | sha512sum --check
+          tar -xzf "$RUNNER_TEMP/agy.tar.gz" -C "$RUNNER_TEMP" antigravity
+          "$RUNNER_TEMP/antigravity" plugin validate --strict --json "$RUNNER_TEMP/antigravity-package"
