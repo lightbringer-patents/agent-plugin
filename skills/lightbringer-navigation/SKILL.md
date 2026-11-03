@@ -5,7 +5,7 @@ description: Explain Lightbringer's workflows and the patent process, and help u
 
 # Lightbringer navigation
 
-Help the user understand where they are, what Lightbringer can help them achieve and how to continue. Deliver a useful explanation inline, with relevant existing record links. Navigation alone does not require a new saved artifact or a service request. Follow the shared [service conduct](../innovation-capture/references/service-conduct.md).
+Help the user understand where they are, what Lightbringer can help them achieve and how to continue. Deliver a useful explanation inline, with relevant existing record links. Navigation alone does not require a new saved artifact or a service request. Follow the [service conduct](references/service-conduct.md) guidance.
 
 ## Understand the question
 
@@ -19,7 +19,7 @@ Read [workflow routes and fallbacks](references/workflow-routes.md) when choosin
 
 Connect each useful option to its result, Lightbringer's contribution and any customer input or decision. Keep internal attorney and specialist work at the level of assessment, preparation, review, filing coordination and response handling. Detailed application work belongs to the available specialist workflow or patent team.
 
-When explaining what a preparation request does, follow [patent-preparation](../patent-preparation/SKILL.md): it notifies the Lightbringer team, who will get back to the user before further work proceeds. Do not infer a paid plan, an assigned specialist or attorney, or immediate professional work from a saved innovation or access to the tool. “What happens if I request preparation?” asks for an explanation; it does not authorise the request.
+When explaining what a preparation request does, follow the `patent-preparation` skill: it notifies the Lightbringer team, who will get back to the user before further work proceeds. Do not infer a paid plan, an assigned specialist or attorney, or immediate professional work from a saved innovation or access to the tool. “What happens if I request preparation?” asks for an explanation; it does not authorise the request.
 
 Distinguish:
 
@@ -43,4 +43,4 @@ If execution is unavailable, give the specific platform or team continuation des
 
 Answer the user's question first. Summarise the relevant current state, available next action and any decision still needed, using existing links where helpful. If the user only wanted an explanation, finish there. If they authorised an action, continue into that workflow and report its actual result. State evidence or access limits when they affect the answer; do not infer live progress from a typical process stage or elapsed time.
 
-If useful assistance leaves a material customer problem unresolved, follow the shared [unresolved-needs guidance](../setup/references/unresolved-needs.md). Keep helping and obtain approval of the exact report and recipient before sending. Do not include confidential information, including register references or titles.
+If useful assistance leaves a material customer problem unresolved, follow the [unresolved-needs guidance](references/unresolved-needs.md). Keep helping and obtain approval of the exact report and recipient before sending. Do not include confidential information, including register references or titles.

@@ -2,7 +2,17 @@
 
 The prepared package contains nine workflow skills: `setup`, `lightbringer-navigation`, `novelty-exploration`, `innovation-capture`, `patent-preparation`, `patent-portfolio`, `ip-strategy`, `company-context` and `trade-secrets`. Each skill includes its references. Review collaboration remains available through connected tools and guidance; the standalone patent-review skill is removed.
 
-## Pending OpenAI icon update
+## Self-contained skills — portable 5.4.2 / Claude 1.7.2
+
+Agent Skills linters reject links from one skill into another skill's directory.
+Each skill now carries its own copy of `references/unresolved-needs.md`, and
+`lightbringer-navigation` carries its own `references/service-conduct.md`. Links
+to another skill's `SKILL.md` or references now name that skill in plain text.
+The guidance itself is unchanged. `build_release.py` rejects links that leave a
+skill's directory and copies of a shared reference that differ; update every copy
+together.
+
+## Prepared OpenAI icon update — portable 5.4.2
 
 The listing and composer references use dedicated 1024 × 1024 transparent PNGs:
 `lightbringer-icon-light.png` has a black symbol and
@@ -10,10 +20,9 @@ The listing and composer references use dedicated 1024 × 1024 transparent PNGs:
 proportions with 6.25% top and bottom padding. The previous square-background
 assets are replaced.
 
-This change is queued for the next complete package release. Reconcile all
-pending package changes and confirm the published and pending dashboard versions
-before finalizing the version and combined release notes. The current prepared
-version is retained here; this entry does not establish host publication.
+This icon update is combined with the self-contained skills in the prepared
+5.4.2 package. Confirm the published and pending dashboard versions before upload;
+this preparation does not establish host publication.
 
 After updating the existing plugin, verify the listing, composer and tool activity
 in both light and dark themes. Capture actual host rendering to check icon
@@ -21,6 +30,7 @@ selection, legibility, clipping, distortion and background. If tool activity use
 a separately managed app icon, check that asset too. Local asset and package
 validation do not establish these host outcomes. Keep the current package live
 until the approved replacement is ready to publish.
+
 
 ## Prepared trade secret listing update — portable 5.4.1 / Claude 1.7.1
 

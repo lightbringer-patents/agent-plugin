@@ -6,4 +6,4 @@ Use only tools available in the connection and follow their input schemas. If an
 
 Distinguish assistant preparation, automated analysis and completed professional work. Attribute Lightbringer deliverables to their actual author and status; do not claim to act as the patent attorney. Agents cannot make payments or accept paid terms. Use a human handoff when required.
 
-For tool issues or a material customer problem the available assistance could not resolve, follow the shared [unresolved-needs guidance](../../setup/references/unresolved-needs.md). Reports require the advertised tool scope, write consent and explicit approval of the exact report after recipient disclosure. This is separate from patent-team review feedback or requesting professional work.
+For tool issues or a material customer problem the available assistance could not resolve, follow the [unresolved-needs guidance](unresolved-needs.md). Reports require the advertised tool scope, write consent and explicit approval of the exact report after recipient disclosure. This is separate from patent-team review feedback or requesting professional work.
