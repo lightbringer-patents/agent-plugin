@@ -40,10 +40,10 @@
           "Help me identify and capture potential innovations in what we're building.",
           "Review our patent portfolio against our business priorities and identify what needs attention."
         ],
-        "logo": "./assets/logo-square-light.png",
-        "logoDark": "./assets/logo-square-dark.png",
-        "composerIcon": "./assets/logo-square-light.png",
-        "composerIconDark": "./assets/logo-square-dark.png"
+        "logo": "./assets/lightbringer-icon-light.png",
+        "logoDark": "./assets/lightbringer-icon-dark.png",
+        "composerIcon": "./assets/lightbringer-icon-light.png",
+        "composerIconDark": "./assets/lightbringer-icon-dark.png"
       },
       "review": {
         "test_cases": {
@@ -99,7 +99,7 @@
         }
       },
       "publication": {
-        "release_notes": "Version 5.4.2 makes each skill self-contained, as the Agent Skills specification requires. Skills no longer link to files in other skills: shared guidance is copied into each skill that uses it, and related workflows are named instead of linked. Skill behaviour is unchanged from 5.4.1."
+        "release_notes": "Version 5.4.2 makes all nine skills self-contained, with shared guidance kept inside each skill and related workflows named instead of linked across directories. It includes the trade secret register guidance from 5.4.1: when listing is unavailable, explain that the organisation can add the register through Lightbringer. Listing and composer icons now use larger symbols on transparent backgrounds, with black and white variants for light and dark themes."
       },
       "onboardingSkill": "./skills/setup/SKILL.md"
     }

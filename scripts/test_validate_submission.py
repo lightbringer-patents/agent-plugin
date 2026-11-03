@@ -31,7 +31,9 @@ class SubmissionTests(unittest.TestCase):
     def test_submission_and_referenced_assets_are_packaged(self):
         self.check()
         _, files = package_files(self.root, True)
-        self.assertEqual(files["assets/logo-square-light.png"], (ROOT / "assets/logo-square-light.png").read_bytes())
+        for variant in ("light", "dark"):
+            path = f"assets/lightbringer-icon-{variant}.png"
+            self.assertEqual(files[path], (ROOT / path).read_bytes())
         self.assertEqual(
             {p for p in files if p.endswith("/SKILL.md")},
             {
@@ -102,14 +104,14 @@ class SubmissionTests(unittest.TestCase):
         interface["logo"] = "./assets/../plugin.json"
         with self.assertRaisesRegex(ValueError, "Invalid package path"):
             self.check()
-        interface["logo"] = "./assets/logo-square-light.png"
+        interface["logo"] = "./assets/lightbringer-icon-light.png"
         shutil.rmtree(self.root / "assets")
         (self.root / "assets").symlink_to(ROOT / "assets", target_is_directory=True)
         with self.assertRaisesRegex(ValueError, "symlink"):
             self.check()
 
     def test_missing_malformed_and_nonsquare_icons_are_rejected(self):
-        icon = self.root / "assets/logo-square-light.png"
+        icon = self.root / "assets/lightbringer-icon-light.png"
         content = icon.read_bytes()
         icon.unlink()
         with self.assertRaisesRegex(ValueError, "Missing package file"):
@@ -176,7 +178,7 @@ class SubmissionTests(unittest.TestCase):
             package_files(self.root, True)
 
     def test_truncated_and_trailing_png_data_are_rejected(self):
-        icon = self.root / "assets/logo-square-light.png"
+        icon = self.root / "assets/lightbringer-icon-light.png"
         content = icon.read_bytes()
         for bad in (content[:33], content[:-2], content + b"trailing"):
             icon.write_bytes(bad)

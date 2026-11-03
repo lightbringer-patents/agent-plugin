@@ -12,6 +12,25 @@ The guidance itself is unchanged. `build_release.py` rejects links that leave a
 skill's directory and copies of a shared reference that differ; update every copy
 together.
 
+## Prepared OpenAI icon update — portable 5.4.2
+
+The listing and composer references use dedicated 1024 × 1024 transparent PNGs:
+`lightbringer-icon-light.png` has a black symbol and
+`lightbringer-icon-dark.png` has a white symbol. Both preserve the symbol's
+proportions with 6.25% top and bottom padding. The previous square-background
+assets are replaced.
+
+This icon update is combined with the self-contained skills in the prepared
+5.4.2 package. Confirm the published and pending dashboard versions before upload;
+this preparation does not establish host publication.
+
+After updating the existing plugin, verify the listing, composer and tool activity
+in both light and dark themes. Capture actual host rendering to check icon
+selection, legibility, clipping, distortion and background. If tool activity uses
+a separately managed app icon, check that asset too. Local asset and package
+validation do not establish these host outcomes. Keep the current package live
+until the approved replacement is ready to publish.
+
 ## Prepared trade secret listing update — portable 5.4.1 / Claude 1.7.1
 
 This update changes only the `trade-secrets` skill. When the host does not offer
