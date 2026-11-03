@@ -1,4 +1,4 @@
-"""Offline checks for Lightbringer's portable OpenAI upload package.
+"""Offline checks for Lightbringer's portable package and host metadata.
 
 The standard-library checks also run during packaging. This CLI additionally
 validates the pinned portable JSON schemas (install requirements-validation.txt).
@@ -253,8 +253,8 @@ def validate_antigravity(root, portable):
     if not isinstance(keywords, list) or any(not isinstance(k, str) or k != k.lower() for k in keywords):
         raise SubmissionError("keywords must be lowercase strings")
     logo = manifest.get("logo")
-    if not isinstance(logo, str) or not logo.startswith("assets/"):
-        raise SubmissionError("logo must reference an assets/ file")
+    if not isinstance(logo, str) or not logo.startswith(("assets/", ".antigravity-plugin/assets/")):
+        raise SubmissionError("logo must reference an assets/ or .antigravity-plugin/assets/ file")
     width, height = png_dimensions(regular_file(root, logo).read_bytes(), "logo")
     if width != height or width < 128:
         raise SubmissionError("logo must be square and at least 128 px")
@@ -282,6 +282,8 @@ def main():
     parser.add_argument("--root", type=Path, default=ROOT)
     parser.add_argument("--expected-name", default="lightbringer",
                         help="Expected manifest name when validating an extracted OpenAI update ZIP")
+    parser.add_argument("--require-antigravity", action="store_true",
+                        help="Require Antigravity metadata when checking the repository distribution")
     parser.add_argument("--require-demo", action="store_true", help="Require a packaged walkthrough URL instead of preserving the portal's existing value")
     parser.add_argument("--tools", type=Path, help="Local tools/list JSON for checking scenario tool names")
     args = parser.parse_args()
@@ -292,9 +294,12 @@ def main():
         raise SubmissionError("OpenAI submission metadata is missing")
     validate_openai(root, manifest, mcp)
     validate_schemas(manifest, mcp)
-    # Extracted OpenAI ZIPs carry a platform-assigned name and no Antigravity files.
-    if (root / ANTIGRAVITY_MANIFEST).exists() or args.expected_name == "lightbringer":
+    # Portable and OpenAI archives intentionally omit the GitHub-only adapter.
+    # Check partial adapters too, so a missing manifest/config cannot pass silently.
+    antigravity_paths = (root / ".antigravity-plugin", root / ANTIGRAVITY_MCP)
+    if args.require_antigravity or any(path.exists() or path.is_symlink() for path in antigravity_paths):
         validate_antigravity(root, manifest)
+        print("Antigravity repository metadata validated.")
     from build_release import package_files
     _, files = package_files(root, True, expected_name=args.expected_name)
     review = manifest["extensions"]["com.openai"]["review"]

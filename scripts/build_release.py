@@ -36,12 +36,22 @@ def skill_files(root: Path) -> dict[str, bytes]:
     for name, content in files.items():
         if not name.endswith(".md"):
             continue
+        # Agent Skills require each skill to be self-contained: links stay inside its own directory.
+        skill_dir = (root / "skills" / Path(name).parts[1]).resolve()
         for target in re.findall(r"\]\(([^)]+)\)", content.decode("utf-8")):
             if "://" in target or target.startswith("#"):
                 continue
             linked = (root / name).parent.joinpath(target.split("#")[0]).resolve()
-            if not linked.is_relative_to(root) or not linked.is_file() or linked.relative_to(root).as_posix() not in files:
+            if not linked.is_relative_to(skill_dir) or not linked.is_file() or linked.relative_to(root).as_posix() not in files:
                 raise ValueError(f"Missing or escaping skill reference: {name}: {target}")
+    # Shared guidance is copied into each skill that uses it; keep the copies identical.
+    copies = {}
+    for name, content in files.items():
+        if "/references/" in name:
+            copies.setdefault(Path(name).name, set()).add(content)
+    for reference, versions in copies.items():
+        if len(versions) > 1:
+            raise ValueError(f"Copies of references/{reference} differ between skills")
     return files
 
 

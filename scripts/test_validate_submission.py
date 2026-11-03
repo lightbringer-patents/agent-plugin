@@ -1,16 +1,22 @@
 """Regression checks for the actual portable upload package and rejected inputs."""
 
+import contextlib
 import copy
+import io
 import json
 from pathlib import Path
 import shutil
 import struct
 import tempfile
 import unittest
+from unittest.mock import patch
 import zlib
 
 from build_release import package_files
-from validate_submission import ROOT, validate_antigravity, validate_openai, validate_schemas, no_credentials
+from validate_submission import (
+    ROOT, main as validate_submission, validate_antigravity, validate_openai,
+    validate_schemas, no_credentials,
+)
 
 
 class SubmissionTests(unittest.TestCase):
@@ -31,7 +37,9 @@ class SubmissionTests(unittest.TestCase):
     def test_submission_and_referenced_assets_are_packaged(self):
         self.check()
         _, files = package_files(self.root, True)
-        self.assertEqual(files["assets/logo-square-light.png"], (ROOT / "assets/logo-square-light.png").read_bytes())
+        for variant in ("light", "dark"):
+            path = f"assets/lightbringer-icon-{variant}.png"
+            self.assertEqual(files[path], (ROOT / path).read_bytes())
         self.assertEqual(
             {p for p in files if p.endswith("/SKILL.md")},
             {
@@ -102,14 +110,14 @@ class SubmissionTests(unittest.TestCase):
         interface["logo"] = "./assets/../plugin.json"
         with self.assertRaisesRegex(ValueError, "Invalid package path"):
             self.check()
-        interface["logo"] = "./assets/logo-square-light.png"
+        interface["logo"] = "./assets/lightbringer-icon-light.png"
         shutil.rmtree(self.root / "assets")
         (self.root / "assets").symlink_to(ROOT / "assets", target_is_directory=True)
         with self.assertRaisesRegex(ValueError, "symlink"):
             self.check()
 
     def test_missing_malformed_and_nonsquare_icons_are_rejected(self):
-        icon = self.root / "assets/logo-square-light.png"
+        icon = self.root / "assets/lightbringer-icon-light.png"
         content = icon.read_bytes()
         icon.unlink()
         with self.assertRaisesRegex(ValueError, "Missing package file"):
@@ -126,6 +134,18 @@ class SubmissionTests(unittest.TestCase):
         skill = self.root / "skills/patent-portfolio/SKILL.md"
         skill.write_text(skill.read_text() + "\n[Missing](references/absent.md)\n")
         with self.assertRaisesRegex(ValueError, "Missing or escaping skill reference"):
+            package_files(self.root, True)
+
+    def test_links_into_another_skill_are_rejected(self):
+        skill = self.root / "skills/patent-portfolio/SKILL.md"
+        skill.write_text(skill.read_text() + "\n[Other](../setup/SKILL.md)\n")
+        with self.assertRaisesRegex(ValueError, "Missing or escaping skill reference"):
+            package_files(self.root, True)
+
+    def test_shared_reference_copies_must_match(self):
+        copy_path = self.root / "skills/trade-secrets/references/unresolved-needs.md"
+        copy_path.write_text(copy_path.read_text() + "\nDrift.\n")
+        with self.assertRaisesRegex(ValueError, "unresolved-needs.md differ"):
             package_files(self.root, True)
 
     def test_unrelated_asset_files_and_unpackaged_skill_links_are_rejected(self):
@@ -164,7 +184,7 @@ class SubmissionTests(unittest.TestCase):
             package_files(self.root, True)
 
     def test_truncated_and_trailing_png_data_are_rejected(self):
-        icon = self.root / "assets/logo-square-light.png"
+        icon = self.root / "assets/lightbringer-icon-light.png"
         content = icon.read_bytes()
         for bad in (content[:33], content[:-2], content + b"trailing"):
             icon.write_bytes(bad)
@@ -172,9 +192,8 @@ class SubmissionTests(unittest.TestCase):
                 self.check()
 
     def test_antigravity_listing_matches_portable_package(self):
-        (self.root / ".antigravity-plugin").mkdir()
+        shutil.copytree(ROOT / ".antigravity-plugin", self.root / ".antigravity-plugin")
         target = self.root / ".antigravity-plugin/plugin.json"
-        shutil.copyfile(ROOT / ".antigravity-plugin/plugin.json", target)
         shutil.copyfile(ROOT / "mcp_config.json", self.root / "mcp_config.json")
         validate_antigravity(self.root, self.manifest)
         listing = json.loads(target.read_text())
@@ -193,6 +212,44 @@ class SubmissionTests(unittest.TestCase):
             {"mcpServers": {"lightbringer": {"url": "https://example.com/mcp"}}}))
         with self.assertRaisesRegex(ValueError, "Unexpected MCP"):
             validate_antigravity(self.root, self.manifest)
+
+    def validate_cli(self, root, *args):
+        with patch("sys.argv", ["validate_submission.py", "--root", str(root), *args]), contextlib.redirect_stdout(io.StringIO()):
+            validate_submission()
+
+    def test_portable_and_openai_packages_validate_without_antigravity(self):
+        # Start with the complete repository distribution, then validate only
+        # the files selected by the real portable/OpenAI packaging path.
+        shutil.copytree(ROOT / ".antigravity-plugin", self.root / ".antigravity-plugin")
+        shutil.copyfile(ROOT / "mcp_config.json", self.root / "mcp_config.json")
+        self.validate_cli(self.root, "--require-antigravity")
+        _, files = package_files(self.root, True)
+        self.assertNotIn("mcp_config.json", files)
+        self.assertFalse(any(name.startswith(".antigravity-plugin/") for name in files))
+        extracted = self.root / "extracted"
+        for name, data in files.items():
+            target = extracted / name
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_bytes(data)
+        self.validate_cli(extracted)
+        with self.assertRaisesRegex(ValueError, "Missing package file"):
+            self.validate_cli(extracted, "--require-antigravity")
+        metadata = json.loads((extracted / "plugin.json").read_text())
+        metadata["name"] = "app-example-existing-listing"
+        (extracted / "plugin.json").write_text(json.dumps(metadata))
+        self.validate_cli(extracted, "--expected-name", metadata["name"])
+
+    def test_partial_antigravity_adapter_is_rejected(self):
+        # Neither an orphan MCP configuration nor a listing without its
+        # configuration may be mistaken for a portable-only archive.
+        config = self.root / "mcp_config.json"
+        shutil.copyfile(ROOT / "mcp_config.json", config)
+        with self.assertRaisesRegex(ValueError, "Missing package file: .antigravity-plugin/plugin.json"):
+            self.validate_cli(self.root)
+        config.unlink()
+        shutil.copytree(ROOT / ".antigravity-plugin", self.root / ".antigravity-plugin")
+        with self.assertRaisesRegex(ValueError, "Missing package file: mcp_config.json"):
+            self.validate_cli(self.root)
 
     def test_onboarding_must_resolve_to_packaged_skill(self):
         extension = self.manifest["extensions"]["com.openai"]

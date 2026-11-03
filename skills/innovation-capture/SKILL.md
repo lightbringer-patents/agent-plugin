@@ -39,4 +39,4 @@ Return a chat summary of findings and actual outcomes. Include saved record IDs/
 
 Registration or enrichment completes this workflow. For an explicit request to have Lightbringer prepare a selected innovation for patent filing, continue with `patent-preparation` when installed, retaining the user's stated intent. If that skill is unavailable, follow the connected `request_patent_preparation` instructions for that separate request. For review comments or decisions, use the connected review guidance and available Lightbringer review tools.
 
-If useful assistance leaves a material customer problem unresolved, follow the shared [unresolved-needs guidance](../setup/references/unresolved-needs.md) to understand and optionally report the remaining gap. Keep helping; reporting is not a prerequisite and requires approval of the exact report and recipient.
+If useful assistance leaves a material customer problem unresolved, follow the [unresolved-needs guidance](references/unresolved-needs.md) to understand and optionally report the remaining gap. Keep helping; reporting is not a prerequisite and requires approval of the exact report and recipient.

@@ -3,8 +3,8 @@
   "name": "lightbringer",
   "displayName": "Lightbringer",
   "description": "Capture innovations, build IP strategies, review patent portfolios and request patent preparation with Lightbringer's patent service.",
-  "version": "5.4.1",
-  "logo": "assets/logo-square-light.png",
+  "version": "5.4.2",
+  "logo": ".antigravity-plugin/assets/logo-square.png",
   "author": {
     "name": "Lightbringer AB",
     "url": "https://lightbringer.com"

@@ -2,6 +2,35 @@
 
 The prepared package contains nine workflow skills: `setup`, `lightbringer-navigation`, `novelty-exploration`, `innovation-capture`, `patent-preparation`, `patent-portfolio`, `ip-strategy`, `company-context` and `trade-secrets`. Each skill includes its references. Review collaboration remains available through connected tools and guidance; the standalone patent-review skill is removed.
 
+## Self-contained skills — portable 5.4.2 / Claude 1.7.2
+
+Agent Skills linters reject links from one skill into another skill's directory.
+Each skill now carries its own copy of `references/unresolved-needs.md`, and
+`lightbringer-navigation` carries its own `references/service-conduct.md`. Links
+to another skill's `SKILL.md` or references now name that skill in plain text.
+The guidance itself is unchanged. `build_release.py` rejects links that leave a
+skill's directory and copies of a shared reference that differ; update every copy
+together.
+
+## Prepared OpenAI icon update — portable 5.4.2
+
+The listing and composer references use dedicated 1024 × 1024 transparent PNGs:
+`lightbringer-icon-light.png` has a black symbol and
+`lightbringer-icon-dark.png` has a white symbol. Both preserve the symbol's
+proportions with 6.25% top and bottom padding. The previous square-background
+assets are replaced.
+
+This icon update is combined with the self-contained skills in the prepared
+5.4.2 package. Confirm the published and pending dashboard versions before upload;
+this preparation does not establish host publication.
+
+After updating the existing plugin, verify the listing, composer and tool activity
+in both light and dark themes. Capture actual host rendering to check icon
+selection, legibility, clipping, distortion and background. If tool activity uses
+a separately managed app icon, check that asset too. Local asset and package
+validation do not establish these host outcomes. Keep the current package live
+until the approved replacement is ready to publish.
+
 ## Prepared trade secret listing update — portable 5.4.1 / Claude 1.7.1
 
 This update changes only the `trade-secrets` skill. When the host does not offer
@@ -278,21 +307,60 @@ For Claude chat and managed workspaces, test the supported plugin upload or orga
 
 ## Google Antigravity
 
-Antigravity installs the plugin from this repository. It reads `.antigravity-plugin/plugin.json` ahead of the root `plugin.json`, uses the shared `skills/` and `assets/`, and reads MCP servers from `mcp_config.json` rather than `mcp.json`. The bundled server appears to agents as `lightbringer_lightbringer`. Sign-in uses the connector's OAuth discovery and Dynamic Client Registration; no client secret or token belongs in the repository.
+Antigravity support is prepared for GitHub installation. Strict host validation,
+authenticated acceptance and Marketplace approval remain pending. Antigravity
+reads `.antigravity-plugin/plugin.json` ahead of the root `plugin.json`, uses the
+shared `skills/`, and reads MCP servers from `mcp_config.json` rather than
+`mcp.json`. The bundled server is namespaced as `lightbringer_lightbringer`.
 
-`scripts/validate_submission.py` checks the Antigravity listing fields, logo, endpoint and that `name` and `version` match `plugin.json`. Bump all three manifests together. These offline checks do not replace Antigravity's own validator:
+The Google listing uses the fixed-background logo under
+`.antigravity-plugin/assets/` because it declares one icon for both themes.
+Check its rendering in light and dark themes during host acceptance. The
+portable and OpenAI archives retain their transparent light/dark icons. The
+release builder intentionally excludes the Google adapter from those archives;
+install Antigravity from the repository, not from a portable or OpenAI ZIP.
+There is no separate Antigravity release archive.
+
+Sign-in is designed to use OAuth discovery and Dynamic Client Registration.
+[Antigravity documents automatic DCR](https://antigravity.google/docs/mcp#oauth),
+so no manual client ID or secret is bundled. Verify actual sign-in, organisation
+selection and reconnect behaviour with a test account.
+
+`scripts/validate_submission.py` checks Google metadata whenever the adapter is
+present. CI uses `--require-antigravity` to detect a missing adapter as well.
+Portable/OpenAI archives validate without the Google files. Keep the Google
+manifest's name and version aligned with the portable manifest; Claude package
+versions remain independent. These offline checks do not replace Antigravity's
+own validator:
 
 ```sh
+.venv/bin/python scripts/validate_submission.py --require-antigravity
 agy plugin validate --strict .     # must report 0 errors and 0 warnings
 agy plugin install .
 agy plugin list
 ```
 
-Then sign in, select a test organisation and run the suggested prompts and at least one skill, for example `/innovation-capture`, with synthetic material. Users can install directly with `agy plugin install https://github.com/lightbringer-patents/agent-plugin`.
+Run the host checks against the reconciled PR checkout before merge. Confirm all
+nine skills and the MCP server are discovered, then run the suggested prompts,
+a read workflow and an authorised synthetic write with readback. Include
+read-only consent and denied-write cases. Record the host version and source
+commit. If strict validation reports repository-file warnings, resolve them for
+the actual GitHub installation; a clean staged subset alone does not validate
+the full repository route.
 
-To list the plugin in the [Antigravity Marketplace](https://antigravity.google/docs/marketplace), submit the strictly validated plugin through the interest form linked from that page. Submission is reviewed by Google and is not publication. Verify the live listing and its version before recording the outcome. See [Build plugins](https://antigravity.google/docs/build-plugins).
+After merging and completing acceptance, the direct installation command is:
 
-## Acceptance cases for both hosts
+```sh
+agy plugin install https://github.com/lightbringer-patents/agent-plugin
+```
+
+For an official listing, use the partner interest form in Google's
+[Marketplace announcement](https://antigravity.google/blog/plugin-marketplace-in-antigravity)
+after validating the bundle. Submission is reviewed by Google and is not
+publication. Verify the live listing and version before recording the outcome.
+See [Build plugins](https://antigravity.google/docs/build-plugins).
+
+## Acceptance cases for supported hosts
 
 Use a dedicated test account and synthetic invention material. Record public package versions, endpoint, host, date and actual results. These are expected outcomes, not claims of completed host tests.
 
