@@ -31,7 +31,6 @@ a separately managed app icon, check that asset too. Local asset and package
 validation do not establish these host outcomes. Keep the current package live
 until the approved replacement is ready to publish.
 
-
 ## Prepared trade secret listing update — portable 5.4.1 / Claude 1.7.1
 
 This update changes only the `trade-secrets` skill. When the host does not offer
