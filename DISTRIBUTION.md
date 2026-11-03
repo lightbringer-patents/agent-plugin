@@ -2,6 +2,16 @@
 
 The prepared package contains nine workflow skills: `setup`, `lightbringer-navigation`, `novelty-exploration`, `innovation-capture`, `patent-preparation`, `patent-portfolio`, `ip-strategy`, `company-context` and `trade-secrets`. Each skill includes its references. Review collaboration remains available through connected tools and guidance; the standalone patent-review skill is removed.
 
+## Self-contained skills — portable 5.4.2 / Claude 1.7.2
+
+Agent Skills linters reject links from one skill into another skill's directory.
+Each skill now carries its own copy of `references/unresolved-needs.md`, and
+`lightbringer-navigation` carries its own `references/service-conduct.md`. Links
+to another skill's `SKILL.md` or references now name that skill in plain text.
+The guidance itself is unchanged. `build_release.py` rejects links that leave a
+skill's directory and copies of a shared reference that differ; update every copy
+together.
+
 ## Prepared trade secret listing update — portable 5.4.1 / Claude 1.7.1
 
 This update changes only the `trade-secrets` skill. When the host does not offer

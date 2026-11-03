@@ -128,6 +128,18 @@ class SubmissionTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "Missing or escaping skill reference"):
             package_files(self.root, True)
 
+    def test_links_into_another_skill_are_rejected(self):
+        skill = self.root / "skills/patent-portfolio/SKILL.md"
+        skill.write_text(skill.read_text() + "\n[Other](../setup/SKILL.md)\n")
+        with self.assertRaisesRegex(ValueError, "Missing or escaping skill reference"):
+            package_files(self.root, True)
+
+    def test_shared_reference_copies_must_match(self):
+        copy_path = self.root / "skills/trade-secrets/references/unresolved-needs.md"
+        copy_path.write_text(copy_path.read_text() + "\nDrift.\n")
+        with self.assertRaisesRegex(ValueError, "unresolved-needs.md differ"):
+            package_files(self.root, True)
+
     def test_unrelated_asset_files_and_unpackaged_skill_links_are_rejected(self):
         unrelated = self.root / "assets/notes.txt"
         unrelated.write_text("Not an image")
