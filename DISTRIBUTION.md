@@ -8,7 +8,10 @@ The registration target is the external-plugin catalogue in
 [`github/awesome-copilot`](https://github.com/github/awesome-copilot/blob/main/CONTRIBUTING.md#adding-external-plugins).
 It can point to an immutable revision of this repository. The root Agent Plugins
 1.0 manifest, `mcp.json` and canonical `skills/` tree are the candidate; no separate
-Copilot manifest, skill mirror or repository is needed. This track does not submit
+Copilot manifest, skill mirror or repository is needed. The repository's own
+`marketplace.json` points to that root without duplicating its version or listing
+metadata. Users can register it while the default-directory listing is pending.
+This track does not submit
 a Microsoft 365 Marketplace offer or establish support in Copilot Cowork or Chat.
 
 ### Compatibility checks
@@ -25,7 +28,7 @@ python scripts/check_copilot.py
 ```
 
 Vally checks skill frontmatter and references using the same lint API as the
-marketplace intake. The CLI check installs through a temporary marketplace and
+marketplace intake. The CLI check installs through a temporary copy of this repository's marketplace and
 checks plugin identity, enabled skills, MCP configuration and deactivation after
 uninstall. Its state and cache are disposable; it does not start an AI session or call Lightbringer
 tools. CI runs these checks on pull requests.
@@ -37,8 +40,10 @@ GitHub-source check. Replace `COMMIT_SHA` with that full 40-character commit SHA
 python scripts/check_copilot.py --source-sha COMMIT_SHA --entry-output /tmp/lightbringer-copilot-entry.json
 ```
 
-The generated listing takes metadata from the candidate manifest and pins its
-GitHub source. It is a submission aid, not a second maintained manifest. This
+The GitHub-source check registers this repository's marketplace at the exact
+commit and verifies plugin discovery. The generated external listing takes metadata
+from the candidate manifest and pins its GitHub source. It is a submission aid,
+not a second maintained manifest or proof of upstream intake acceptance. This
 check requires network access to the public repository. Do not submit a moving
 branch as the reviewed source.
 

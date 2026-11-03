@@ -66,10 +66,11 @@ repository is required. See [Copilot validation and distribution](DISTRIBUTION.m
 for tested versions and remaining acceptance checks.
 
 With [Copilot CLI installed](https://docs.github.com/en/copilot/how-tos/copilot-cli/set-up-copilot-cli/install-copilot-cli),
-install directly from this public repository:
+register this repository's marketplace and install the plugin:
 
 ```sh
-copilot plugin install lightbringer-patents/agent-plugin
+copilot plugin marketplace add lightbringer-patents/agent-plugin
+copilot plugin install lightbringer@lightbringer
 ```
 
 Start a new Copilot session, check that the Lightbringer skills and MCP server
@@ -83,10 +84,11 @@ project. Discuss the candidates with me before saving anything to Lightbringer.â
 Provide only technical material you are authorised to share. Registering an
 innovation does not request patent preparation; that remains a separate action.
 
-Update with `copilot plugin update lightbringer` or remove it with
-`copilot plugin uninstall lightbringer`. Existing organisation policies can restrict
+Update with `copilot plugin update lightbringer@lightbringer` or remove it with
+`copilot plugin uninstall lightbringer@lightbringer`. Existing organisation policies can restrict
 plugin use. Marketplace listing and support in other Copilot surfaces are tracked
-separately from direct CLI installation.
+separately from this repository's marketplace. Copilot CLI 1.0.105 warns that
+direct repository installs are deprecated; use the marketplace commands above.
 
 ## Packaging and publication
 

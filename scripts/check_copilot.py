@@ -12,13 +12,12 @@ import tempfile
 
 
 ROOT = Path(__file__).resolve().parent.parent
-MARKETPLACE = "lightbringer-validation"
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--copilot", default=str(ROOT / "scripts/copilot/node_modules/.bin/copilot"))
-    parser.add_argument("--source-sha", help="Install from GitHub at this checkout's full commit SHA")
+    parser.add_argument("--source-sha", help="Load the repository marketplace from GitHub at this checkout's full commit SHA")
     parser.add_argument("--entry-output", type=Path, help="Write the tested external listing JSON (requires --source-sha)")
     args = parser.parse_args()
     if args.entry_output and not args.source_sha:
@@ -39,23 +38,24 @@ def main():
     if not expected_skills:
         raise ValueError("The candidate must contain skills")
     expected_mcp = json.loads((ROOT / "mcp.json").read_text())["mcpServers"]["lightbringer"]
+    marketplace = json.loads((ROOT / "marketplace.json").read_text())
+    if marketplace["plugins"] != [{"name": manifest["name"], "source": "./"}]:
+        raise ValueError("The catalogue must reference the canonical plugin root without duplicating metadata")
+    marketplace_name = marketplace["name"]
 
     with tempfile.TemporaryDirectory(prefix="lightbringer-copilot-") as temporary:
         work = Path(temporary)
         catalog = work / "marketplace"
-        catalog.mkdir()
         if args.source_sha:
             entry["source"] = {"source": "github", "repo": "lightbringer-patents/agent-plugin",
                                "sha": args.source_sha}
+            catalog_source = f"lightbringer-patents/agent-plugin#{args.source_sha}"
         else:
             # Test the repository layout, including other hosts' metadata, without
             # treating contributor instructions as runtime plugin content.
-            shutil.copytree(ROOT, catalog / "plugin", ignore=shutil.ignore_patterns(
+            shutil.copytree(ROOT, catalog, ignore=shutil.ignore_patterns(
                 ".git", "node_modules", "__pycache__", ".venv", "artifacts"))
-            entry["source"] = "./plugin"
-        (catalog / "marketplace.json").write_text(json.dumps({
-            "name": MARKETPLACE, "owner": {"name": "Lightbringer"}, "plugins": [entry],
-        }, indent=2) + "\n")
+            catalog_source = str(catalog)
         env = dict(os.environ)
         for key in ("GH_TOKEN", "GITHUB_TOKEN", "COPILOT_GITHUB_TOKEN"):
             env.pop(key, None)
@@ -70,8 +70,8 @@ def main():
             return json.loads(result.stdout) if json_output else result.stdout.strip()
 
         print(run("--version"))
-        run("plugin", "marketplace", "add", str(catalog))
-        run("plugin", "install", f"{manifest['name']}@{MARKETPLACE}")
+        run("plugin", "marketplace", "add", catalog_source)
+        run("plugin", "install", f"{manifest['name']}@{marketplace_name}")
         plugins = run("plugin", "list", "--json", json_output=True)
         installed = [item for item in plugins if item["name"] == manifest["name"]]
         if len(installed) != 1 or installed[0].get("version") != manifest["version"] or not installed[0].get("enabled"):
@@ -88,7 +88,7 @@ def main():
                 or server.get("sourcePluginVersion") != manifest["version"]
                 or server.get("source") != "plugin" or not server.get("enabled")):
             raise ValueError("Copilot did not enable the expected plugin MCP configuration")
-        run("plugin", "uninstall", f"{manifest['name']}@{MARKETPLACE}")
+        run("plugin", "uninstall", f"{manifest['name']}@{marketplace_name}")
         # Local marketplace sources remain on disk after uninstall and appear
         # disabled; GitHub sources are removed. Neither may remain active.
         if any(item["name"] == manifest["name"] and item.get("enabled")
