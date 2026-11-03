@@ -25,4 +25,4 @@ A recorded preparation request does not establish that a separate invention disc
 
 For a subsequent review from the patent team, use the connected review guidance and available Lightbringer review tools. General advice, strategy, novelty assessments and other professional-service requests are outside this workflow; use the service's available instructions and continuation routes.
 
-If useful assistance leaves a material customer problem unresolved, follow the shared [unresolved-needs guidance](../setup/references/unresolved-needs.md) to understand and optionally report the remaining gap. Keep helping; reporting is not a prerequisite and requires approval of the exact report and recipient.
+If useful assistance leaves a material customer problem unresolved, follow the [unresolved-needs guidance](references/unresolved-needs.md) to understand and optionally report the remaining gap. Keep helping; reporting is not a prerequisite and requires approval of the exact report and recipient.
