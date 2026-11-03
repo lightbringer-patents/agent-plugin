@@ -34,14 +34,16 @@ uninstall. Its state and cache are disposable; it does not start an AI session o
 tools. CI runs these checks on pull requests.
 
 For the final candidate, check out the exact clean commit to submit, then run the
-GitHub-source check. Replace `COMMIT_SHA` with that full 40-character commit SHA:
+GitHub-source check. Replace `SOURCE_REF` with a published tag or test branch and
+`COMMIT_SHA` with its full 40-character commit SHA:
 
 ```sh
-python scripts/check_copilot.py --source-sha COMMIT_SHA --entry-output /tmp/lightbringer-copilot-entry.json
+python scripts/check_copilot.py --source-ref SOURCE_REF --source-sha COMMIT_SHA --entry-output /tmp/lightbringer-copilot-entry.json
 ```
 
-The GitHub-source check registers this repository's marketplace at the exact
-commit and verifies plugin discovery. The generated external listing takes metadata
+Copilot CLI 1.0.105 requires a named branch or tag for a GitHub marketplace URL.
+The check verifies the downloaded commit against `COMMIT_SHA` before installing
+and checking plugin discovery. The generated external listing takes metadata
 from the candidate manifest and pins its GitHub source. It is a submission aid,
 not a second maintained manifest or proof of upstream intake acceptance. This
 check requires network access to the public repository. Do not submit a moving

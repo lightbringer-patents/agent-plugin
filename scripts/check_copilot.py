@@ -17,11 +17,14 @@ ROOT = Path(__file__).resolve().parent.parent
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--copilot", default=str(ROOT / "scripts/copilot/node_modules/.bin/copilot"))
-    parser.add_argument("--source-sha", help="Load the repository marketplace from GitHub at this checkout's full commit SHA")
+    parser.add_argument("--source-sha", help="Expected full commit SHA of the downloaded GitHub marketplace")
+    parser.add_argument("--source-ref", help="Published tag or branch to download; requires --source-sha verification")
     parser.add_argument("--entry-output", type=Path, help="Write the tested external listing JSON (requires --source-sha)")
     args = parser.parse_args()
     if args.entry_output and not args.source_sha:
         parser.error("--entry-output requires --source-sha")
+    if bool(args.source_sha) != bool(args.source_ref):
+        parser.error("--source-ref and --source-sha must be supplied together")
     if args.source_sha:
         if not re.fullmatch(r"[0-9a-f]{40}", args.source_sha):
             parser.error("--source-sha must be a full lowercase commit SHA")
@@ -49,7 +52,7 @@ def main():
         if args.source_sha:
             entry["source"] = {"source": "github", "repo": "lightbringer-patents/agent-plugin",
                                "sha": args.source_sha}
-            catalog_source = f"lightbringer-patents/agent-plugin#{args.source_sha}"
+            catalog_source = f"lightbringer-patents/agent-plugin#{args.source_ref}"
         else:
             # Test the repository layout, including other hosts' metadata, without
             # treating contributor instructions as runtime plugin content.
@@ -71,6 +74,16 @@ def main():
 
         print(run("--version"))
         run("plugin", "marketplace", "add", catalog_source)
+        if args.source_sha:
+            # CLI 1.0.105 clones a named branch/tag, not an arbitrary SHA.
+            # Verify the actual fetched revision before installing any plugin.
+            repositories = list((work / "cache/marketplaces").glob("*/.git"))
+            if len(repositories) != 1:
+                raise ValueError("Could not identify the downloaded marketplace repository")
+            downloaded = subprocess.check_output(["git", "rev-parse", "HEAD"],
+                                                cwd=repositories[0].parent, text=True).strip()
+            if downloaded != args.source_sha:
+                raise ValueError("The downloaded marketplace does not match --source-sha")
         run("plugin", "install", f"{manifest['name']}@{marketplace_name}")
         plugins = run("plugin", "list", "--json", json_output=True)
         installed = [item for item in plugins if item["name"] == manifest["name"]]
