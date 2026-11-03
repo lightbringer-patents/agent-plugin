@@ -8,7 +8,7 @@ from pathlib import Path
 import re
 import zipfile
 
-from validate_submission import asset_files, regular_file, validate_openai, no_credentials
+from validate_submission import asset_files, regular_file, validate_openai, validate_antigravity, no_credentials
 
 
 def skill_files(root: Path) -> dict[str, bytes]:
@@ -91,6 +91,21 @@ def package_files(root: Path, portable: bool, *, expected_name: str = "lightbrin
     return metadata["version"], files
 
 
+def antigravity_files(root: Path, *, packaged=False) -> tuple[str, dict[str, bytes]]:
+    """Build a native plugin without contributor files or other hosts' metadata."""
+    portable = json.loads(regular_file(root, "plugin.json").read_text())
+    manifest = validate_antigravity(root, portable, packaged=packaged)
+    files = skill_files(root)
+    files["plugin.json"] = (json.dumps(manifest, indent=2, ensure_ascii=False) + "\n").encode("utf-8")
+    files["README.md"] = regular_file(root, "README.md" if packaged else ".antigravity-plugin/README.md").read_bytes()
+    for name in ("mcp_config.json", "LICENSE", manifest["logo"]):
+        files[name] = regular_file(root, name).read_bytes()
+    for name, content in files.items():
+        if name.endswith(".json"):
+            no_credentials(json.loads(content))
+    return manifest["version"], files
+
+
 def openai_plugin_name(value: str) -> str:
     if len(value) > 64 or not re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", value):
         raise argparse.ArgumentTypeError("Use the existing plugin name: up to 64 lowercase letters, digits and single hyphens")
@@ -99,24 +114,39 @@ def openai_plugin_name(value: str) -> str:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--claude-dir", type=Path, required=True)
+    parser.add_argument("--claude-dir", type=Path)
+    parser.add_argument("--antigravity-only", action="store_true",
+                        help="Build the native Antigravity archive without a Claude checkout")
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument("--openai-plugin-name", type=openai_plugin_name,
                         help="Also build an OpenAI ZIP using the existing dashboard plugin name")
     args = parser.parse_args()
     root = Path(__file__).resolve().parent.parent
-    claude = args.claude_dir.resolve()
-    if skill_files(root) != skill_files(claude):
-        raise ValueError("Shared skills differ; sync from agent-plugin before packaging")
-    version, portable = package_files(root, True)
-    claude_version, anthropic = package_files(claude, False)
-    packages = [("portable", version, portable), ("claude", claude_version, anthropic)]
-    if args.openai_plugin_name:
-        manifest = json.loads(portable["plugin.json"])
-        manifest["name"] = args.openai_plugin_name
-        openai = dict(portable)
-        openai["plugin.json"] = (json.dumps(manifest, indent=2, ensure_ascii=False) + "\n").encode("utf-8")
-        packages.append(("openai", version, openai))
+    if args.antigravity_only:
+        if args.openai_plugin_name:
+            parser.error("--openai-plugin-name cannot be combined with --antigravity-only")
+        version, native = antigravity_files(root)
+        packages = [("antigravity", version, native)]
+    else:
+        if args.claude_dir is None:
+            parser.error("--claude-dir is required unless --antigravity-only is used")
+        claude = args.claude_dir.resolve()
+        if skill_files(root) != skill_files(claude):
+            raise ValueError("Shared skills differ; sync from agent-plugin before packaging")
+        version, portable = package_files(root, True)
+        claude_version, anthropic = package_files(claude, False)
+        packages = [("portable", version, portable), ("claude", claude_version, anthropic)]
+        if args.openai_plugin_name:
+            manifest = json.loads(portable["plugin.json"])
+            manifest["name"] = args.openai_plugin_name
+            openai = dict(portable)
+            openai["plugin.json"] = (json.dumps(manifest, indent=2, ensure_ascii=False) + "\n").encode("utf-8")
+            packages.append(("openai", version, openai))
+        # Older portable-only revisions remain buildable; incomplete adapters fail.
+        if any((root / name).exists() or (root / name).is_symlink()
+               for name in (".antigravity-plugin", "mcp_config.json", "antigravity-assets")):
+            native_version, native = antigravity_files(root)
+            packages.append(("antigravity", native_version, native))
     args.output_dir.mkdir(parents=True, exist_ok=True)
     checksums = []
     for host, package_version, files in packages:

@@ -1,16 +1,22 @@
 """Regression checks for the actual portable upload package and rejected inputs."""
 
+import contextlib
 import copy
+import io
 import json
 from pathlib import Path
 import shutil
 import struct
 import tempfile
 import unittest
+from unittest.mock import patch
 import zlib
 
 from build_release import package_files
-from validate_submission import ROOT, validate_openai, validate_schemas, no_credentials
+from validate_submission import (
+    ROOT, main as validate_submission, validate_antigravity, validate_openai,
+    validate_schemas, no_credentials,
+)
 
 
 class SubmissionTests(unittest.TestCase):
@@ -20,7 +26,7 @@ class SubmissionTests(unittest.TestCase):
         self.root = Path(self.tmp.name).resolve()
         for name in ("plugin.json", "mcp.json", "README.md", "LICENSE", "DISTRIBUTION.md"):
             shutil.copyfile(ROOT / name, self.root / name)
-        for name in ("skills", "assets"):
+        for name in ("skills", "assets", "antigravity-assets"):
             shutil.copytree(ROOT / name, self.root / name)
         self.manifest = json.loads((self.root / "plugin.json").read_text())
         self.mcp = json.loads((self.root / "mcp.json").read_text())
@@ -184,6 +190,86 @@ class SubmissionTests(unittest.TestCase):
             icon.write_bytes(bad)
             with self.assertRaisesRegex(ValueError, "PNG"):
                 self.check()
+
+    def test_antigravity_listing_matches_portable_package(self):
+        shutil.copytree(ROOT / ".antigravity-plugin", self.root / ".antigravity-plugin")
+        target = self.root / ".antigravity-plugin/plugin.json"
+        shutil.copyfile(ROOT / "mcp_config.json", self.root / "mcp_config.json")
+        validate_antigravity(self.root, self.manifest)
+        listing = json.loads(target.read_text())
+        for field, value, message in (
+            ("version", "0.0.1", "version must match"),
+            ("description", "x" * 161, "description"),
+            ("suggestedPrompts", ["a", "b", "c", "d"], "suggestedPrompts"),
+            ("logo", "antigravity-assets/../plugin.json", "Invalid package path"),
+        ):
+            bad = dict(listing, **{field: value})
+            target.write_text(json.dumps(bad))
+            with self.subTest(field=field), self.assertRaisesRegex(ValueError, message):
+                validate_antigravity(self.root, self.manifest)
+        target.write_text(json.dumps(listing))
+        (self.root / "mcp_config.json").write_text(json.dumps(
+            {"mcpServers": {"lightbringer": {"url": "https://example.com/mcp"}}}))
+        with self.assertRaisesRegex(ValueError, "Unexpected MCP"):
+            validate_antigravity(self.root, self.manifest)
+
+    def test_antigravity_logo_must_be_bundled_and_not_a_symlink(self):
+        shutil.copytree(ROOT / ".antigravity-plugin", self.root / ".antigravity-plugin")
+        shutil.copyfile(ROOT / "mcp_config.json", self.root / "mcp_config.json")
+        target = self.root / ".antigravity-plugin/plugin.json"
+        listing = json.loads(target.read_text())
+        original = (self.root / listing["logo"]).read_bytes()
+        for path in ("antigravity-assets/.hidden.png", "antigravity-assets/__pycache__/logo.png"):
+            image = self.root / path
+            image.parent.mkdir(exist_ok=True)
+            image.write_bytes(original)
+            target.write_text(json.dumps(dict(listing, logo=path)))
+            with self.assertRaisesRegex(ValueError, "Marketplace bundler"):
+                validate_antigravity(self.root, self.manifest)
+        target.write_text(json.dumps(listing))
+        logo = self.root / listing["logo"]
+        logo.unlink()
+        logo.symlink_to(ROOT / listing["logo"])
+        with self.assertRaisesRegex(ValueError, "symlink"):
+            validate_antigravity(self.root, self.manifest)
+
+    def validate_cli(self, root, *args):
+        with patch("sys.argv", ["validate_submission.py", "--root", str(root), *args]), contextlib.redirect_stdout(io.StringIO()):
+            validate_submission()
+
+    def test_portable_and_openai_packages_validate_without_antigravity(self):
+        # Start with the complete repository distribution, then validate only
+        # the files selected by the real portable/OpenAI packaging path.
+        shutil.copytree(ROOT / ".antigravity-plugin", self.root / ".antigravity-plugin")
+        shutil.copyfile(ROOT / "mcp_config.json", self.root / "mcp_config.json")
+        self.validate_cli(self.root, "--require-antigravity")
+        _, files = package_files(self.root, True)
+        self.assertNotIn("mcp_config.json", files)
+        self.assertFalse(any(name.startswith(".antigravity-plugin/") for name in files))
+        extracted = self.root / "extracted"
+        for name, data in files.items():
+            target = extracted / name
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_bytes(data)
+        self.validate_cli(extracted)
+        with self.assertRaisesRegex(ValueError, "Missing package file"):
+            self.validate_cli(extracted, "--require-antigravity")
+        metadata = json.loads((extracted / "plugin.json").read_text())
+        metadata["name"] = "app-example-existing-listing"
+        (extracted / "plugin.json").write_text(json.dumps(metadata))
+        self.validate_cli(extracted, "--expected-name", metadata["name"])
+
+    def test_partial_antigravity_adapter_is_rejected(self):
+        # Neither an orphan MCP configuration nor a listing without its
+        # configuration may be mistaken for a portable-only archive.
+        config = self.root / "mcp_config.json"
+        shutil.copyfile(ROOT / "mcp_config.json", config)
+        with self.assertRaisesRegex(ValueError, "Missing package file: .antigravity-plugin/plugin.json"):
+            self.validate_cli(self.root)
+        config.unlink()
+        shutil.copytree(ROOT / ".antigravity-plugin", self.root / ".antigravity-plugin")
+        with self.assertRaisesRegex(ValueError, "Missing package file: mcp_config.json"):
+            self.validate_cli(self.root)
 
     def test_onboarding_must_resolve_to_packaged_skill(self):
         extension = self.manifest["extensions"]["com.openai"]

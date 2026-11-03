@@ -6,6 +6,7 @@ import importlib.util
 import io
 import json
 from pathlib import Path
+import shutil
 import tempfile
 import unittest
 from unittest.mock import patch
@@ -37,7 +38,7 @@ class BuildReleaseTests(unittest.TestCase):
 
     def test_independent_versions_and_reproducible_checksums(self):
         with tempfile.TemporaryDirectory() as directory:
-            root = Path(directory)
+            root = Path(directory).resolve()
             portable, claude, output = root / "portable", root / "claude", root / "output"
             self.package(portable, True, "1.1.0")
             self.package(claude, False, "1.1.1")
@@ -63,7 +64,7 @@ class BuildReleaseTests(unittest.TestCase):
 
     def test_different_skills_still_block_packaging(self):
         with tempfile.TemporaryDirectory() as directory:
-            root = Path(directory)
+            root = Path(directory).resolve()
             portable, claude, output = root / "portable", root / "claude", root / "output"
             self.package(portable, True, "1.1.0")
             self.package(claude, False, "1.1.1")
@@ -114,6 +115,48 @@ class BuildReleaseTests(unittest.TestCase):
             for line in first.decode().splitlines():
                 checksum, filename = line.split("  ")
                 self.assertEqual(checksum, hashlib.sha256((output / filename).read_bytes()).hexdigest())
+
+    def test_antigravity_archive_is_clean_self_contained_and_reproducible(self):
+        source = SCRIPT.parent.parent
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory).resolve()
+            portable, claude, output = root / "portable", root / "claude", root / "output"
+            shutil.copytree(source, portable, ignore=shutil.ignore_patterns(".git", "__pycache__"))
+            self.package(claude, False, "1.7.2")
+            shutil.rmtree(claude / "skills")
+            shutil.copytree(portable / "skills", claude / "skills")
+            version, expected = builder.antigravity_files(portable)
+            _, original_portable = builder.package_files(portable, True)
+            with patch.object(builder, "__file__", str(portable / "scripts/build_release.py")), patch("sys.argv", [
+                "build_release.py", "--claude-dir", str(claude), "--output-dir", str(output),
+                "--openai-plugin-name", "app-example-existing-listing",
+            ]):
+                builder.main()
+                first = (output / "SHA256SUMS").read_bytes()
+                builder.main()
+                self.assertEqual(first, (output / "SHA256SUMS").read_bytes())
+            with zipfile.ZipFile(output / f"lightbringer-antigravity-{version}.zip") as archive:
+                files = {name: archive.read(name) for name in archive.namelist()}
+                self.assertEqual(files, expected)
+                self.assertEqual({name: data for name, data in files.items() if name.startswith("skills/")},
+                                 builder.skill_files(source))
+                self.assertFalse(any(name.startswith((".", "scripts/", "rules/")) for name in files))
+                for name in ("AGENTS.md", "CLAUDE.md", "mcp.json", "DISTRIBUTION.md"):
+                    self.assertNotIn(name, files)
+                manifest = json.loads(files["plugin.json"])
+                self.assertIn(manifest["logo"], files)
+                self.assertNotIn("extensions", manifest)
+                extracted = root / "extracted"
+                archive.extractall(extracted)
+                self.assertEqual(builder.antigravity_files(extracted, packaged=True), (version, files))
+            with zipfile.ZipFile(output / f"lightbringer-portable-{version}.zip") as archive:
+                self.assertEqual({name: archive.read(name) for name in archive.namelist()}, original_portable)
+            native_bytes = (output / f"lightbringer-antigravity-{version}.zip").read_bytes()
+            with patch.object(builder, "__file__", str(portable / "scripts/build_release.py")), patch("sys.argv", [
+                "build_release.py", "--antigravity-only", "--output-dir", str(root / "native-only"),
+            ]):
+                builder.main()
+            self.assertEqual((root / "native-only" / f"lightbringer-antigravity-{version}.zip").read_bytes(), native_bytes)
 
     def test_invalid_openai_identity_fails_before_writing_archives(self):
         for name in ("", "Wrong Name", "app--example", "../example", "a" * 65):

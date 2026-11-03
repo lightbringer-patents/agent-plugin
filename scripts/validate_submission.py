@@ -1,4 +1,4 @@
-"""Offline checks for Lightbringer's portable OpenAI upload package.
+"""Offline checks for Lightbringer's portable package and host metadata.
 
 The standard-library checks also run during packaging. This CLI additionally
 validates the pinned portable JSON schemas (install requirements-validation.txt).
@@ -215,6 +215,63 @@ def validate_openai(root, manifest, mcp):
         regular_file(root, onboarding[2:])
 
 
+ANTIGRAVITY_MANIFEST = ".antigravity-plugin/plugin.json"
+ANTIGRAVITY_MCP = "mcp_config.json"
+
+
+def validate_antigravity(root, portable, *, packaged=False):
+    """Check the Antigravity Marketplace fields and keep them in step with the portable package.
+
+    https://antigravity.google/docs/build-plugins
+    This does not replace `agy plugin validate --strict`.
+    """
+    manifest = json.loads(regular_file(root, "plugin.json" if packaged else ANTIGRAVITY_MANIFEST).read_text())
+    mcp = json.loads(regular_file(root, ANTIGRAVITY_MCP).read_text())
+    no_credentials(manifest)
+    no_credentials(mcp)
+    for field in ("name", "version"):
+        if manifest.get(field) != portable.get(field):
+            raise SubmissionError(f"Antigravity {field} must match plugin.json")
+    if manifest.get("name") != "lightbringer" or not re.fullmatch(r"\d+\.\d+\.\d+", manifest.get("version", "")):
+        raise SubmissionError("Invalid Antigravity release identity")
+    text(manifest.get("displayName"), "displayName", 80)
+    text(manifest.get("description"), "description", 160)
+    author = manifest.get("author")
+    if isinstance(author, dict):
+        text(author.get("name"), "author.name", 80)
+        if "url" in author:
+            https(author["url"], "author.url")
+    else:
+        text(author, "author", 80)
+    for field in ("homepage", "repository"):
+        if field in manifest:
+            https(manifest[field], field)
+    prompts = manifest.get("suggestedPrompts", [])
+    if not isinstance(prompts, list) or len(prompts) > 3:
+        raise SubmissionError("Use at most three suggestedPrompts")
+    for prompt in prompts:
+        text(prompt, "suggestedPrompts", 200)
+    keywords = manifest.get("keywords", [])
+    if not isinstance(keywords, list) or any(not isinstance(k, str) or k != k.lower() for k in keywords):
+        raise SubmissionError("keywords must be lowercase strings")
+    logo = manifest.get("logo")
+    if not isinstance(logo, str) or not logo.startswith("antigravity-assets/"):
+        raise SubmissionError("logo must reference an antigravity-assets/ file")
+    regular_file(root, logo)
+    if any(part.startswith(".") or part == "__pycache__" for part in logo.split("/")):
+        raise SubmissionError("logo must be included by the Marketplace bundler")
+    width, height = png_dimensions(regular_file(root, logo).read_bytes(), "logo")
+    if width != height or width < 128:
+        raise SubmissionError("logo must be square and at least 128 px")
+
+    servers = mcp.get("mcpServers", {})
+    if set(servers) != {"lightbringer"}:
+        raise SubmissionError(f"{ANTIGRAVITY_MCP} must contain exactly the Lightbringer MCP server")
+    if servers["lightbringer"] != {"url": "https://mcp.lightbringer.com/mcp"}:
+        raise SubmissionError(f"Unexpected MCP connection configuration in {ANTIGRAVITY_MCP}")
+    return manifest
+
+
 def validate_schemas(manifest, mcp):
     from jsonschema import Draft202012Validator
     for name, value in (("plugin", manifest), ("mcp", mcp)):
@@ -231,16 +288,31 @@ def main():
     parser.add_argument("--root", type=Path, default=ROOT)
     parser.add_argument("--expected-name", default="lightbringer",
                         help="Expected manifest name when validating an extracted OpenAI update ZIP")
+    parser.add_argument("--antigravity-package", action="store_true",
+                        help="Validate an extracted native Antigravity release archive")
+    parser.add_argument("--require-antigravity", action="store_true",
+                        help="Require Antigravity metadata when checking the repository distribution")
     parser.add_argument("--require-demo", action="store_true", help="Require a packaged walkthrough URL instead of preserving the portal's existing value")
     parser.add_argument("--tools", type=Path, help="Local tools/list JSON for checking scenario tool names")
     args = parser.parse_args()
     root = args.root.resolve()
+    if args.antigravity_package:
+        from build_release import antigravity_files
+        _, files = antigravity_files(root, packaged=True)
+        print(f"Antigravity metadata, skill links and {len(files)} package files validated.")
+        return
     manifest = json.loads(regular_file(root, "plugin.json").read_text())
     mcp = json.loads(regular_file(root, "mcp.json").read_text())
     if "com.openai" not in manifest.get("extensions", {}):
         raise SubmissionError("OpenAI submission metadata is missing")
     validate_openai(root, manifest, mcp)
     validate_schemas(manifest, mcp)
+    # Portable and OpenAI archives intentionally omit the Antigravity adapter.
+    # Check partial adapters too, so a missing manifest/config cannot pass silently.
+    antigravity_paths = (root / ".antigravity-plugin", root / ANTIGRAVITY_MCP)
+    if args.require_antigravity or any(path.exists() or path.is_symlink() for path in antigravity_paths):
+        validate_antigravity(root, manifest)
+        print("Antigravity repository metadata validated.")
     from build_release import package_files
     _, files = package_files(root, True, expected_name=args.expected_name)
     review = manifest["extensions"]["com.openai"]["review"]

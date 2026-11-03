@@ -179,7 +179,7 @@ With `claude-plugin` beside this repository:
 python3 scripts/build_release.py --claude-dir ../claude-plugin --output-dir ../artifacts/lightbringer-plugin-release
 ```
 
-The script checks package versions, JSON, skill links and mirror equality, and creates portable and Claude ZIPs with SHA-256 checksums. It includes only public package files. Archive validation is not host approval.
+The script checks package versions, JSON, skill links and mirror equality, and creates portable, Claude and Antigravity ZIPs with SHA-256 checksums. It includes only public package files. Archive validation is not host approval.
 
 The builder uses each package's own manifest version in its archive filename. Package versions may differ; the complete shared skills trees must still match exactly. Bump the version of each package whose published contents change.
 
@@ -222,9 +222,8 @@ python3 scripts/build_release.py --claude-dir ../claude-plugin \
 Upload `lightbringer-openai-<version>.zip` to the existing OpenAI listing. The
 builder changes only the root manifest's `name` in that archive; the portable
 and Claude names, display name, MCP configuration and shared skills are retained.
-All three archives have reproducible SHA-256 checksums. The source manifest is
-not rewritten. Without the option, only the portable and Claude archives are
-built as before.
+All archives have reproducible SHA-256 checksums. The source manifest is
+not rewritten. Without the option, the portable, Claude and Antigravity archives are built.
 
 The dashboard uses the manifest's explicit `version`. Check both its published
 and pending versions before choosing the next package version, especially when
@@ -305,7 +304,56 @@ For the existing GitHub-connected directory submission, merge the reviewed packa
 
 For Claude chat and managed workspaces, test the supported plugin upload or organisation distribution flow and verify that skills accompany the connector. A custom MCP connector alone does not install skills. Organisation sync has separate access rules; a public Claude Code marketplace is not automatically an organisation-managed marketplace. See [organisation distribution](https://code.claude.com/docs/en/plugin-marketplaces#distribute-through-organization-settings).
 
-## Acceptance cases for both hosts
+## Google Antigravity
+
+Use the generated `lightbringer-antigravity-<version>.zip`. It contains a native
+root `plugin.json`, `mcp_config.json`, all nine canonical skills, a README,
+licence and a fixed-background logo under `antigravity-assets/`. It does not
+require Antigravity's Agent Plugins feature flag.
+
+Build just this package without a Claude checkout:
+
+```sh
+python3 scripts/build_release.py --antigravity-only --output-dir dist
+python3 -m zipfile -e dist/lightbringer-antigravity-5.4.2.zip dist/antigravity
+python3 scripts/validate_submission.py --root dist/antigravity --antigravity-package
+agy plugin validate --strict dist/antigravity
+agy plugin install dist/antigravity
+agy plugin list --json
+```
+
+Use the version in `plugin.json` when the package version changes. The combined
+build also produces this archive. Portable and OpenAI archives retain their own
+manifests and transparent light/dark icons; Claude versions remain independent.
+
+The repository is the source for several distributions. Its root `AGENTS.md`
+and `CLAUDE.md` guide contributors and are excluded from release archives. Do not
+move them into plugin `rules/`: that would activate maintenance instructions in
+customer conversations. Validate and install the extracted Antigravity archive;
+the source repository root contains intentionally superseded manifests and is
+not the supported installation target. Direct GitHub-root installation is not
+covered by archive validation.
+
+CI builds the native archive and runs the pinned Antigravity CLI against its
+extracted contents with `--strict`. CLI 1.4.12 discovers nine skills and one MCP
+server with zero errors or warnings. Structural validation does not establish
+successful OAuth, workflow execution or Marketplace approval.
+
+Sign-in uses OAuth discovery and
+[Dynamic Client Registration](https://antigravity.google/docs/mcp#oauth).
+No client ID or secret is bundled. Before publication, verify sign-in,
+organisation selection, reconnect, the suggested prompts, a read workflow and
+an authorised synthetic write with readback. Include read-only consent,
+denied-write cases and logo rendering in both themes. Record the tested host
+version and package checksum. These authenticated acceptance checks remain pending.
+
+For an official listing, use the partner interest form in Google's
+[Marketplace announcement](https://antigravity.google/blog/plugin-marketplace-in-antigravity)
+with the validated bundle. Confirm Google's accepted delivery route during
+onboarding; an archive build does not publish a GitHub installation target or
+secure Marketplace approval. See [Build plugins](https://antigravity.google/docs/build-plugins).
+
+## Acceptance cases for supported hosts
 
 Use a dedicated test account and synthetic invention material. Record public package versions, endpoint, host, date and actual results. These are expected outcomes, not claims of completed host tests.
 
