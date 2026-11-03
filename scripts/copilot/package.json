@@ -1,0 +1,12 @@
+{
+  "name": "lightbringer-copilot-checks",
+  "private": true,
+  "description": "Pinned tools for GitHub Copilot plugin compatibility checks",
+  "engines": {
+    "node": ">=24.15.0"
+  },
+  "devDependencies": {
+    "@github/copilot": "1.0.105",
+    "@microsoft/vally": "0.20.0"
+  }
+}
