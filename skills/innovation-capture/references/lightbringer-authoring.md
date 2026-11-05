@@ -12,7 +12,7 @@ Retrieve `get_innovation_template` for new capture. Its current guide owns the i
 
 **Known prior work.** Use concrete references from supplied material, saved records or authorised research. Explain what they establish and what remains unassessed. Generic descriptions of “existing systems” are not evidence of prior art, novelty or freedom to operate.
 
-**Visual evidence.** Suggest a concrete drawing and what it should show when it would clarify the mechanism. Match the format to the subject, such as a sequence diagram, cross-section or reaction scheme. A drawing suggestion is not an uploaded attachment; use the available attachment route or explain the remaining manual step.
+**Visual evidence.** Suggest a concrete drawing and what it should show when it would clarify the mechanism. Match the format to the subject, such as a sequence diagram, cross-section or reaction scheme. A drawing suggestion is not an uploaded image. For an authorised upload, follow [files and illustrations](files.md) to add it to the selected draft innovation or explain the remaining manual step.
 
 ## Preserve the unresolved remainder
 
