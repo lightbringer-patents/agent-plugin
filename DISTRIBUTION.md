@@ -2,6 +2,27 @@
 
 The prepared package contains nine workflow skills: `setup`, `lightbringer-navigation`, `novelty-exploration`, `innovation-capture`, `patent-preparation`, `patent-portfolio`, `ip-strategy`, `company-context` and `trade-secrets`. Each skill includes its references. Review collaboration remains available through connected tools and guidance; the standalone patent-review skill is removed.
 
+## Prepared file workflows — portable 5.4.3 / Claude 1.7.3
+
+Innovation capture handles drawings on draft innovations; navigation handles vault file discovery, reading and uploads. Both carry the same self-contained file reference. The nine skills and existing starter prompts are retained. The listing and review cases describe the available file workflows without assuming every host can transfer bytes.
+
+Before upload, reconcile these candidate versions with any pending package submission. Package builds and source validation do not establish host acceptance or publication. Keep the current package published while its replacement is reviewed.
+
+Exercise these cases independently in supported OpenAI and Claude hosts, using a dedicated test workspace and controlled files:
+
+| Case | Expected result |
+| --- | --- |
+| PNG added to an editable draft innovation | Uses the selected innovation, preserves earlier drawings and reports confirmed registration; optional readback matches the saved drawing. |
+| PDF or text uploaded to a vault folder | Transfers original bytes, registers once, preserves the folder choice and reads back with `vault_file:<id>` when supported. Storage does not link a case or create a disclosure. |
+| Vault filename/path search and paging | Follows cursors, selects the intended file and distinguishes inspected content from metadata or download links. No claim of full-content search. |
+| Uploads available, optional illustration or vault read held | Uses supported upload contracts, reports confirmed registration and the read limitation without uploading again or passing unavailable fields. |
+| One upload tool or destination held; read-only consent or denied access | Offers the relevant platform continuation without an incomplete write or a claim that the organisation has no files. |
+| Readable file but no HTTP PUT; inaccessible bytes or unknown size | Uses another supported transfer method if available; otherwise offers manual upload without invented paths/sizes or registering an untransferred file. |
+| Retryable registration, lost response, failed transfer or name conflict | Reuses the upload ID to reconcile registration, stops on terminal refusal, and never reports a successful PUT as a saved file. Does not rename, overwrite or create duplicate uploads silently. |
+| Analysis-only file or unsupported PDF attachment request | Does not store evidence without save intent or substitute the vault for an innovation attachment. |
+
+Run the manifest review cases as conversational acceptance checks; their inclusion is not a passing result. Verify the definitions actually exposed to each host and its file-transfer capability. Tool rescanning, package publication and directory-listing updates remain separate actions.
+
 ## Self-contained skills — portable 5.4.2 / Claude 1.7.2
 
 Agent Skills linters reject links from one skill into another skill's directory.
