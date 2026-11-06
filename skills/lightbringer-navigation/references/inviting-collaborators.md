@@ -35,8 +35,10 @@ Use `invite_members` when the connection advertises it, following its schema, wi
 
 - **Invited:** the invitation was sent; accepting gives access to the document.
 - **Already invited:** the pending invitation was re-sent with the document and keeps its earlier role.
-- **Already a member:** no invitation was needed; the person was given access to the document.
+- **Already a member:** no invitation was needed; the person was given access to the document. If some documents could not be shared, name them; the others were shared.
 - **Refused:** not invited, with the reason the service returned.
+
+If an invitation was saved but its email could not be sent, say so and point to the Team settings, where it can be re-sent; do not send it again through the tool.
 
 If the service rejects the request, nothing was sent: explain the reason it gives and do not work around it. Emails cannot be recalled, so after an uncertain outcome do not resend automatically; explain the uncertainty. Report an invitation as sent only when the service confirms it, and do not claim that anyone has accepted or joined.
 
