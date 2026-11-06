@@ -12,12 +12,12 @@ The package includes ten workflow skills. Patent discovery uses `search_public_p
 - **setup:** get oriented from your current IP situation and develop a practical first plan, saved as a draft Strategy when requested. No patent expertise is needed.
 - **novelty-exploration:** clarify a technical solution, explore related and competitor patents, and import selected references when authorised. Preliminary exploration does not establish novelty or freedom to operate.
 - **lightbringer-navigation:** explain relevant workflows and the patent process, choose a next step from current context and provide platform or team continuations when execution is unavailable.
-- **innovation-capture:** identify, register and enrich innovations from a conversation, inventor interview or authorised source exploration.
+- **innovation-capture:** identify, register and enrich innovations from a conversation, inventor interview or authorised source exploration. Once a record is saved, offer to invite co-inventors to validate it.
 - **patent-preparation:** request preparation of a selected innovation for patent filing and report the confirmed status and next steps. Refinement is optional; an explicit request does not require an automated feedback or revision cycle.
 - **patent-review:** read and respond to Lightbringer Strategy, report, patent-draft and validation reviews, starting from the review's instructions, including comments, discussion, country selection and formal responses.
 - **patent-portfolio:** review saved applications and patent families, read selected patent sections, compare with public publications, carry out authorised imports or family updates, and read back the results. Structured family overviews depend on the connected service; family grouping does not update patent text or legal status.
 - **company-context:** establish and maintain a shared company brief from conversation and evidence, for use across patent workflows. Context reads and saves depend on the connected tools; saves require moderator rights.
-- **ip-strategy:** develop and revise an actionable company, product or technology strategy, connecting business objectives, evidence, protection options and next actions. Save and maintain a Strategy through the connected tools when available; publication is a separate explicit action.
+- **ip-strategy:** develop and revise an actionable company, product or technology strategy, connecting business objectives, evidence, protection options and next actions. Save and maintain a Strategy through the connected tools when available; publication is a separate explicit action. Offer to invite the people who own the decision once a Strategy is published.
 - **trade-secrets:** explain trade secrets, how they differ from patents, and how the trade secret register works. With the `mcp:trade-secrets` scope and where the organisation allows it, list the register entries the user can open by reference, title, status and dates, without entry content. Where the organisation does not have the register, explain how to add it.
 
 MCP startup guidance supplies service-wide rules and entry points. The [navigation skill](skills/lightbringer-navigation/SKILL.md) adds contextual orientation and a general patent-process reference without replacing specialist requirements or confirming live capability availability. Tool descriptions define individual operations. Live capture guides own the interview, readiness and creation schema; skills coordinate evidence, decisions and handoffs. MCP prompts are optional task starters, including explicit requests to capture and save. Natural-language requests do not require selecting a prompt. Reading or making a targeted update to a saved record does not require restarting capture.
@@ -57,11 +57,12 @@ Try:
 - “Check for new publications and update the patent families in our saved portfolio.”
 - “Use our launch brief and saved innovations to build and save an IP strategy for this product.”
 - “Update our existing strategy for the changed target market, preserving the other priorities.”
+- “Invite my co-founder to review this strategy.”
 - “Which trade secret register entries can I open, and which are not yet assessed?”
 
 ## Packaging and publication
 
-Version 5.4.2 is prepared with nine workflow skills, conversational setup and capability-aware Strategy authoring. It retains company-context capture, its integration with IP strategy, and focused patent-section retrieval. Authenticated acceptance and host publication remain separate steps; see [distribution and validation](DISTRIBUTION.md).
+Version 5.5.0 is prepared with nine workflow skills, conversational setup, capability-aware Strategy authoring and guidance for inviting colleagues to a document. It retains company-context capture, its integration with IP strategy, and focused patent-section retrieval. Authenticated acceptance and host publication remain separate steps; see [distribution and validation](DISTRIBUTION.md).
 
 This is the canonical `skills/` source. [claude-plugin](https://github.com/lightbringer-patents/claude-plugin) mirrors the complete tree with Anthropic-specific metadata. Edit shared skills here first and verify both packages before release.
 
