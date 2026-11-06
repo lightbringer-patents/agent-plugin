@@ -2,6 +2,24 @@
 
 The prepared package contains nine workflow skills: `setup`, `lightbringer-navigation`, `novelty-exploration`, `innovation-capture`, `patent-preparation`, `patent-portfolio`, `ip-strategy`, `company-context` and `trade-secrets`. Each skill includes its references. Review collaboration remains available through connected tools and guidance; the standalone patent-review skill is removed.
 
+## Prepared invention-review update — portable 5.5.0 / Claude 1.8.0
+
+This candidate keeps the production connection and all nine workflows. Invention
+feedback is presented as up to five merged priorities and up to three optional
+ideas, retaining access to the existing run. Selected questions show progress;
+proposed edits require a save decision and verified readback. Submission uses
+concise confirmation and supported contact collection without assuming payment,
+completed legal work or email delivery.
+
+Component presentation and contact inputs are selected from the connected tools.
+Unavailable or denied app presentation retains a text fallback. Preparing these
+packages does not establish production availability of optional capabilities,
+host acceptance or publication. Keep the candidate PRs open until the compatible
+service contract and intended host paths are verified. Existing pending portfolio
+and file-workflow changes are separate and are not included in this candidate.
+Confirm published and pending package versions before upload; reconcile with any
+other package changes selected for the same release.
+
 ## Self-contained skills — portable 5.4.2 / Claude 1.7.2
 
 Agent Skills linters reject links from one skill into another skill's directory.
