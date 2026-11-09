@@ -14,7 +14,7 @@ The `patent-review` skill returns. It reads a review's instructions and material
 | Review not renderable or tool unavailable | Explains the limitation, keeps drafts unsent and offers the platform link. Does not recommend approval from metadata. |
 | Prior-art concession in a draft comment | The discovery screen removes it before the batch and tells the user to raise it verbally. |
 
-## Prepared collaborator invitations — portable 5.5.0 / Claude 1.8.0
+## Prepared collaborator invitations — portable 5.6.0 / Claude 1.9.0
 
 `innovation-capture`, `ip-strategy` and `lightbringer-navigation` each carry an
 identical `references/inviting-collaborators.md`. Once an innovation or Strategy
@@ -353,7 +353,7 @@ Build just this package without a Claude checkout:
 
 ```sh
 python3 scripts/build_release.py --antigravity-only --output-dir dist
-python3 -m zipfile -e dist/lightbringer-antigravity-5.5.0.zip dist/antigravity
+python3 -m zipfile -e dist/lightbringer-antigravity-5.6.0.zip dist/antigravity
 python3 scripts/validate_submission.py --root dist/antigravity --antigravity-package
 agy plugin validate --strict dist/antigravity
 agy plugin install dist/antigravity
