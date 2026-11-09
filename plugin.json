@@ -100,7 +100,7 @@
         }
       },
       "publication": {
-        "release_notes": "Version 5.6.0 adds guidance for inviting colleagues to a saved innovation or published Strategy from the conversation. The assistant can offer once to invite co-inventors or decision owners, uses only email addresses the user provides, and sends invitations only after the user approves the exact people and roles. Where the connection does not offer invitations, it points to the organisation's moderator or the Team settings. Other skill behaviour is unchanged from 5.4.2."
+        "release_notes": "Version 5.6.0 adds guidance for inviting colleagues to a saved innovation or published Strategy from the conversation. The assistant can offer once to invite co-inventors or decision owners, uses only email addresses the user provides, and sends invitations only after the user approves the exact people and roles. Where the connection does not offer invitations, it points to the organisation's moderator or the Team settings."
       },
       "onboardingSkill": "./skills/setup/SKILL.md"
     }

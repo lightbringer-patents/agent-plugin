@@ -57,7 +57,7 @@ After a successful create or update, read the saved Strategy through the support
 
 Report the proposed direction or confirmed saved outcome, with the record ID/link and returned publication status when available. Summarise material changes, unresolved decisions and the next useful action. Explain any unsaved work or source limitations. After saving, refine the same record for ordinary revisions; do not restart the interview.
 
-A saved Strategy often needs validation from people who own the decision, such as a co-founder or CTO. Follow [inviting collaborators](references/inviting-collaborators.md) to offer once to invite them, or when the user asks to invite someone. Only a published Strategy can be shared; inviting does not authorise publication.
+A published Strategy often needs validation from people who own the decision, such as a co-founder or CTO. Once it is published, follow [inviting collaborators](references/inviting-collaborators.md) to offer once to invite them, or when the user asks to invite someone. A draft cannot be shared; inviting does not authorise publication.
 
 Review may be triggered by a product pivot, changed target market, new technical evidence, a relevant competitor development or a portfolio milestone. A review date or monitoring proposal written in the strategy does not create a schedule. Publication supplies context to existing competitor monitoring; it does not create a schedule or confirm that a run has completed. Report a schedule, completed monitoring run, downstream record change or professional service request only when confirmed by the relevant service.
 
