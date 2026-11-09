@@ -3,6 +3,8 @@
 ## Locating and reading
 
 - `list_reviews`: reviews the user participates in or created — status, own response status, awaited participants. Default `open`; use `closed` for historical outcomes. Preserve the distinct `strategy`, `report` and `document` targets and use the returned record references to identify what is being reviewed.
+- `instructions`: the creator's brief for this review, returned with the review when recorded. Read and show it before interpreting the material. Do not replace it with a summary or invent one when it is absent.
+- Preserve the returned review `type`. A validation review (`ENTRY_PLAN_VALIDATION`) follows the validation section below. Explain an unrecognised type and offer the platform link instead of treating it as a patent draft.
 - `get_review`: metadata, `artifact.markdown`, document comment threads with stable IDs, and the review discussion feed. Read all of them before proposing feedback to avoid repeating an existing point. Attorney redlines carry original/replacement/rationale.
 - Inspect `artifact.amendments` separately: these are proposed block changes with baseline/proposed text, redline and patch; the document body still shows baseline text. Do not describe an agent-drafted proposal as an accepted amendment or attorney-authored change.
 - Check `artifact.status` and `artifact.reason` when the document cannot be rendered. A rendering notice is not the document. Explain the limitation and use the supplied platform link for document review; do not infer missing content or recommend approval from metadata alone.
@@ -58,6 +60,10 @@ Classify each finding under the regimes before drafting it.
 ## Channel
 
 Feedback stays in Lightbringer comments (data security; comments stay attached to the right application and claim). Asked to email → cite this rule and offer to post on-platform; capture any commenting blockers for the user to raise with the drafting team.
+
+## Validation reviews
+
+`get_review` lists the recommended and currently selected countries; its `validation` field carries them as two-letter codes (`UP` for the Unitary Patent). `set_validation_countries` replaces the whole selection, so ask for the complete intended list rather than adding countries one at a time. A change returns earlier approvals to pending; restoring the old list does not restore them. Only a reviewer who has not yet approved, or a specialist, may change an open review. Confirm the saved selection with `get_review` before the separate approve/request-changes decision. The assistant does not choose filing or validation scope.
 
 ## Formal responses
 
