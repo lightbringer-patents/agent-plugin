@@ -52,10 +52,14 @@ class SubmissionTests(unittest.TestCase):
                 "skills/lightbringer-navigation/SKILL.md",
                 "skills/patent-portfolio/SKILL.md",
                 "skills/patent-preparation/SKILL.md",
+                "skills/patent-review/SKILL.md",
             },
         )
         for reference in ("patent-process.md", "workflow-routes.md"):
             path = f"skills/lightbringer-navigation/references/{reference}"
+            self.assertEqual(files[path], (ROOT / path).read_bytes())
+        for reference in ("review-workflows.md", "service-conduct.md", "unresolved-needs.md"):
+            path = f"skills/patent-review/references/{reference}"
             self.assertEqual(files[path], (ROOT / path).read_bytes())
         self.assertFalse(any(p.startswith("scripts/") for p in files))
 
