@@ -1,6 +1,18 @@
 # Distribution and validation
 
-The prepared package contains nine workflow skills: `setup`, `lightbringer-navigation`, `novelty-exploration`, `innovation-capture`, `patent-preparation`, `patent-portfolio`, `ip-strategy`, `company-context` and `trade-secrets`. Each skill includes its references. Review collaboration remains available through connected tools and guidance; the standalone patent-review skill is removed.
+The prepared package contains ten workflow skills: `setup`, `lightbringer-navigation`, `novelty-exploration`, `innovation-capture`, `patent-preparation`, `patent-review`, `patent-portfolio`, `ip-strategy`, `company-context` and `trade-secrets`. Each skill includes its references.
+
+## Restored review workflow — unreleased
+
+The `patent-review` skill returns. It reads a review's instructions and material before drafting feedback in the user's voice. It also covers comments, replies, review discussion, validation country selection and explicit approve or request-changes responses. `innovation-capture`, `patent-preparation` and the navigation routes name it again when installed, and keep the connected review guidance as the fallback. The review tools themselves are unchanged. OpenAI review cases are unchanged; use the acceptance cases below for host checks.
+
+| Situation | Expected behaviour |
+| --- | --- |
+| Open review with instructions, a document thread and a passage to comment on | Shows the instructions first, reads the document, threads and discussion, and batches each comment verbatim with its anchor and provenance tag for approval. Replies use `reply_to_comment`; an ambiguous quote is re-anchored, never guessed. |
+| Request to approve after comments | Posts approved comments, then records `respond_to_review` only after the user's explicit approve or request-changes choice and confirmed message. Explains that approval cannot be withdrawn through the tool. |
+| Validation review | Shows recommended and selected countries, asks for the complete selection, explains that a change returns approvals to pending, saves with `set_validation_countries`, reads back, and keeps approval a separate decision. |
+| Review not renderable or tool unavailable | Explains the limitation, keeps drafts unsent and offers the platform link. Does not recommend approval from metadata. |
+| Prior-art concession in a draft comment | The discovery screen removes it before the batch and tells the user to raise it verbally. |
 
 ## Self-contained skills — portable 5.4.2 / Claude 1.7.2
 
