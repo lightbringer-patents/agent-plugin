@@ -49,6 +49,7 @@ class SubmissionTests(unittest.TestCase):
                 "skills/company-context/SKILL.md",
                 "skills/innovation-capture/SKILL.md",
                 "skills/ip-strategy/SKILL.md",
+                "skills/journeys/SKILL.md",
                 "skills/lightbringer-navigation/SKILL.md",
                 "skills/patent-portfolio/SKILL.md",
                 "skills/patent-preparation/SKILL.md",
@@ -60,6 +61,9 @@ class SubmissionTests(unittest.TestCase):
             self.assertEqual(files[path], (ROOT / path).read_bytes())
         for reference in ("review-workflows.md", "service-conduct.md", "unresolved-needs.md"):
             path = f"skills/patent-review/references/{reference}"
+            self.assertEqual(files[path], (ROOT / path).read_bytes())
+        for reference in ("service-conduct.md", "unresolved-needs.md"):
+            path = f"skills/journeys/references/{reference}"
             self.assertEqual(files[path], (ROOT / path).read_bytes())
         self.assertFalse(any(p.startswith("scripts/") for p in files))
 
