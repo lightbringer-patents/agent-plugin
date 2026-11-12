@@ -25,7 +25,7 @@ Tell the user in one or two sentences what the journey does and what it delivers
 
 ## Wait
 
-While the task is `running`, call `get_task_status` with the `task_id`. It waits for a change, up to `wait_seconds`, and returns early when the agent asks, finishes or stops. Call it again while the task is still running. When `activity` changes, give the user a short update; do not repeat an unchanged one.
+While the task is `running`, call `get_task_status` with the `task_id`. It waits for a change, up to `wait_seconds`, and returns early when the agent asks, finishes or stops. Call it again while the task is still running. When `activity` shows a new step, give the user a short update; do not repeat an unchanged one.
 
 If the user does not want to wait, explain that the work continues in Lightbringer, give the task's `url`, and say that they can come back to it later. Use `cancel_task` only when the user asks to stop the work.
 
@@ -37,7 +37,7 @@ Send all answers in one `answer_agent` call: `selected_options` with the option 
 
 ## Outcome
 
-The journey has finished when the task's `journey.outcome` is present.
+The journey has finished when the task's `journey.outcome` is not null.
 
 - Relay the agent's result: its `last_message` and any `outputs` with their links. Keep its content and attribution; shorten it only when the user asks.
 - If `outcome.state` is `reached`, say that the journey is complete. If it is `not_reached`, say which `done` items were not met, with their notes.
@@ -46,8 +46,8 @@ The journey has finished when the task's `journey.outcome` is present.
 
 Other states:
 
-- `completed` with no `journey.outcome`: the agent stopped without reporting that the journey finished. Relay `last_message`, say that the journey is not complete, and offer to continue.
-- `needs_attention`: relay the reason and give the `url`.
+- `completed` with no `journey.outcome`: the agent stopped without reporting that the journey finished. Relay `last_message`, say that the journey is not complete, and offer to continue with `ask_agent` when it is offered; otherwise offer to start the journey again.
+- `needs_attention`: relay `last_message`, if there is one, and give the `url`.
 - `cancelled`: say that the journey was stopped.
 
 ## After the outcome
