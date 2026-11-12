@@ -25,7 +25,7 @@ approves the exact names, addresses, roles and document. Roles are Inventor (the
 default) or Inventor + Moderator. A draft Strategy must be published first, and
 publication still needs its own explicit request. The guidance uses
 `invite_members` when the connection advertises it and otherwise points to the
-organisation's moderator or the Team settings in the application. The other six
+organisation's moderator or the Team settings in the application. The other seven
 skills are unchanged.
 
 This guidance does not establish that `invite_members` is available or approved
