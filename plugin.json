@@ -22,7 +22,8 @@
     "trade-secrets",
     "onboarding",
     "novelty-exploration",
-    "navigation"
+    "navigation",
+    "journeys"
   ],
   "extensions": {
     "com.openai": {

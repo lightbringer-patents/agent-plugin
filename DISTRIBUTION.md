@@ -1,6 +1,18 @@
 # Distribution and validation
 
-The prepared package contains ten workflow skills: `setup`, `lightbringer-navigation`, `novelty-exploration`, `innovation-capture`, `patent-preparation`, `patent-review`, `patent-portfolio`, `ip-strategy`, `company-context` and `trade-secrets`. Each skill includes its references.
+The prepared package contains eleven workflow skills: `setup`, `lightbringer-navigation`, `journeys`, `novelty-exploration`, `innovation-capture`, `patent-preparation`, `patent-review`, `patent-portfolio`, `ip-strategy`, `company-context` and `trade-secrets`. Each skill includes its references.
+
+## Journeys skill — unreleased
+
+The `journeys` skill uses the journeys that the connected service lists through `list_journeys`. Lightbringer's agent carries out each journey in a conversation of its own. The assistant chooses a journey that fits the request, gives the inputs it already knows, starts it with `start_journey`, waits with `get_task_status`, deals with its questions through `answer_agent` and relays the outcome. The skill names no journey; journeys, inputs and outcomes come from the service. `lightbringer-navigation` checks the listed journeys before it works through a broad request itself. When the connection does not offer the journey tools, the other workflows are unchanged. OpenAI review cases and listing text are unchanged; use the acceptance cases below for host checks.
+
+| Situation | Expected behaviour |
+| --- | --- |
+| A request that a listed journey fits | Lists the journeys, starts the one that fits with inputs from the conversation, does not ask for data the journey reads itself, waits, and relays the outcome without writing its own version. |
+| A question from the journey | First answers every question that the conversation already settles. Then asks the user, without rewording, only each question it cannot answer and each question that starts with `For the user:`. Says which questions it answered, and sends all answers in one call. |
+| A source the journey could not check | Names the source and the reason; does not present it as empty. |
+| Read-only connection | Starts, answers, checks and cancels the journey; relays an unsaved result and its link; does not offer to continue a finished journey on that connection. |
+| No journey fits, or the journey tools are not offered | Continues with the relevant workflow and does not mention journeys. |
 
 ## Restored review workflow — unreleased
 
