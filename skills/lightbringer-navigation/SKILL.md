@@ -33,6 +33,8 @@ Do not make filing the default destination. Strategy, understanding an existing 
 
 ## Continue with context
 
+When the connection offers `list_journeys` and the user wants Lightbringer to work something out across their records, check the listed journeys first. If one fits, follow the `journeys` skill when installed, which starts the journey and relays its outcome; do not carry out the same work here step by step. Otherwise continue below.
+
 Use the relevant specialist skill when installed; otherwise follow the available operation contracts and live guidance. Skill installation, tool availability and permission are separate. Honour an already authorised direct action without asking the user to choose it again. Explain consequential effects in the specialist workflow, preserving its authorisation boundaries.
 
 Carry forward the user's goal, selected record and link, supported facts, open questions, confirmed outcomes and the scope of existing authorisation. Do not infer permission for registration, professional requests, publication or external messages from discussing a route. Keep saved innovation, preparation requested, completed professional review, application filed and patent granted as distinct outcomes.
