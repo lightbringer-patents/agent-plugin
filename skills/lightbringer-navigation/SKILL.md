@@ -1,6 +1,6 @@
 ---
 name: lightbringer-navigation
-description: Explain Lightbringer's workflows and the patent process, help users choose a relevant next step, and find, read or upload files in the Lightbringer vault. Use for broad orientation, “what next?”, “is this enough?”, uncertain patent-process questions and vault file requests. Direct requests to capture, add innovation illustrations, import patents, prepare or review go to the relevant specialist workflow.
+description: Explain Lightbringer's workflows and the patent process, help users choose a relevant next step, and find, read or upload files in the Lightbringer vault. Use for broad orientation, “what next?”, “is this enough?”, uncertain patent-process questions and vault file requests. Requests to invite colleagues use the available invitation workflow. Direct requests to capture, add innovation illustrations, import patents, prepare or review go to the relevant specialist workflow.
 ---
 
 # Lightbringer navigation

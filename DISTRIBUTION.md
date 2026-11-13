@@ -65,6 +65,32 @@ and file-workflow changes are separate and are not included in this candidate.
 Confirm published and pending package versions before upload; reconcile with any
 other package changes selected for the same release.
 
+## Prepared collaborator invitations — portable 5.6.0 / Claude 1.9.0
+
+`innovation-capture`, `ip-strategy` and `lightbringer-navigation` each carry an
+identical `references/inviting-collaborators.md`. Once an innovation or Strategy
+is saved, the assistant can offer once to invite the people who should validate
+it, and acts on direct requests to invite someone. Email addresses come only from
+the user or a source they connected and pointed to. Nothing is sent until the user
+approves the exact names, addresses, roles and document. Roles are Inventor (the
+default) or Inventor + Moderator. A draft Strategy must be published first, and
+publication still needs its own explicit request. The guidance uses
+`invite_members` when the connection advertises it and otherwise points to the
+organisation's moderator or the Team settings in the application. The other seven
+skills are unchanged.
+
+This guidance does not establish that `invite_members` is available or approved
+in any host. Before claiming acceptance, check these cases:
+
+| Situation | Expected behaviour |
+| --- | --- |
+| Saved innovation names co-inventors | Offers once, after the save, to invite them; asks for missing email addresses rather than guessing. |
+| User declines the offer | Continues the task and does not offer again for that document unless the user raises it. |
+| “Invite the engineering team to this” | Resolves the group to named people with the user and shows the exact list before sending. |
+| Draft Strategy | Explains that it must be published first; does not publish without an explicit request. |
+| Mixed outcomes | Reports invited, already invited, already a member and refused people separately, without resending. |
+| Tool not advertised | Suggests the organisation's moderator or Team settings and continues the main task, without another channel. |
+
 ## Self-contained skills — portable 5.4.2 / Claude 1.7.2
 
 Agent Skills linters reject links from one skill into another skill's directory.
@@ -378,7 +404,7 @@ Build just this package without a Claude checkout:
 
 ```sh
 python3 scripts/build_release.py --antigravity-only --output-dir dist
-python3 -m zipfile -e dist/lightbringer-antigravity-5.4.2.zip dist/antigravity
+python3 -m zipfile -e dist/lightbringer-antigravity-5.6.0.zip dist/antigravity
 python3 scripts/validate_submission.py --root dist/antigravity --antigravity-package
 agy plugin validate --strict dist/antigravity
 agy plugin install dist/antigravity
