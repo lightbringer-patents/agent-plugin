@@ -27,6 +27,14 @@ Tell the user in one or two sentences what the journey does and what it delivers
 
 While the task is `running`, call `get_task_status` with the `task_id`. It waits for a change, up to `wait_seconds`, and returns early when the agent asks, finishes or stops. Call it again while the task is still running. When `activity` shows a new step, give the user a short update; do not repeat an unchanged one.
 
+If your reply ends while the task is still `running`, tell the user that the agent continues to work. The user sees new progress only when you read the task again.
+
+When the user sends a new message while the task is `running` or `awaiting_input`, do these steps in this sequence:
+
+1. Call `get_task_status` with the `task_id` and `wait_seconds` set to `0`. This call does not wait.
+2. Reply to the user's message.
+3. Go back to the journey. If the task is still `running`, call `get_task_status` again as above. If it is `awaiting_input`, go back to its open questions. The journey stays paused until `answer_agent` sends the answers. If the task has a different status, follow the Outcome section.
+
 If the user does not want to wait, explain that the work continues in Lightbringer, give the task's `url`, and say that they can come back to it later. Use `cancel_task` only when the user asks to stop the work.
 
 ## Questions
