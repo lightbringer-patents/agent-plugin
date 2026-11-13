@@ -1,0 +1,16 @@
+{
+  "name": "lightbringer",
+  "owner": {
+    "name": "Lightbringer AB",
+    "email": "dominic@lightbringer.com"
+  },
+  "metadata": {
+    "description": "Lightbringer workflow skills and MCP access for GitHub Copilot"
+  },
+  "plugins": [
+    {
+      "name": "lightbringer",
+      "source": "./"
+    }
+  ]
+}
