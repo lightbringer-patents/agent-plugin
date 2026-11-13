@@ -1,6 +1,6 @@
 ---
 name: innovation-capture
-description: Identify, register and enrich Lightbringer innovations from a conversation, an inventor interview or authorised technical sources. Use for saving an idea, updating an innovation, extracting innovations from documents or engineering work, and patent mining. Exploration alone does not authorise saving; patent-preparation requests and document reviews are separate workflows.
+description: Identify, register and enrich Lightbringer innovations from a conversation, an inventor interview or authorised technical sources. Use for saving an idea, updating an innovation, adding an illustration to a draft innovation, extracting innovations from documents or engineering work, and patent mining. Exploration alone does not authorise saving; patent-preparation requests and document reviews are separate workflows.
 ---
 
 # Innovation capture
@@ -32,6 +32,10 @@ Adapt to the request; a conversation can lead to source exploration and back aga
 4. If refinement is requested, use `start_innovation_feedback`. This is automated analysis of the description, not a novelty search or professional assessment. The response contains one `task_id`, `status`, `progress`, and available per-analysis `results`. While `queued` or `running`, poll `get_task_status` with that same `task_id`; it returns the same contract. Stop at `succeeded`, `partially_succeeded`, or `failed`, and report failures alongside available findings. Findings have readable `title` and `description` fields, with optional categories and supporting details. A `findings_error` means the findings could not be returned; report this limitation rather than claiming there were no findings or continuing to poll a terminal task. Ending the wait does not cancel analysis. Apply authorised improvements supported by the evidence; leave remaining gaps explicit.
 
 Tasks and findings expire 30 days after creation; reading does not consume them or extend retention. Use `list_tasks`, optionally filtered by `invention_id`, to recover a lost task ID in the connected organisation. Follow `next_cursor` even if access filtering returns an empty page; listing reports recorded status without polling. `delete_task` permanently removes the user’s task and findings when requested, in any execution state, with write consent. Deletion does not cancel the analysis, delete the innovation or withdraw a service request.
+
+## Illustrations and source files
+
+For a requested illustration upload or vault source, read [files and illustrations](references/files.md). Add drawings to the selected draft innovation through the available upload tools, with optional illustration readback only when advertised. A file supplied as evidence is not automatically authorised for upload. Vault storage is a separate destination and does not attach a file to the innovation. Direct requests to add a drawing do not require repeating capture or automated feedback.
 
 ## Completion
 
