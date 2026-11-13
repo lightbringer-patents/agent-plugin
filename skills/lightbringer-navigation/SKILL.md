@@ -1,11 +1,15 @@
 ---
 name: lightbringer-navigation
-description: Explain Lightbringer's workflows and the patent process, and help users choose a relevant next step from their goal and current records. Use for broad orientation, “what next?”, “is this enough?” and uncertain patent-process questions. Direct requests to capture, import, prepare or review go to the relevant specialist workflow.
+description: Explain Lightbringer's workflows and the patent process, help users choose a relevant next step, and find, read or upload files in the Lightbringer vault. Use for broad orientation, “what next?”, “is this enough?”, uncertain patent-process questions and vault file requests. Requests to invite colleagues use the available invitation workflow. Direct requests to capture, add innovation illustrations, import patents, prepare or review go to the relevant specialist workflow.
 ---
 
 # Lightbringer navigation
 
 Help the user understand where they are, what Lightbringer can help them achieve and how to continue. Deliver a useful explanation inline, with relevant existing record links. Navigation alone does not require a new saved artifact or a service request. Follow the [service conduct](references/service-conduct.md) guidance.
+
+## Vault files and innovation illustrations
+
+For finding, reading or saving vault files, follow [files and illustrations](references/files.md). Carry out the direct file request without an onboarding interview. For a drawing on a draft innovation, use innovation-capture when installed; otherwise follow the same reference and the advertised tool contracts. Distinguish vault storage from adding an innovation illustration, linking a case or creating a disclosure. Preserve the user's requested destination and report only confirmed saves or reads.
 
 ## Understand the question
 

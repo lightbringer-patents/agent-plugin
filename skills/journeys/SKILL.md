@@ -29,7 +29,7 @@ While the task is `running`, call `get_task_status` with the `task_id`. It waits
 
 If your reply ends while the task is still `running`, tell the user that the agent continues to work. The user sees new progress only when you read the task again.
 
-When the user sends a new message while the task is `running` or `awaiting_input`, do these steps in this sequence:
+When the user sends a new message about a different subject while the task is `running` or `awaiting_input`, do these steps in this sequence:
 
 1. Call `get_task_status` with the `task_id` and `wait_seconds` set to `0`. This call does not wait.
 2. Reply to the user's message.
