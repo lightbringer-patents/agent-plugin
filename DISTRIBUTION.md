@@ -47,6 +47,24 @@ Exercise these cases independently in supported OpenAI and Claude hosts, using a
 
 Run the manifest review cases as conversational acceptance checks; their inclusion is not a passing result. Verify the definitions actually exposed to each host and its file-transfer capability. Tool rescanning, package publication and directory-listing updates remain separate actions.
 
+## Prepared invention-review update — portable 5.5.0 / Claude 1.8.0
+
+This candidate keeps the production connection and all nine workflows. Invention
+feedback is presented as up to five merged priorities and up to three optional
+ideas, retaining access to the existing run. Selected questions show progress;
+proposed edits require a save decision and verified readback. Submission uses
+concise confirmation and supported contact collection without assuming payment,
+completed legal work or email delivery.
+
+Component presentation and contact inputs are selected from the connected tools.
+Unavailable or denied app presentation retains a text fallback. Preparing these
+packages does not establish production availability of optional capabilities,
+host acceptance or publication. Keep the candidate PRs open until the compatible
+service contract and intended host paths are verified. Existing pending portfolio
+and file-workflow changes are separate and are not included in this candidate.
+Confirm published and pending package versions before upload; reconcile with any
+other package changes selected for the same release.
+
 ## Self-contained skills — portable 5.4.2 / Claude 1.7.2
 
 Agent Skills linters reject links from one skill into another skill's directory.
