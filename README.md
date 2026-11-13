@@ -65,7 +65,7 @@ Try:
 
 ## Packaging and publication
 
-Version 5.6.0 is prepared with ten workflow skills, conversational setup, capability-aware Strategy authoring and guidance for inviting colleagues to a document. It retains company-context capture, its integration with IP strategy, and focused patent-section retrieval. Authenticated acceptance and host publication remain separate steps; see [distribution and validation](DISTRIBUTION.md).
+Version 5.6.1 is prepared with eleven self-contained workflow skills, portfolio presentation, illustration and vault file workflows, focused invention feedback and approved collaborator invitations. Journeys run only when their tools are advertised. Host acceptance and publication remain separate steps; see [distribution and validation](DISTRIBUTION.md).
 
 This is the canonical `skills/` source. [claude-plugin](https://github.com/lightbringer-patents/claude-plugin) mirrors the complete tree with Anthropic-specific metadata. Edit shared skills here first and verify both packages before release.
 

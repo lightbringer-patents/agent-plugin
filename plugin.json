@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "lightbringer",
-  "version": "5.6.0",
+  "version": "5.6.1",
   "description": "Capture company context and innovations, develop IP strategies, request patent preparation, respond to reviews, and review patent portfolios through Lightbringer.",
   "author": {
     "name": "Lightbringer AB",
@@ -101,7 +101,7 @@
         }
       },
       "publication": {
-        "release_notes": "Version 5.6.0 adds guidance for inviting colleagues to a saved innovation or published Strategy from the conversation. The assistant can offer once to invite co-inventors or decision owners, uses only email addresses the user provides, and sends invitations only after the user approves the exact people and roles. Where the connection does not offer invitations, it points to the organisation's moderator or the Team settings."
+        "release_notes": "Version 5.6.1 combines portfolio presentation, illustration and vault file workflows, focused invention-feedback priorities and question progress, explicit save decisions, and approved collaborator invitations. It includes eleven self-contained skills, restores patent-review guidance and keeps journeys conditional on advertised tools. Supported components retain text fallbacks; permissions, saves, invitations and patent preparation remain separate decisions."
       },
       "onboardingSkill": "./skills/setup/SKILL.md"
     }

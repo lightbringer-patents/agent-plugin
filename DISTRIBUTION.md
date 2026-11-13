@@ -2,7 +2,15 @@
 
 The prepared package contains eleven workflow skills: `setup`, `lightbringer-navigation`, `journeys`, `novelty-exploration`, `innovation-capture`, `patent-preparation`, `patent-review`, `patent-portfolio`, `ip-strategy`, `company-context` and `trade-secrets`. Each skill includes its references.
 
-## Journeys skill — unreleased
+## Combined candidate — portable 5.6.1 / Claude 1.9.1
+
+This candidate reconciles portable PRs #27, #28, #29, #30 and #34 with current main and mirrors the complete canonical skills tree to Claude. Earlier prepared versions 5.4.3, 5.5.0 and 5.6.0 (Claude 1.7.3, 1.8.0 and 1.9.0) are superseded by this combined candidate; do not publish them sequentially. The separate Copilot marketplace proposal is not included.
+
+The publication baselines checked on 13 November 2026 are OpenAI 5.4.2 with nine skills and Claude 1.7.2 with eleven skills. A repository version alone does not identify a published package. Both candidate versions change packaged content and need their own host publication outcome. Keep the existing OpenAI publisher identity when building an update ZIP. Claude's connected repository can publish automatically on merge; leave that merge pending until approved.
+
+Service 4.25.0 advertises portfolio and invention-capture presentation, file uploads and collaborator invitations. Host approval is independent: use text or platform continuations when a tool or updated schema is held. Journey tools are not part of the normal service 4.25.0 catalogue; the bundled skill remains conditional and must not imply availability. The acceptance cases below are prepared checks, not claims of authenticated execution.
+
+## Conditional journeys skill
 
 The `journeys` skill uses the journeys that the connected service lists through `list_journeys`. Lightbringer's agent carries out each journey in a conversation of its own. The assistant chooses a journey that fits the request, gives the inputs it already knows, starts it with `start_journey`, waits with `get_task_status`, deals with its questions through `answer_agent` and relays the outcome. The skill names no journey; journeys, inputs and outcomes come from the service. `lightbringer-navigation` checks the listed journeys before it works through a broad request itself. When the connection does not offer the journey tools, the other workflows are unchanged. OpenAI review cases and listing text are unchanged; use the acceptance cases below for host checks.
 
@@ -14,7 +22,7 @@ The `journeys` skill uses the journeys that the connected service lists through 
 | Read-only connection | Starts, answers, checks and cancels the journey; relays an unsaved result and its link; does not offer to continue a finished journey on that connection. |
 | No journey fits, or the journey tools are not offered | Continues with the relevant workflow and does not mention journeys. |
 
-## Restored review workflow — unreleased
+## Restored review workflow
 
 The `patent-review` skill returns. It reads a review's instructions and material before drafting feedback in the user's voice. It also covers comments, replies, review discussion, validation country selection and explicit approve or request-changes responses. `innovation-capture`, `patent-preparation` and the navigation routes name it again when installed, and keep the connected review guidance as the fallback. The review tools themselves are unchanged. OpenAI review cases are unchanged; use the acceptance cases below for host checks.
 
@@ -26,11 +34,11 @@ The `patent-review` skill returns. It reads a review's instructions and material
 | Review not renderable or tool unavailable | Explains the limitation, keeps drafts unsent and offers the platform link. Does not recommend approval from metadata. |
 | Prior-art concession in a draft comment | The discovery screen removes it before the batch and tells the user to raise it verbally. |
 
-## Prepared file workflows — portable 5.4.3 / Claude 1.7.3
+## File workflows
 
-Innovation capture handles drawings on draft innovations; navigation handles vault file discovery, reading and uploads. Both carry the same self-contained file reference. The nine skills and existing starter prompts are retained. The listing and review cases describe the available file workflows without assuming every host can transfer bytes.
+Innovation capture handles drawings on draft innovations; navigation handles vault file discovery, reading and uploads. Both carry the same self-contained file reference. The existing starter prompts are retained. The listing and review cases describe the available file workflows without assuming every host can transfer bytes.
 
-Before upload, reconcile these candidate versions with any pending package submission. Package builds and source validation do not establish host acceptance or publication. Keep the current package published while its replacement is reviewed.
+Before upload, verify that no newer package submission has superseded this candidate. Package builds and source validation do not establish host acceptance or publication. Keep the current package published while its replacement is reviewed.
 
 Exercise these cases independently in supported OpenAI and Claude hosts, using a dedicated test workspace and controlled files:
 
@@ -47,9 +55,9 @@ Exercise these cases independently in supported OpenAI and Claude hosts, using a
 
 Run the manifest review cases as conversational acceptance checks; their inclusion is not a passing result. Verify the definitions actually exposed to each host and its file-transfer capability. Tool rescanning, package publication and directory-listing updates remain separate actions.
 
-## Prepared invention-review update — portable 5.5.0 / Claude 1.8.0
+## Focused invention feedback
 
-This candidate keeps the production connection and all nine workflows. Invention
+This candidate keeps the production connection and all eleven workflows. Invention
 feedback is presented as up to five merged priorities and up to three optional
 ideas, retaining access to the existing run. Selected questions show progress;
 proposed edits require a save decision and verified readback. Submission uses
@@ -60,12 +68,9 @@ Component presentation and contact inputs are selected from the connected tools.
 Unavailable or denied app presentation retains a text fallback. Preparing these
 packages does not establish production availability of optional capabilities,
 host acceptance or publication. Keep the candidate PRs open until the compatible
-service contract and intended host paths are verified. Existing pending portfolio
-and file-workflow changes are separate and are not included in this candidate.
-Confirm published and pending package versions before upload; reconcile with any
-other package changes selected for the same release.
+service contract and intended host paths are verified. The combined candidate includes portfolio and file-workflow guidance as well as invitations. Verify published and pending package versions before upload.
 
-## Prepared collaborator invitations — portable 5.6.0 / Claude 1.9.0
+## Collaborator invitations
 
 `innovation-capture`, `ip-strategy` and `lightbringer-navigation` each carry an
 identical `references/inviting-collaborators.md`. Once an innovation or Strategy
@@ -76,8 +81,7 @@ approves the exact names, addresses, roles and document. Roles are Inventor (the
 default) or Inventor + Moderator. A draft Strategy must be published first, and
 publication still needs its own explicit request. The guidance uses
 `invite_members` when the connection advertises it and otherwise points to the
-organisation's moderator or the Team settings in the application. The other seven
-skills are unchanged.
+organisation's moderator or the Team settings in the application. Other workflow permissions remain unchanged.
 
 This guidance does not establish that `invite_members` is available or approved
 in any host. Before claiming acceptance, check these cases:
@@ -91,7 +95,11 @@ in any host. Before claiming acceptance, check these cases:
 | Mixed outcomes | Reports invited, already invited, already a member and refused people separately, without resending. |
 | Tool not advertised | Suggests the organisation's moderator or Team settings and continues the main task, without another channel. |
 
-## Self-contained skills — portable 5.4.2 / Claude 1.7.2
+## Historical preparation notes
+
+The sections below through the host distribution instructions retain earlier candidate rationale and acceptance cases. Their original “prepared” or “unreleased” labels are historical; use the combined candidate and verified publication baselines above for current status.
+
+### Self-contained skills — portable 5.4.2 / Claude 1.7.2
 
 Agent Skills linters reject links from one skill into another skill's directory.
 Each skill now carries its own copy of `references/unresolved-needs.md`, and
@@ -396,7 +404,7 @@ For Claude chat and managed workspaces, test the supported plugin upload or orga
 ## Google Antigravity
 
 Use the generated `lightbringer-antigravity-<version>.zip`. It contains a native
-root `plugin.json`, `mcp_config.json`, all nine canonical skills, a README,
+root `plugin.json`, `mcp_config.json`, all eleven canonical skills, a README,
 licence and a fixed-background logo under `antigravity-assets/`. It does not
 require Antigravity's Agent Plugins feature flag.
 

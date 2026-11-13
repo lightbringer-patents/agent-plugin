@@ -19,6 +19,8 @@ See [distribution status and validation](https://github.com/lightbringer-patents
 - **patent-portfolio:** review saved patent portfolios and families, find public publications and carry out authorised imports or family updates.
 - **novelty-exploration:** explore related and competitor patents for a technical idea. This is preliminary exploration, not a novelty or freedom-to-operate assessment.
 - **patent-preparation:** request Lightbringer's preparation of a selected innovation for patent filing.
+- **patent-review:** read review instructions and documents, draft feedback, and carry out approved comments, country choices or review responses.
+- **journeys:** follow a listed journey only when the connected service advertises its tools; otherwise use the relevant workflow.
 - **company-context:** establish and maintain the shared company background used in IP work.
 - **trade-secrets:** explain trade secrets and list the register entries you can open, without entry content.
 - **lightbringer-navigation:** explain the patent process and choose a relevant next step.
