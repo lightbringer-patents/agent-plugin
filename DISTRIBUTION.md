@@ -2,7 +2,21 @@
 
 The prepared package contains eleven workflow skills: `setup`, `lightbringer-navigation`, `journeys`, `novelty-exploration`, `innovation-capture`, `patent-preparation`, `patent-review`, `patent-portfolio`, `ip-strategy`, `company-context` and `trade-secrets`. Each skill includes its references.
 
-## Combined candidate — portable 5.6.1 / Claude 1.9.1
+## Workflow corrections — portable 5.6.2 / Claude 1.9.2
+
+This candidate supersedes 5.6.1 / 1.9.1 while retaining all eleven workflows. Missing `list_trade_secrets` now leaves register access unknown; only a confirmed absence warrants suggesting that the organisation add the register. Source exploration prefers supported Strategy search/fetch reads and uses legacy Strategy tools only as compatibility fallbacks. The Claude README also describes its bundled icon without an image path formatted as code. Host acceptance and publication remain separate outcomes.
+
+These are prepared acceptance cases, not claims of authenticated execution:
+
+| Situation | Expected behaviour |
+| --- | --- |
+| Trade secret listing tool absent; register entitlement unknown | Explains that this connection cannot list it, keeps the cause uncertain and offers permission or Moderator checks without suggesting a purchase. |
+| Missing consent confirmed, or register absence confirmed | Gives the matching sign-in or contact route; never promises that reconnecting will expose the tool. |
+| Strategy search/fetch contracts and legacy tools both available | Uses the preferred Strategy category and structured fetch, rather than deprecated tools. |
+| Replacement read contract unavailable | Uses available legacy reads; if no supported read is available, explains the limit and continues authorised exploration with supplied context. |
+| Draft Strategy, unknown status or report-only evidence | Keeps proposals, publication and adopted decisions distinct; reports add evidence without making an unknown Strategy adopted. |
+
+## Previous combined candidate — portable 5.6.1 / Claude 1.9.1
 
 This candidate reconciles portable PRs #27, #28, #29, #30 and #34 with current main and mirrors the complete canonical skills tree to Claude. Earlier prepared versions 5.4.3, 5.5.0 and 5.6.0 (Claude 1.7.3, 1.8.0 and 1.9.0) are superseded by this combined candidate; do not publish them sequentially. The separate Copilot marketplace proposal is not included.
 
@@ -129,6 +143,8 @@ validation do not establish these host outcomes. Keep the current package live
 until the approved replacement is ready to publish.
 
 ## Prepared trade secret listing update — portable 5.4.1 / Claude 1.7.1
+
+Historical candidate: the missing-tool inference and acceptance checks in this section are superseded by the 5.6.2 / 1.9.2 corrections above.
 
 This update changes only the `trade-secrets` skill. When the host does not offer
 `list_trade_secrets`, the assistant assumes the organisation does not have the
