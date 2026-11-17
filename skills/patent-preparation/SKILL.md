@@ -1,13 +1,25 @@
 ---
 name: patent-preparation
-description: Request Lightbringer's preparation of a selected innovation for patent filing and explain the returned status and next steps. Use when the user explicitly wants Lightbringer to patent an innovation or start patent preparation. Registration, general patent-service questions and review responses are separate workflows.
+description: Prepare a selected Idea as a draft disclosure when supported, continue that preparation, or record an explicit request for Lightbringer's patent service. Use for preparing an Idea for patenting, refining its preparation draft or submitting a selected disclosure. Drafting and service submission are separate outcomes; registration, general advice and review responses use their own workflows.
 ---
 
 # Patent preparation
 
-Record the user's request for Lightbringer to prepare a selected innovation for patent filing. Completion means the service confirms that preparation was requested. Read [service conduct](references/service-conduct.md).
+Establish whether the user wants a draft to review or wants to submit a disclosure to the Lightbringer team. Reuse an already clear decision. A request to prepare a saved Idea as a draft does not authorise service submission. Read [service conduct](references/service-conduct.md).
 
-## Identify the innovation
+## Draft from a selected Idea
+
+Use this path only when the connected `create_asset` advertises `invention_disclosure` with `data.sourceIdeas`, the required shared asset reads are available, and the connected agent tools expose the authoring skill. Resolve the selected Idea through search and `fetch(include_asset: true)`. Reuse its title, technical account, contributors, disclosure facts and attachments; do not repeat source confirmation or ask the user to provide them again. Ask only about a material missing fact or conflict.
+
+Create the target through `create_asset` with the selected canonical Idea references in `data.sourceIdeas`. This creates or recovers a linked draft with copied supporting files and inventor drawings. It does not author its text or submit a service request. For an uncertain outcome, inspect the source's relations and the target before repeating creation; do not substitute registration or a temporary tool. Existing target content is not permission to overwrite it.
+
+When `list_tasks` exposes `author-disclosure-from-innovations`, start it through `ask_agent` on the returned target `invention_id`, with the selected Ideas in `context_ids` and the user's drafting request as `message`. The Lightbringer agent authors the draft. Do not manufacture a replacement disclosure yourself. Follow `get_task_status`; relay only genuine unanswered questions through `answer_agent` while awaiting input. To continue a completed conversation, use `ask_agent` with its `task_id` and the follow-up message, without selecting a new record or starting another run. Recover a lost task through `list_tasks` and verify its subject before continuing.
+
+Read back the draft and linked sources after the agent finishes. When advertised, include attachments, inventors, insights and illustrations in the shared read. Verify copied files through `get_attachment` when bytes are needed; an attachment list alone proves neither content nor byte equality. Preserve source text and known disclosure facts on the linked Idea. New explicit disclosure statements belong on that source, through the supported workflow, rather than only in the preparation conversation. Empty date metadata does not establish a negative disclosure statement.
+
+Report separately what was created, authored, saved and still unresolved. A draft or completed agent conversation is not a service submission. If a required capability is missing, retain the selected record and provide its platform continuation; never silently submit it instead. The service-request path below applies only to an explicit submission decision.
+
+## Identify the disclosure for a service request
 
 Use the connected organisation and resolve the selected record with `list_innovations` or `search`; read it with `get_innovation`. Clarify an ambiguous selection. If the innovation is not registered, use `innovation-capture` when installed, retaining the user's patenting intent for that concept. If capture guidance is unavailable, follow `get_innovation_template` and call `register_innovation` with supported content as part of the requested preparation. Registration validates before saving: report any missing inputs or validation errors before attempting preparation. Successful registration can include non-blocking warnings; report them without re-registering the record.
 

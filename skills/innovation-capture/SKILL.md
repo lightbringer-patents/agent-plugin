@@ -21,8 +21,16 @@ If no applicable strategy is found in the accessible sources, recommend creating
 
 Adapt to the request; a conversation can lead to source exploration and back again.
 
-- **Conversation or inventor interview:** for new capture, retrieve `get_innovation_template` and follow its current interactive guidance and readiness criteria. Reuse supplied context. For a targeted enrichment, read the existing record and clarify only what the requested change needs; do not restart capture.
+- **Conversation or inventor interview:** for new disclosure capture, retrieve `get_innovation_template` and follow its current interactive guidance and readiness criteria. Reuse supplied context. For a targeted enrichment, read the existing record and clarify only what the requested change needs; do not restart capture.
 - **Source exploration or patent mining:** read [source exploration](references/source-exploration.md). Investigate the authorised material, trace supporting evidence and retain identified innovations even when incomplete. Do not require a broad mining exercise for a single idea.
+
+## Choose the saved record
+
+Check the connected schemas before starting an interview. When `create_asset` advertises `type: innovation`, a request to save an early Idea can use its title, supported Markdown, contributors and known public-disclosure facts. Do not force a full invention-disclosure questionnaire or change the record type to satisfy a missing capability. Preserve unknowns; a missing disclosure date is not evidence of no public disclosure. When the user wants an invention disclosure instead, use the advertised `invention_disclosure` variant and its current capture guide. Existing `register_innovation` saves a disclosure; it is not a substitute for lightweight Idea capture.
+
+For shared asset reads, use `fetch(include_asset: true)` when advertised. Keep its canonical reference and revision. Prefer the matching `update_asset` variant for authorised changes, preserving omitted fields and content. A stale revision requires a fresh read and reconciliation. A missing required read, denied permission or uncertain write does not justify switching to a legacy writer or creating a duplicate. Confidential records may be unavailable to assistants; offer their platform link instead of reconstructing protected content from chat memory.
+
+The legacy sequence below applies when the corresponding shared disclosure contract is unavailable. It does not override an advertised Idea workflow. For requested drafting from a saved Idea, continue with `patent-preparation`; saving an Idea alone does not start that work.
 
 ## Match, register or enrich
 
@@ -32,6 +40,8 @@ Adapt to the request; a conversation can lead to source exploration and back aga
 4. If refinement is requested, use `start_innovation_feedback`. This is automated analysis of the description, not a novelty search or professional assessment. The response contains one `task_id`, `status`, `progress`, and available per-analysis `results`. While `queued` or `running`, poll `get_task_status` with that same `task_id`; it returns the same contract. Stop at `succeeded`, `partially_succeeded`, or `failed`, and report failures alongside available findings. Findings have readable `title` and `description` fields, with optional categories and supporting details. A `findings_error` means the findings could not be returned; report this limitation rather than claiming there were no findings or continuing to poll a terminal task. Ending the wait does not cancel analysis. Apply authorised improvements supported by the evidence; leave remaining gaps explicit.
 
 Tasks and findings expire 30 days after creation; reading does not consume them or extend retention. Use `list_tasks`, optionally filtered by `invention_id`, to recover a lost task ID in the connected organisation. Follow `next_cursor` even if access filtering returns an empty page; listing reports recorded status without polling. `delete_task` permanently removes the user’s task and findings when requested, in any execution state, with write consent. Deletion does not cancel the analysis, delete the innovation or withdraw a service request.
+
+For an authorised inventor-name correction, fetch with `include_inventors: true` when available and retain every existing inventor ID in the complete desired list sent through `update_asset`. Preserve other inventors; omit an ID only for a new person. Refused assignment locks are not bypassed by replacing the inventor. Read back the saved result.
 
 ## Illustrations and source files
 

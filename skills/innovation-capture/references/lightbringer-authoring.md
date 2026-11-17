@@ -1,6 +1,6 @@
 # Innovation evidence and authoring
 
-Retrieve `get_innovation_template` for new capture. Its current guide owns the interview, readiness, document structure, schema and field constraints. Follow the main skill for matching records, registration, updates and optional feedback. This reference adds evidence-mapping practices for source exploration; it does not define a second payload schema.
+For structured invention-disclosure capture, retrieve `get_innovation_template`. Lightweight Idea capture follows the advertised shared asset schema and the main skill instead. Its current guide owns the interview, readiness, document structure, schema and field constraints. Follow the main skill for matching records, registration, updates and optional feedback. This reference adds evidence-mapping practices for source exploration; it does not define a second payload schema.
 
 ## Map sources to a supported account
 
