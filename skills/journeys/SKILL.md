@@ -15,6 +15,8 @@ When `list_journeys` is offered and the user's goal may fit a journey, call it b
 
 If `list_journeys` or `start_journey` is not offered, or the service says that journeys are not available, continue with the other workflows. Do not describe a journey that the connection cannot start.
 
+Start a journey only when the connection also offers `answer_agent` and a `get_task_status` whose input includes `wait_seconds`. Without them, this connection cannot answer the journey's questions or read its result. In that case, do not start the journey; continue with the relevant workflow instead. Check this before every start, because hosts can make individual tools and tool updates available at different times.
+
 ## Start it
 
 Give each input in the journey's `inputs` that you already know from the conversation, by its `name`, in the user's words. Leave out the inputs you do not know; the agent asks for them when it needs them. Do not interview the user before you start. Never ask the user for anything listed in `reads`: Lightbringer reads it itself.
@@ -26,6 +28,8 @@ Tell the user in one or two sentences what the journey does and what it delivers
 ## Wait
 
 While the task is `running`, call `get_task_status` with the `task_id`. It waits for a change, up to `wait_seconds`, and returns early when the agent asks, finishes or stops. Call it again while the task is still running. When `activity` shows a new step, give the user a short update; do not repeat an unchanged one.
+
+When a result includes `next_step`, it states the next action for the conversation; follow it.
 
 If your reply ends while the task is still `running`, tell the user that the agent continues to work. The user sees new progress only when you read the task again.
 
