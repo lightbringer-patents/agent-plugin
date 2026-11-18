@@ -9,6 +9,8 @@ Help the user decide how IP should support a specific business outcome, then cre
 
 Read the [strategy playbook](references/strategy-playbook.md) when developing or assessing the direction. Read the [MCP workflow](references/mcp-workflow.md) for tool and skill dependencies before capture or proposing a saved Strategy.
 
+When the connection offers `start_journey`, check the journeys that it names first. If one fits the user's goal, follow the `journeys` skill when it is installed. Otherwise continue with this workflow and do not mention journeys.
+
 ## Establish the brief and available context
 
 Start with the user's existing evidence and establish which company, client or business unit the strategy concerns. Use `get_company_context` when available to recover the shared brief; `whoami` supplies account identity only. Settings and signup notes may be empty, placeholders or stale. Do not infer company type, industry, customers or differentiation from a country or website.

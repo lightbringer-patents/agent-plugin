@@ -101,7 +101,7 @@
         }
       },
       "publication": {
-        "release_notes": "Version 5.7.0 chooses journeys from the start_journey description, which names each journey with its inputs, instead of a separate journey list. It includes everything in 5.6.2, which combines portfolio presentation, illustration and vault file workflows, focused invention-feedback priorities and question progress, explicit save decisions, and approved collaborator invitations. It includes eleven self-contained skills, restores patent-review guidance and keeps journeys conditional on advertised tools. Supported components retain text fallbacks; permissions, saves, invitations and patent preparation remain separate decisions."
+        "release_notes": "Version 5.7.0 chooses journeys from the start_journey description, which names each journey with its inputs, instead of a separate journey list. The innovation-capture, IP strategy, setup and novelty exploration workflows check those journeys before their own steps and follow one that fits; when none fits, they continue as before and do not mention journeys. It includes everything in 5.6.2, which combines portfolio presentation, illustration and vault file workflows, focused invention-feedback priorities and question progress, explicit save decisions, and approved collaborator invitations. It includes eleven self-contained skills, restores patent-review guidance and keeps journeys conditional on advertised tools. Supported components retain text fallbacks; permissions, saves, invitations and patent preparation remain separate decisions."
       },
       "onboardingSkill": "./skills/setup/SKILL.md"
     }
