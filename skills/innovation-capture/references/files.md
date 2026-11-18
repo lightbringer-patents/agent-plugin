@@ -4,12 +4,12 @@ Use the tools and fields advertised by this connection. Tool approval, file acce
 
 ## Choose the destination
 
-- **Idea or disclosure supporting file:** when the document destination is advertised, attach the original to the selected record with `destination: { kind: "document", id: <document_id> }`. Read an Idea's inventory with the shared asset read; a disclosure's inventory additionally needs `include_attachments: true` when advertised. An unavailable inventory is not an empty one. This destination preserves the original separately from inventor drawings and vault storage.
+- **Innovation or disclosure supporting file:** when the document destination is advertised, attach the original to the selected record with `destination: { kind: "document", id: <document_id> }`. Read an innovation's inventory with the shared asset read; a disclosure's inventory additionally needs `include_attachments: true` when advertised. An unavailable inventory is not an empty one. This destination preserves the original separately from inventor drawings and vault storage.
 
 - **Illustration:** an image added as the next drawing in a selected draft innovation's Illustrations section. Resolve the innovation first. Use `get_innovation(include_illustrations: true)` to inspect existing drawing metadata when that input is advertised. A drawing suggestion or description is not an uploaded image. This route does not replace or delete drawings, or attach a general PDF to an innovation.
 - **Vault:** a file stored in an organisation folder, independently of an innovation. Navigation handles finding, reading and saving these files. Saving to the vault does not link the file to a case, add a drawing or create a disclosure. Use the folder the user selected; omit the path for the root only when that destination is intended. Missing folders are created. Never silently substitute the vault for an unsupported illustration or attachment request.
 
-For a new record, complete its authorised Idea or disclosure creation first and use its confirmed ID. Adding a drawing to an existing innovation does not require repeating the capture interview or rewriting its prose. If the selected record cannot be edited, retain it and offer the platform continuation rather than creating a duplicate.
+For a new record, complete its authorised innovation or disclosure creation first and use its confirmed ID. Adding a drawing to an existing innovation does not require repeating the capture interview or rewriting its prose. If the selected record cannot be edited, retain it and offer the platform continuation rather than creating a duplicate.
 
 ## Transfer and finish an authorised upload
 
@@ -29,4 +29,4 @@ Pass the search result's `vault_file:<id>` unchanged to `fetch`, without patent-
 
 ## Read supporting originals
 
-When advertised, `get_attachment` accepts an attachment `id` from a fresh asset inventory. Its `ref` is different: Idea Markdown embeds use `attachment:<ref>`. Related records retain independent access checks; a relation does not grant file access. Use the returned original through a supported host capability, and distinguish inspecting metadata, reading bytes and comparing bytes. Refresh an expired download link rather than uploading again. If an older tool definition cannot list disclosure attachments, report that limitation instead of claiming none exist.
+When advertised, `get_attachment` accepts an attachment `id` from a fresh asset inventory. Its `ref` is different: innovation Markdown embeds use `attachment:<ref>`. Related records retain independent access checks; a relation does not grant file access. Use the returned original through a supported host capability, and distinguish inspecting metadata, reading bytes and comparing bytes. Refresh an expired download link rather than uploading again. If an older tool definition cannot list disclosure attachments, report that limitation instead of claiming none exist.
