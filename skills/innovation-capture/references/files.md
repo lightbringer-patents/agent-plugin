@@ -4,10 +4,12 @@ Use the tools and fields advertised by this connection. Tool approval, file acce
 
 ## Choose the destination
 
+- **Innovation or disclosure supporting file:** when the document destination is advertised, attach the original to the selected record with `destination: { kind: "document", id: <document_id> }`. Read an innovation's inventory with the shared asset read; a disclosure's inventory additionally needs `include_attachments: true` when advertised. An unavailable inventory is not an empty one. This destination preserves the original separately from inventor drawings and vault storage.
+
 - **Illustration:** an image added as the next drawing in a selected draft innovation's Illustrations section. Resolve the innovation first. Use `get_innovation(include_illustrations: true)` to inspect existing drawing metadata when that input is advertised. A drawing suggestion or description is not an uploaded image. This route does not replace or delete drawings, or attach a general PDF to an innovation.
 - **Vault:** a file stored in an organisation folder, independently of an innovation. Navigation handles finding, reading and saving these files. Saving to the vault does not link the file to a case, add a drawing or create a disclosure. Use the folder the user selected; omit the path for the root only when that destination is intended. Missing folders are created. Never silently substitute the vault for an unsupported illustration or attachment request.
 
-For a new innovation, finish authorised registration first and use its confirmed ID. Adding a drawing to an existing innovation does not require repeating the capture interview or rewriting its prose. If the selected record cannot be edited, retain it and offer the platform continuation rather than creating a duplicate.
+For a new record, complete its authorised innovation or disclosure creation first and use its confirmed ID. Adding a drawing to an existing innovation does not require repeating the capture interview or rewriting its prose. If the selected record cannot be edited, retain it and offer the platform continuation rather than creating a duplicate.
 
 ## Transfer and finish an authorised upload
 
@@ -17,10 +19,14 @@ For a new innovation, finish authorised registration first and use its confirmed
 4. Only after a successful PUT, call `register_upload` with the same `upload_id`. Supply a supported plain-text drawing description only for an illustration. The file is saved only when registration confirms it. A successful PUT or minted URL alone is insufficient.
 5. If registration is interrupted or explicitly retryable, reuse the same `upload_id`; successful repeat registration returns the same result. Do not mint another upload merely because the registration response was lost. Stop on a terminal refusal and follow the reported recovery step. Check current state before repeating the whole workflow after an uncertain outcome.
 
-Report the confirmed drawing number or vault filename/folder and the returned destination link. When readback is available, inspect illustrations using the optional `get_innovation` input, or fetch a vault file with `id: "vault_file:" + vault_file.id`. Preserve the prefix; a bare vault ID is not a fetch reference. Upload approval and readback approval can differ: if the optional read is unavailable, report the confirmed registration and the read limitation without uploading again. Drawing metadata confirms saved drawings, not visual inspection of their bytes.
+Report the confirmed attachment filename, drawing number or vault filename/folder and the returned destination link. When readback is available, inspect illustrations using the optional `get_innovation` input, or fetch a vault file with `id: "vault_file:" + vault_file.id`. Preserve the prefix; a bare vault ID is not a fetch reference. Upload approval and readback approval can differ: if the optional read is unavailable, report the confirmed registration and the read limitation without uploading again. Drawing metadata confirms saved drawings, not visual inspection of their bytes.
 
 ## Find and read vault files
 
 When advertised, use `search(category: "vault")` with filename or folder terms, or omit the query to list accessible files. Follow `nextCursor` while `hasMore`. Search matches names and folder paths, not file contents; an empty result does not establish that the organisation has no relevant material. Vault access currently requires write consent even for these reads, plus the user's vault permissions. Do not infer an empty vault from missing access.
 
 Pass the search result's `vault_file:<id>` unchanged to `fetch`, without patent-section or Strategy asset options. It returns file details and a download link valid for about an hour; text/code files up to 256 KB can also include inline content. Download and inspect a document through a supported host capability when needed and authorised. A filename, metadata or download link alone is not evidence of having read the contents. If the bytes cannot be read, state that limitation and continue with available evidence. Fetch again for an expired link; do not re-upload the file.
+
+## Read supporting originals
+
+When advertised, `get_attachment` accepts an attachment `id` from a fresh asset inventory. Its `ref` is different: innovation Markdown embeds use `attachment:<ref>`. Related records retain independent access checks; a relation does not grant file access. Use the returned original through a supported host capability, and distinguish inspecting metadata, reading bytes and comparing bytes. Refresh an expired download link rather than uploading again. If an older tool definition cannot list disclosure attachments, report that limitation instead of claiming none exist.
