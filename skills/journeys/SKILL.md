@@ -13,7 +13,7 @@ The available journeys, their inputs and what each delivers are in the descripti
 
 When `start_journey` is offered and the user's goal may fit a journey, check its description before you choose another workflow. Compare the goal with each journey that the description names: when it is for, what it reads and what it delivers. If one fits, use it. If two fit, choose the closer one, or ask one short question when the choice changes the result. If none fits, continue with the relevant workflow and do not mention journeys.
 
-If `start_journey` is not offered, or the service says that a journey is not available, continue with the other workflows. Do not describe a journey that the connection cannot start.
+If `start_journey` is not offered, or the service says that a journey is not available, continue with the other workflows. Do not describe a journey that the connection cannot start. If the description of `start_journey` names no journey, for example because the connection still holds an older definition, start none and continue with the relevant workflow; do not look for a separate list of journeys.
 
 Start a journey only when the connection also offers `answer_agent` and a `get_task_status` whose input includes `wait_seconds`. Without them, this connection cannot answer the journey's questions or read its result. In that case, do not start the journey; continue with the relevant workflow instead. Check this before every start, because hosts can make individual tools and tool updates available at different times.
 
@@ -66,7 +66,7 @@ Other states:
 
 For follow-up work on the same result, continue the conversation with `ask_agent` when it is offered, or use the relevant workflow. On a connection without `ask_agent`, a finished journey is over: start the journey again for a new result.
 
-Journeys also work on read-only connections. There, the journey's agent cannot save anything, and `ask_agent` is not offered.
+Journeys also work on read-only connections. There, the journey's agent cannot save anything; continue a finished journey with `ask_agent` only when the connection offers it.
 
 ## Finish
 
