@@ -17,7 +17,7 @@ Autonomy: comments post in the user's name, so nothing posts unapproved. Assembl
 
 ## Strategy or report review
 
-1. `list_reviews` (open) → the review carrying the selected Strategy or report. No review → `search`/`fetch` read-only, and tell the user commenting requires one.
+1. `list_reviews` (open) → the review carrying the selected Strategy or report. No review → `search`/`fetch` read-only. Comment on the record itself only as described under "Comments on a record outside a review"; otherwise tell the user commenting requires a review.
 2. `get_review`; read the instructions, the document, all threads and the review discussion before drafting — a point already in a thread becomes a reply, never a new comment.
 3. Assess against the instructions: internal consistency, unsupported claims, portfolio and strategy fit (`search`/`fetch`/`get_innovation` for context), plus the user's specific asks.
 4. Classify (rules below) → discovery screen → batch confirmation → `add_comment` with exact `quoted_text` anchors (`target_user_ids` only on request); general review remarks use `add_discussion_comment` when available.
@@ -37,6 +37,10 @@ Autonomy: comments post in the user's name, so nothing posts unapproved. Assembl
 2. Ask for the user's complete intended selection. Do not choose validation scope for the user. An unchanged selection needs no write.
 3. Before `set_validation_countries`, explain that it replaces the whole selection and returns earlier approvals to pending, and that restoring an earlier list does not restore them. Only a reviewer who has not yet approved, or a specialist, can change an open review.
 4. Read back with `get_review` and confirm the saved selection. Selection does not approve the review; approval is a separate `respond_to_review` decision as above. If the selection tool is not advertised, continue in the platform.
+
+## Comments on a record outside a review
+
+When the connection advertises `comment`, the user can comment directly on an invention disclosure, a patent draft or a report whose asset is commentable, without a review. Read the record with `fetch` and `include_asset: true`, adding `include_discussions: true` to see existing threads; a point already in a thread becomes a reply. Use the asset's type and ID as the `target` and copy the passage exactly as rendered. An ambiguous passage returns candidates with ready selectors; choose with the user rather than guessing. The feedback rules, discovery screen, provenance tag and batch approval below apply unchanged. Resolving or reopening a thread with `update_comment_thread` and deleting with `delete_comment` each need the user's decision; a refused deletion reflects their rights, not a reason to remove the thread another way. Every request posts a new comment, so after an uncertain result read the threads before sending again. Threads that belong to a review continue to use the review tools above. Without `comment`, keep the feedback as a draft and offer the platform.
 
 ### Feedback rules (binding; boundary cases in the reference)
 
