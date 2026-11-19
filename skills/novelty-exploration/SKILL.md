@@ -7,6 +7,8 @@ description: Explore whether a technical idea has appeared in patents. Use when 
 
 Help the user get to the core of a technical solution, find related patent publications and retain useful evidence in Lightbringer. The result is a clearer technical explanation, an evidence-backed shortlist and focused questions for further investigation. Work from the conversation or authorised source material; an existing innovation record, patent portfolio or completed disclosure is not a prerequisite.
 
+When the connection offers `start_journey`, check the journeys that it names first. If one fits the user's goal, follow the `journeys` skill when it is installed. Otherwise continue with this workflow and do not mention journeys.
+
 ## Offer innovation capture first
 
 Encourage the user to describe and register the invention in Lightbringer before a deeper exploration. Explain that the guided capture workflow helps articulate the technical solution and keeps a reusable description in their workspace. Present this as an option: “We can first capture your invention in Lightbringer to give the search a clear technical starting point, or do a small exploration here from what you have already described.”

@@ -2,6 +2,10 @@
 
 The prepared package contains eleven workflow skills: `setup`, `lightbringer-navigation`, `journeys`, `novelty-exploration`, `innovation-capture`, `patent-preparation`, `patent-review`, `patent-portfolio`, `ip-strategy`, `company-context` and `trade-secrets`. Each skill includes its references.
 
+## Journey choice update — portable 5.7.0 / Claude 1.10.0
+
+A connected service can name each journey that it can start, with its inputs and what it delivers, in the description of `start_journey`, with no separate journey list. In 5.7.0 and 1.10.0, the `journeys` and `lightbringer-navigation` skills choose a journey from that description, and `innovation-capture`, `ip-strategy`, `setup` and `novelty-exploration` check those journeys before their own steps. These versions include everything prepared for 5.6.2 and 1.9.2. With an earlier package, a connection without `list_journeys` starts no journey from the skill, and the other workflows continue unchanged. Publish these versions when the connected service names its journeys in `start_journey`. Verify published and pending package versions before upload.
+
 ## Combined candidate — portable 5.6.1 / Claude 1.9.1
 
 This candidate reconciles portable PRs #27, #28, #29, #30 and #34 with current main and mirrors the complete canonical skills tree to Claude. Earlier prepared versions 5.4.3, 5.5.0 and 5.6.0 (Claude 1.7.3, 1.8.0 and 1.9.0) are superseded by this combined candidate; do not publish them sequentially. The separate Copilot marketplace proposal is not included.
@@ -12,11 +16,12 @@ Service 4.25.0 advertises portfolio and invention-capture presentation, file upl
 
 ## Conditional journeys skill
 
-The `journeys` skill uses the journeys that the connected service lists through `list_journeys`. Lightbringer's agent carries out each journey in a conversation of its own. The assistant chooses a journey that fits the request, gives the inputs it already knows, starts it with `start_journey`, waits with `get_task_status`, deals with its questions through `answer_agent` and relays the outcome. The skill names no journey; journeys, inputs and outcomes come from the service. `lightbringer-navigation` checks the listed journeys before it works through a broad request itself. When the connection does not offer the journey tools, the other workflows are unchanged. OpenAI review cases and listing text are unchanged; use the acceptance cases below for host checks.
+The `journeys` skill uses the journeys that the connected service names in the description of `start_journey`. Lightbringer's agent carries out each journey in a conversation of its own. The assistant chooses a journey that fits the request, gives the inputs it already knows, starts it with `start_journey`, waits with `get_task_status`, deals with its questions through `answer_agent` and relays the outcome. The skill names no journey; journeys, inputs and outcomes come from the service. `lightbringer-navigation` checks those journeys before it works through a broad request itself. `innovation-capture`, `ip-strategy`, `setup` and `novelty-exploration` also check those journeys first and follow the `journeys` skill when one fits; otherwise they continue with their own workflow. When the connection does not offer the journey tools, the other workflows are unchanged. OpenAI review cases and listing text are unchanged; use the acceptance cases below for host checks.
 
 | Situation | Expected behaviour |
 | --- | --- |
-| A request that a listed journey fits | Lists the journeys, starts the one that fits with inputs from the conversation, does not ask for data the journey reads itself, waits, and relays the outcome without writing its own version. |
+| A request that a journey fits | Chooses the journey from the `start_journey` description, starts it with inputs from the conversation, does not ask for data the journey reads itself, waits, and relays the outcome without writing its own version. |
+| A request to `innovation-capture`, `ip-strategy`, `setup` or `novelty-exploration` that a journey fits | Checks the journeys named in the `start_journey` description before the workflow's own steps and follows the `journeys` skill for the journey that fits, instead of working through the request step by step. |
 | A question from the journey | First answers every question that the conversation already settles. Then asks the user, without rewording, only each question it cannot answer and each question that starts with `For the user:`. Says which questions it answered, and sends all answers in one call. |
 | A source the journey could not check | Names the source and the reason; does not present it as empty. |
 | Read-only connection | Starts, answers, checks and cancels the journey; relays an unsaved result and its link; does not offer to continue a finished journey on that connection. |

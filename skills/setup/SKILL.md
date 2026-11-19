@@ -7,6 +7,8 @@ description: Get started with Lightbringer, understand the company's current IP 
 
 Help the user understand where they are with IP and what to do next. Meet them at their current situation, from no patent knowledge to an established portfolio. The outcome is a proportionate plan, documented as a draft Strategy when authorised, with a useful next action in the same conversation.
 
+When the connection offers `start_journey`, check the journeys that it names first. If one fits the user's goal, follow the `journeys` skill when it is installed. Otherwise continue with this workflow and do not mention journeys.
+
 ## Begin with why they came
 
 Briefly introduce Lightbringer in everyday language, then invite an easy reply. For a genuinely open start, an example is:

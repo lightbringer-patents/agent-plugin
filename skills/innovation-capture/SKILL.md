@@ -7,6 +7,8 @@ description: Identify, register and enrich Lightbringer innovations from a conve
 
 Identify innovations and, when requested, register or enrich traceable records. An innovation can be a vague idea or a detailed technical description; it does not need to be patent-ready. Read [service conduct](references/service-conduct.md).
 
+When the connection offers `start_journey`, check the journeys that it names first. If one fits the user's goal, follow the `journeys` skill when it is installed. Otherwise continue with this workflow and do not mention journeys.
+
 ## Scope and context
 
 Use the connected organisation and the user's existing technical context. Establish which sources are in scope and whether the user wants analysis, registration or an update. Carry out requested saves without asking for the same approval again. Clarify an ambiguous record, source scope or requested change before acting. An exploration-only request does not authorise saving findings.

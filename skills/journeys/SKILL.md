@@ -1,27 +1,27 @@
 ---
 name: journeys
-description: Find, start and follow Lightbringer journeys, in which Lightbringer's agent carries out a piece of work from start to finish and reports its outcome. Use when the connection offers list_journeys and the user's goal may match a listed journey, before working through the request step by step with another workflow. Direct requests to capture, import, prepare or review use their own workflow when no journey fits.
+description: Find, start and follow Lightbringer journeys, in which Lightbringer's agent carries out a piece of work from start to finish and reports its outcome. Use when the connection offers start_journey and the user's goal may match a journey that it names, before working through the request step by step with another workflow. Direct requests to capture, import, prepare or review use their own workflow when no journey fits.
 ---
 
 # Lightbringer journeys
 
 A journey is work that Lightbringer's agent carries out in a conversation of its own. The agent reads the platform data it needs, asks for what it cannot find and reports an outcome. Your part is to choose the journey, give the inputs you already know, wait, deal with its questions and relay the outcome. Do not do the journey's work yourself, and do not write your own version of its result. Follow the [service conduct](references/service-conduct.md) guidance.
 
-The available journeys, their inputs and what each delivers come from `list_journeys`. They can differ between users and connections, so read the list in each conversation.
+The available journeys, their inputs and what each delivers are in the description of `start_journey`. They can differ between connections, so read that description in each conversation.
 
 ## Choose a journey
 
-When `list_journeys` is offered and the user's goal may fit a journey, call it before you choose another workflow. Compare the goal with each journey's `when_to_use` and `examples`. If one fits, use it. If two fit, choose the closer one, or ask one short question when the choice changes the result. If none fits, continue with the relevant workflow and do not mention journeys.
+When `start_journey` is offered and the user's goal may fit a journey, check its description before you choose another workflow. Compare the goal with each journey that the description names: when it is for, what it reads and what it delivers. If one fits, use it. If two fit, choose the closer one, or ask one short question when the choice changes the result. If none fits, continue with the relevant workflow and do not mention journeys.
 
-If `list_journeys` or `start_journey` is not offered, or the service says that journeys are not available, continue with the other workflows. Do not describe a journey that the connection cannot start.
+If `start_journey` is not offered, or the service says that a journey is not available, continue with the other workflows. Do not describe a journey that the connection cannot start.
 
 Start a journey only when the connection also offers `answer_agent` and a `get_task_status` whose input includes `wait_seconds`. Without them, this connection cannot answer the journey's questions or read its result. In that case, do not start the journey; continue with the relevant workflow instead. Check this before every start, because hosts can make individual tools and tool updates available at different times.
 
 ## Start it
 
-Give each input in the journey's `inputs` that you already know from the conversation, by its `name`, in the user's words. Leave out the inputs you do not know; the agent asks for them when it needs them. Do not interview the user before you start. Never ask the user for anything listed in `reads`: Lightbringer reads it itself.
+Give each input that the description names for the journey and that you already know from the conversation, by its name, in the user's words. Leave out the inputs you do not know; the agent asks for them when it needs them. Do not interview the user before you start. Never ask the user for anything that the description says the journey reads: Lightbringer reads it itself.
 
-Tell the user in one or two sentences what the journey does and what it delivers (`outcome.description`). Then call `start_journey` with the journey's id (`journey`) and the `inputs`. If it refuses an input, its message names the inputs that the journey takes; correct the call once. If it does not know the journey, read `list_journeys` again.
+Tell the user in one or two sentences what the journey does and what it delivers, as the description says. Then call `start_journey` with the journey's id (`journey`) and the `inputs`. If it refuses an input, its message names the inputs that the journey takes; correct the call once. If it says that the journey is not available, continue with the relevant workflow.
 
 `start_journey` returns a conversation task. Keep its `task_id`; every later call uses it.
 
