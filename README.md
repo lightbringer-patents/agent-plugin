@@ -65,7 +65,7 @@ Try:
 
 ## Packaging and publication
 
-Version 5.6.2 is prepared with eleven self-contained workflow skills, portfolio presentation, illustration and vault file workflows, focused invention feedback and approved collaborator invitations. Journeys run only when their tools are advertised. Host acceptance and publication remain separate steps; see [distribution and validation](DISTRIBUTION.md).
+Version 5.7.0 is prepared with eleven self-contained workflow skills, portfolio presentation, illustration and vault file workflows, focused invention feedback and approved collaborator invitations. Journeys run only when their tools are advertised, and the skills choose a journey from the `start_journey` description; four overlapping workflows check those journeys first. Host acceptance and publication remain separate steps; see [distribution and validation](DISTRIBUTION.md).
 
 This is the canonical `skills/` source. [claude-plugin](https://github.com/lightbringer-patents/claude-plugin) mirrors the complete tree with Anthropic-specific metadata. Edit shared skills here first and verify both packages before release.
 
