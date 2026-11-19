@@ -2,6 +2,20 @@
 
 The prepared package contains eleven workflow skills: `setup`, `lightbringer-navigation`, `journeys`, `novelty-exploration`, `innovation-capture`, `patent-preparation`, `patent-review`, `patent-portfolio`, `ip-strategy`, `company-context` and `trade-secrets`. Each skill includes its references.
 
+## Workflow corrections after portable 5.7.0 / Claude 1.10.0
+
+These corrections follow 5.7.0 / 1.10.0 and retain all eleven workflows. Missing `list_trade_secrets` now leaves register access unknown; only a confirmed absence warrants suggesting that the organisation add the register. Source exploration prefers supported Strategy search/fetch reads and uses legacy Strategy tools only as compatibility fallbacks. The Claude README also describes its bundled icon without an image path formatted as code. Host acceptance and publication remain separate outcomes.
+
+These are prepared acceptance cases, not claims of authenticated execution:
+
+| Situation | Expected behaviour |
+| --- | --- |
+| Trade secret listing tool absent; register entitlement unknown | Explains that this connection cannot list it, keeps the cause uncertain and offers permission or Moderator checks without suggesting a purchase. |
+| Missing consent confirmed, or register absence confirmed | Gives the matching sign-in or contact route; never promises that reconnecting will expose the tool. |
+| Strategy search/fetch contracts and legacy tools both available | Uses the preferred Strategy category and structured fetch, rather than deprecated tools. |
+| Replacement read contract unavailable | Uses available legacy reads; if no supported read is available, explains the limit and continues authorised exploration with supplied context. |
+| Draft Strategy, unknown status or report-only evidence | Keeps proposals, publication and adopted decisions distinct; reports add evidence without making an unknown Strategy adopted. |
+
 ## Journey choice update — portable 5.7.0 / Claude 1.10.0
 
 A connected service can name each journey that it can start, with its inputs and what it delivers, in the description of `start_journey`, with no separate journey list. In 5.7.0 and 1.10.0, the `journeys` and `lightbringer-navigation` skills choose a journey from that description, and `innovation-capture`, `ip-strategy`, `setup` and `novelty-exploration` check those journeys before their own steps. These versions include everything prepared for 5.6.2 and 1.9.2. With an earlier package, a connection without `list_journeys` starts no journey from the skill, and the other workflows continue unchanged. Publish these versions when the connected service names its journeys in `start_journey`. Verify published and pending package versions before upload.
@@ -134,6 +148,8 @@ validation do not establish these host outcomes. Keep the current package live
 until the approved replacement is ready to publish.
 
 ## Prepared trade secret listing update — portable 5.4.1 / Claude 1.7.1
+
+Historical candidate: the missing-tool inference and acceptance checks in this section are superseded by the 5.6.2 / 1.9.2 corrections above.
 
 This update changes only the `trade-secrets` skill. When the host does not offer
 `list_trade_secrets`, the assistant assumes the organisation does not have the
