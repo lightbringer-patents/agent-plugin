@@ -2,6 +2,21 @@
 
 The prepared package contains eleven workflow skills: `setup`, `lightbringer-navigation`, `journeys`, `novelty-exploration`, `innovation-capture`, `patent-preparation`, `patent-review`, `patent-portfolio`, `ip-strategy`, `company-context` and `trade-secrets`. Each skill includes its references.
 
+## Shared asset tools for innovations and disclosures
+
+The innovation workflows prefer the shared asset tools for innovations and invention disclosures. `innovation-capture`, `patent-preparation`, `patent-review`, `ip-strategy` and `lightbringer-navigation` find records with `search` in the `innovation` category, read them with `fetch` and `include_asset: true`, register disclosures with `create_asset` and update them with `update_asset` at the current revision. The deprecated `list_innovations`, `get_innovation`, `register_innovation` and `update_innovation` remain fallbacks where a connection does not advertise the replacement. A failed, conflicted or uncertain write is never replayed through the other interface. Tools that take an `invention_id`, and the illustration upload destination, receive the record ID without its `document:` prefix, which every version of those tools accepts. Host acceptance and publication remain separate outcomes.
+
+These are prepared acceptance cases, not claims of authenticated execution:
+
+| Situation | Expected behaviour |
+| --- | --- |
+| Shared asset tools and deprecated innovation tools both available | Finds, reads, registers and updates through `search`, `fetch`, `create_asset` and `update_asset`, not the deprecated tools. |
+| Only the deprecated innovation tools available | Uses `list_innovations`, `get_innovation`, `register_innovation` and `update_innovation` and completes the same workflow. |
+| Shared read available, `invention_disclosure` write variant not advertised | Reads with `fetch` and writes with the deprecated writer, without mixing interfaces within one write. |
+| Stale revision on `update_asset` | Reads the record again and reconciles before retrying; does not resend through `update_innovation`. |
+| Record found through `search`, then submitted for preparation or analysed | Passes the record ID without `document:` to `request_patent_preparation`, `start_innovation_feedback` or `list_tasks`. |
+| Existing drawings checked before an illustration upload | Reads drawings with `fetch` and `include_insights_and_illustrations`, or `get_innovation` with `include_illustrations` when only that is advertised; held readback does not block a supported upload. |
+
 ## Workflow corrections after portable 5.7.0 / Claude 1.10.0
 
 These corrections follow 5.7.0 / 1.10.0 and retain all eleven workflows. Missing `list_trade_secrets` now leaves register access unknown; only a confirmed absence warrants suggesting that the organisation add the register. Source exploration prefers supported Strategy search/fetch reads and uses legacy Strategy tools only as compatibility fallbacks. The Claude README also describes its bundled icon without an image path formatted as code. Host acceptance and publication remain separate outcomes.
