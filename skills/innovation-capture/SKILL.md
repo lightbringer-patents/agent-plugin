@@ -7,7 +7,7 @@ description: Identify, register and enrich Lightbringer innovations from a conve
 
 Identify innovations and, when requested, register or enrich traceable records. An innovation can be a vague idea or a detailed technical description; it does not need to be patent-ready. Read [service conduct](references/service-conduct.md).
 
-When the connection offers `start_journey`, check the journeys that it names first. If one fits the user's goal, follow the `journeys` skill when it is installed. Otherwise continue with this workflow and do not mention journeys.
+Choose the path from the user's requested effect. A direct save, read, edit or delete uses the advertised shared asset tools; do not turn it into a guided interview. Source exploration gathers evidence on the user's side first and does not authorise a save. For guided invention-disclosure capture, use the advertised `invention-capture` journey when its question and status tools are available, following `journeys` when installed. Read [capture handoff](references/capture-handoff.md) for the evidence and destination to carry across. When that journey is unavailable, continue the direct workflow below and describe the actual result without claiming platform-agent capture.
 
 ## Scope and context
 
@@ -27,7 +27,7 @@ Use the person’s own words for their idea. Call the saved note an innovation a
 
 For a rough idea, start with the next useful question in ordinary language, usually about how the proposed solution works. Build on the answer instead of presenting a multi-topic intake checklist. Reuse facts already supplied, including who came up with the idea; ask for clarification only where the meaning or attribution is unclear. Bring up other relevant gaps naturally as the conversation develops. Unknown details can stay open and should not turn a simple save into a complete disclosure interview.
 
-- **Conversation or inventor interview:** for new disclosure capture, retrieve `get_innovation_template` and follow its current interactive guidance and readiness criteria. Reuse supplied context. For a targeted enrichment, read the existing record and clarify only what the requested change needs; do not restart capture.
+- **Conversation or inventor interview:** prefer the available guided-capture journey above. In the direct-authoring compatibility path, retrieve `get_innovation_template` and follow its current interactive guidance and readiness criteria. Reuse supplied context. For a targeted enrichment, read the existing record and clarify only what the requested change needs; do not restart capture.
 - **Source exploration or patent mining:** read [source exploration](references/source-exploration.md). Investigate the authorised material, trace supporting evidence and retain identified innovations even when incomplete. Do not require a broad mining exercise for a single idea.
 
 ## Choose the saved record
