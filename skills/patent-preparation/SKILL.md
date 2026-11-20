@@ -9,6 +9,16 @@ Establish whether the user wants a draft to review or wants to submit a disclosu
 
 ## Draft from a selected innovation
 
+When `start_journey` advertises `invention-capture` and `answer_agent` and
+`get_task_status` are available, prefer that shared guided-capture procedure for
+requested preparation. Pass the selected source references, existing disclosure
+when known, supported evidence and established answers using only advertised
+inputs. Follow `journeys` when installed, and continue the same task for corrections.
+Do not create a separate disclosure or conduct a competing interview while it runs.
+Direct targeted edits still use the shared asset tools. The steps below are the
+direct-authoring compatibility path when the journey is unavailable; they do not
+establish that platform-agent capture occurred.
+
 1. Find the selected innovation and fetch its saved text, relationships and attachment inventory. Read the supporting files needed to understand the invention. If there is already a linked disclosure for this work, open it and continue from its saved sections. Ask which draft the user means if the relationship is ambiguous.
 2. Retrieve `get_innovation_template`. Author the complete definition in the current conversation using the source's technical account and relevant file contents. Follow the template's field guidance. Preserve measurements, qualifications, and the distinction between tested results and open questions. Reuse inventor and public-disclosure facts already given. Contributor names alone do not confirm inventorship. If the user supplies or corrects a public-disclosure fact during preparation, retain it on the linked innovation using the current revision. An explicit statement of no disclosure or sale belongs in its saved text even when there is no date. Ask only for a material missing fact that the template requires or to resolve conflicting evidence. If an honest definition cannot yet be registered, keep the work in the conversation until it can.
 3. Register once, using one advertised operation that accepts **both** the completed definition and the selected source references. With the shared `create_asset` tool, send `type: invention_disclosure` and `asset.data` containing `definition` and `sourceInnovations`. Only when that variant is not advertised, use the deprecated `register_innovation` with the sibling arguments `definition` and `sourceInnovations`; if its advertised schema offers only the earlier name `sourceIdeas`, use that name instead. Never send both names. Supply the canonical references returned for the selected innovations. This saves the authored sections, links the sources and carries over supporting files and drawings. It leaves the patent decision on each source as recorded. Source references alone create an unfilled draft. If neither operation advertises linked registration, explain the limitation and provide the source link for continuation in Lightbringer.

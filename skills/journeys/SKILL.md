@@ -11,6 +11,12 @@ The available journeys, their inputs and what each delivers are in the descripti
 
 ## Choose a journey
 
+Direct record CRUD follows its asset workflow without a guided journey. Explicit
+customer-side source exploration gathers the authorised context first; a journey
+cannot read private external material merely because a link was supplied. Guided
+disclosure capture may start immediately with the facts already available. Keep
+these choices distinct from a professional-service request.
+
 When `start_journey` is offered and the user's goal may fit a journey, check its description before you choose another workflow. Compare the goal with each journey that the description names: when it is for, what it reads and what it delivers. If one fits, use it. If two fit, choose the closer one, or ask one short question when the choice changes the result. If none fits, continue with the relevant workflow and do not mention journeys.
 
 If `start_journey` is not offered, or the service says that a journey is not available, continue with the other workflows. Do not describe a journey that the connection cannot start. If the description of `start_journey` names no journey, for example because the connection still holds an older definition, start none and continue with the relevant workflow; do not look for a separate list of journeys.

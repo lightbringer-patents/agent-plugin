@@ -665,3 +665,16 @@ organisation has not allowed listing, and the contact message for an
 organisation without the register. Confirm that responses never contain entry
 content and that the assistant does not infer content from titles.
 
+## Prepared shared capture guidance
+
+Guided capture uses an advertised invention-capture journey and its question/status
+tools. Direct CRUD and source exploration remain separate. This source update does
+not establish host acceptance or release availability. Keep compatibility with older
+and mixed catalogues, including the shared-asset migration already prepared.
+
+Acceptance must cover: a simple note save without an interview; source exploration
+without storage; guided capture with supplied evidence and no repeated intake;
+selected-source preparation reusing an existing destination; read-only unsaved
+continuation; uncertain starts/writes without duplicates; inaccessible external
+sources; and missing journey dependencies using an honest compatibility path.
+No professional-service request follows solely from a completed disclosure.
