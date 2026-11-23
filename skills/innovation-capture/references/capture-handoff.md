@@ -15,12 +15,12 @@ Use `invention-capture` only if advertised and `answer_agent` and `get_task_stat
 are available. Supply only input names the connected schema accepts:
 
 - `request` and `invention`: the user's actual intent and selected invention.
+  For an existing disclosure, include its exact reference and the requested
+  changes. Do not create a new destination before starting the journey.
 - `material`: evidence actually read, with source references, excerpts and dates
   or revisions when available. Preserve quantities, conditions, negations and
   uncertainty; distinguish a user statement from your interpretation.
 - `goal`: the intended use when known.
-- `targetDisclosure`: an already selected disclosure, so preparation continues
-  on that record. Do not create a new destination before starting the journey.
 - `sourceInnovations`: exact saved innovation references selected by the user.
 - `confirmedContext`: established answers, decisions, inventor statements,
   public-disclosure facts, qualifications, contradictions and open questions.
