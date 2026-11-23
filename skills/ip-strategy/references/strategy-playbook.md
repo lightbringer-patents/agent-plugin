@@ -69,7 +69,7 @@ Distinguish among:
 - **Evidence-gathering action:** a task needed before choosing or executing a direction.
 - **Open question:** a material gap, with an explanation of what would resolve it.
 
-Avoid a list of every conceivable IP activity. Keep actions tied to the objective and proportionate to the evidence. An unknown budget may be a later planning input; an unknown strategic area can prevent a coherent strategy altogether.
+Avoid a list of every conceivable IP activity. Keep actions tied to the objective and proportionate to the evidence. An unknown budget may be a later planning input. Where the strategic area is unknown, propose one from the evidence for the user to correct.
 
 Where professional assessment or execution is needed, identify the question and the relevant Lightbringer service. Describe requested professional work as proposed or prepared until its separate request is confirmed.
 
