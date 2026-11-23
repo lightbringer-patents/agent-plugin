@@ -1,14 +1,14 @@
 # Strategy playbook
 
-Use this as a set of decision lenses. Select those that matter to the brief; do not turn them into mandatory interview fields or a fixed section template.
+Use this as a set of decision lenses. Select those that matter to the brief; do not turn them into mandatory interview fields. The live capture guide defines the document.
 
-## Start with a business decision
+## Start with what the strategy is for
 
-Establish what the organisation wants to make possible: support a launch, preserve a technical advantage, enable licensing, evaluate a partnership, focus protection spending or decide what to develop next. Avoid substituting a generic objective such as “build a strong patent portfolio” for the user's actual outcome.
+Establish what the organisation wants to make possible: support a launch, preserve a technical advantage, enable licensing, evaluate a partnership, focus protection spending, decide what to develop next, or keep options open while the product is still undefined. Avoid substituting a generic objective such as “build a strong patent portfolio” for the user's actual outcome.
 
 Define the strategic area in terms a future reader can recognise: the product, technology, capability or company activity in scope, relevant markets and time horizon when known, and any material exclusions. Explain how it relates to other accessible strategies. Overlap may be intentional; similar subject matter does not make two strategies the same record.
 
-An opening grounded in existing context might be: “The launch brief identifies sensor calibration as the main differentiator, and the saved disclosure explains the mechanism. What should the IP work enable for this launch?” If the material already answers that, start with the remaining decision rather than repeat the question.
+An opening grounded in existing context might be: “The launch brief identifies sensor calibration as the main differentiator, and the saved disclosure explains the mechanism. I have assumed the IP work should protect that mechanism ahead of the launch. Is that right?” If the material already answers that, start with the remaining decision rather than repeat the question.
 
 ## Establish the current position
 
@@ -55,15 +55,6 @@ A useful strategy states priorities and why alternatives are less attractive und
 Compare options on dimensions that can change the choice: contribution to the objective, strength of evidence, resources, timing, dependencies and reversibility. A qualitative comparison with visible uncertainty is more useful than a numerical ranking with unsupported inputs.
 
 For a portfolio decision, consider maintaining, investigating, expanding, licensing, deferring or discontinuing work as proposals. Explain the relevant product or market fit and evidence gaps. A weak search match is not a basis for abandoning rights, and a strategy save does not execute a portfolio action.
-
-A compact decision record can use:
-
-| Priority or decision | Business rationale | Evidence and uncertainty | Proposed next action | Revisit when |
-| --- | --- | --- | --- | --- |
-| Investigate protection for calibration mechanism | The supplied launch brief treats measurement consistency as a product differentiator | Disclosure describes the mechanism; the relevant claim coverage has not been assessed | Map the implementation to available claims with engineering and a qualified patent attorney | Claim assessment or launch scope changes |
-| Evaluate confidential handling of tuning know-how | Internal tuning may contribute to the documented performance advantage | The material does not establish what customers or partners can observe | Check information exposure and existing handling arrangements before choosing a protection route | Partner access or disclosure plans change |
-
-This example is fictional. Adapt its reasoning to supported facts; do not copy it as customer evidence. If the user's brief concerns just one decision, a short rationale and action may be enough.
 
 ## Turn direction into actionable work
 
