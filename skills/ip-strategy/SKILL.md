@@ -37,7 +37,7 @@ When reusing a previous Strategy, preserve those distinctions in the new reasoni
 
 For new capture, let the live guide select interactive or autonomous authoring from the user’s request. For review or revision, assess the existing direction against the new evidence and explain which priorities, actions or assumptions need to change. Preserve unrelated decisions and sources. An analysis-only request remains analysis-only.
 
-Connect each priority to a business outcome, relevant assets or capabilities, the evidence, a meaningful trade-off and an action. Consider plausible alternatives, including deferring action, rather than treating more patent filings as the default objective. Distinguish a proposed investigation from a supported decision about protection or risk.
+Connect each priority to what the organisation is trying to achieve, relevant assets or capabilities, the evidence, a meaningful trade-off and an action. Consider plausible alternatives, including deferring action, rather than treating more patent filings as the default objective. Distinguish a proposed investigation from a supported decision about protection or risk.
 
 ## Author and maintain the strategy
 

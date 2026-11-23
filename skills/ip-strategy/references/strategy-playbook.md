@@ -36,7 +36,7 @@ For that analysis, use the established filing context and label jurisdiction-spe
 
 ## Connect differentiation to protection priorities
 
-Identify the capabilities that make the business outcome possible: what creates customer value, where the technical advantage lies, how durable it may be, and which dependencies matter. Ground the scope in mechanisms and evidence rather than product names or marketing claims alone.
+Identify the capabilities that make the business outcome possible: what creates customer value, where the technical advantage lies, how durable it may be, and which dependencies matter. Ground the scope in mechanisms and evidence rather than product names or marketing claims alone. Where no product is defined, weigh a capability by how many possible applications depend on it, how hard it would be to work around, and how soon it will be disclosed.
 
 For each material capability, consider:
 
