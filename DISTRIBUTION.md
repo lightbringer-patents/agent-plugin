@@ -14,6 +14,7 @@ These are prepared acceptance cases, not claims of authenticated execution:
 | Only the deprecated innovation tools available | Uses `list_innovations`, `get_innovation`, `register_innovation` and `update_innovation` and completes the same workflow. |
 | Shared read available, `invention_disclosure` write variant not advertised | Reads with `fetch` and writes with the deprecated writer, without mixing interfaces within one write. |
 | Stale revision on `update_asset` | Reads the record again and reconciles before retrying; does not resend through `update_innovation`. |
+| Neither the `invention_disclosure` variant nor the deprecated writers advertised | Keeps the disclosure or proposed changes in the conversation as pending and offers the Lightbringer link; does not save a lightweight innovation instead. |
 | Record found through `search`, then submitted for preparation or analysed | Passes the record ID without `document:` to `request_patent_preparation`, `start_innovation_feedback` or `list_tasks`. |
 | Co-inventors invited after a save through `create_asset` | Passes the record ID without `document:` in the `invite_members` documents. |
 | Existing drawings checked before an illustration upload | Reads drawings with `fetch` and `include_insights_and_illustrations`, or `get_innovation` with `include_illustrations` when only that is advertised; held readback does not block a supported upload. |
