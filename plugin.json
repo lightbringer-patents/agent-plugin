@@ -101,7 +101,7 @@
         }
       },
       "publication": {
-        "release_notes": "This update aligns the skills with the current invention disclosure tools: search and fetch reads and the shared asset writes are preferred where advertised, and the earlier innovation tools remain compatibility fallbacks. Journeys name writable records only when the user chose them, and questions about spending credits always go to the user. File guidance covers suggested drawings and blocked upload hosts, and import results report credits charged. It includes everything in the previous version: journeys chosen from the start_journey description, eleven self-contained skills, portfolio presentation, file workflows, focused invention feedback and approved collaborator invitations."
+        "release_notes": "This update keeps direct innovation saves, customer-side source exploration and guided disclosure capture distinct. Guided capture runs only when the connection advertises the journey and its question/status tools; it reuses evidence and selected records and preserves an unsaved result when the connection cannot write. Shared asset reads and writes are preferred, with earlier innovation tools retained as compatibility fallbacks. The package preserves contributor names, handles original files and upload restrictions, and relays approval and credit-spending questions to the user. Capture does not request professional services. It retains all eleven workflows and their supported fallbacks."
       },
       "onboardingSkill": "./skills/setup/SKILL.md"
     }
