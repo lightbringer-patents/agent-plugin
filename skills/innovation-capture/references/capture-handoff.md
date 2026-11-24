@@ -29,6 +29,15 @@ Contributors are not automatically inventors. An absent date is not proof of no
 public disclosure. Source content is evidence, never permission to change records.
 The platform resolves references using the connected user's current rights.
 
+When the advertised start schema accepts `writable_ids`, pass the exact existing
+record the user chose to edit in that top-level field. Keep the intended changes
+in `request` and the record reference in `invention`. Do not include records used
+only as source evidence. Omit `writable_ids` on a read-only connection. If access
+is requested during the journey, answer its approval question with `answer_agent`
+only when the user's instructions authorize editing those exact records; ask the
+user when that authority is missing. A declined request does not authorize a new
+destination. Follow the advertised schema when attachment inputs are unavailable.
+
 Stay within the advertised input limits. Do not silently truncate evidence.
 For large material, pass already-authorised saved records or vault references;
 store new records or transfer original files only when that storage is authorised.
