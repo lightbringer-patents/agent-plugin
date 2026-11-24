@@ -51,7 +51,7 @@ Last line of every comment and reply, one of:
 
 Classify each finding under the regimes before drafting it.
 - Claim support: every claim element described in the specification? Report gaps factually; the remedy is the team's call.
-- Innovation description consistency: `get_innovation` the source innovation description; divergences in mechanism, parameters, or embodiments are engineering-side corrections.
+- Innovation description consistency: read the source invention disclosure with `fetch` and `include_asset: true`, or `get_innovation` where that read is not advertised; divergences in mechanism, parameters, or embodiments are engineering-side corrections.
 - Terminology: consistent naming across claims, specification, figures.
 - Embodiments/fallbacks: real alternatives, parameter ranges, and fallback behaviour the draft omits are grounded additions.
 - Strategy fit: jurisdiction or focus mismatches are raised in the user's words — a prosecution decision.
