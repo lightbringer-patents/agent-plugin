@@ -69,6 +69,6 @@ Try:
 
 Version 5.7.0 is prepared with eleven self-contained workflow skills, portfolio presentation, illustration and vault file workflows, focused invention feedback and approved collaborator invitations. Journeys run only when their tools are advertised, and the skills choose a journey from the `start_journey` description; four overlapping workflows check those journeys first. Host acceptance and publication remain separate steps; see [distribution and validation](DISTRIBUTION.md).
 
-This is the canonical `skills/` source. [claude-plugin](https://github.com/lightbringer-patents/claude-plugin) mirrors the complete tree with Anthropic-specific metadata. Edit shared skills here first and verify both packages before release.
+This is the canonical `skills/` source. Edit shared skills only here. Release preparation copies the complete tree to [claude-plugin](https://github.com/lightbringer-patents/claude-plugin), which adds Anthropic-specific metadata. Verify both packages before release.
 
 `plugin.json`, `mcp.json`, `skills/` and `assets/` form the portable package. OpenAI listing information, review scenarios and release notes live under `extensions.com.openai` in the manifest. A GitHub release does not itself publish skills in a host directory. Google Antigravity uses the generated native archive, built from `.antigravity-plugin/`, `mcp_config.json` and the same skills. See [distribution and validation](DISTRIBUTION.md) for OpenAI, Anthropic and Antigravity publication routes and acceptance status.
