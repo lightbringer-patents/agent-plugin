@@ -21,7 +21,9 @@ Start a journey only when the connection also offers `answer_agent` and a `get_t
 
 Give each input that the description names for the journey and that you already know from the conversation, by its name, in the user's words. Leave out the inputs you do not know; the agent asks for them when it needs them. Do not interview the user before you start. Never ask the user for anything that the description says the journey reads: Lightbringer reads it itself.
 
-Tell the user in one or two sentences what the journey does and what it delivers, as the description says. Then call `start_journey` with the journey's id (`journey`) and the `inputs`. If it refuses an input, its message names the inputs that the journey takes; correct the call once. If it says that the journey is not available, continue with the relevant workflow.
+When the input of `start_journey` includes `writable_ids`, give it only for documents or reports that the user clearly named or chose for the journey to change, and only on a connection that can write. Otherwise leave it out; the agent asks for access when it needs it. If the service refuses `writable_ids` because the connection cannot write, nothing was started: start once more without it.
+
+Tell the user in one or two sentences what the journey does and what it delivers, as the description says. Include what the description says about Lightbringer credits and about information sent to search services outside Lightbringer. Then call `start_journey` with the journey's id (`journey`) and the `inputs`. If it refuses an input, its message names the inputs that the journey takes; correct the call once. If it says that the journey is not available, continue with the relevant workflow.
 
 `start_journey` returns a conversation task. Keep its `task_id`; every later call uses it.
 
@@ -44,6 +46,8 @@ If the user does not want to wait, explain that the work continues in Lightbring
 ## Questions
 
 A task that is `awaiting_input` has `questions`, and they are for you first. Before you ask the user anything, answer every question that you can answer from this conversation and from what you already know about the user's work. Then ask the user only the rest, as written, with their options and any recommended option. A question that starts with `For the user:` is for the user only: ask it as written, even when you think you know the answer. Do not ask the user a question that you can answer, and do not guess an answer to fill a gap.
+
+Never answer for the user a question that asks them to agree to spend Lightbringer credits, to start charged work, or to let the agent save or change a record. Ask the user that question as written, and send only the answer they give.
 
 Send all answers in one `answer_agent` call: `selected_options` with the option labels exactly as listed, `free_text` with the answer in your words or the user's, or `skip` when neither of you can answer. If an answer is refused because the question already has a different answer, tell the user which answer counts. When you next report to the user, tell them briefly which questions you answered for them and how. Then wait again.
 
