@@ -1,5 +1,15 @@
 # Distribution and validation
 
+## SVG logo update — portable 5.7.2
+
+The listing and composer use `assets/plugin-logo.svg` in both themes, preserving
+the white-on-dark logo and its original padding. SVG validation and packaging
+are supported alongside PNGs. Workflow skills and the MCP connection are unchanged.
+
+This package change requires a new OpenAI package release; a repository merge
+does not publish it. It introduces no tool-specific icon overrides. Verify the
+listing and composer in both themes before publishing the approved update.
+
 The prepared package contains eleven workflow skills: `setup`, `lightbringer-navigation`, `journeys`, `novelty-exploration`, `innovation-capture`, `patent-preparation`, `patent-review`, `patent-portfolio`, `ip-strategy`, `company-context` and `trade-secrets`. Each skill includes its references.
 
 ## Workflow corrections after portable 5.7.0 / Claude 1.10.0
@@ -376,7 +386,7 @@ Validate an extracted OpenAI archive with its expected listing identity:
 ```
 
 The validator checks listing limits, HTTPS URL syntax, exact case counts, portable
-schemas, bundled PNG dimensions/size, safe paths, skill references and exclusion
+schemas, bundled PNG/SVG dimensions and size, safe paths, skill references and exclusion
 of credential fields. `--tools /path/to/tools-list.json` also checks scenario tool
 names against a saved MCP `tools/list` result. `--require-demo` requires an explicit
 walkthrough URL for a new submission rather than preserving a portal value. These
@@ -384,9 +394,9 @@ checks do not verify URL reachability, authentication, policy acceptance, fixtur
 availability, or execution of the scenarios. OpenAI's extension is checked against
 the documented fields we use; this is not a replica of all portal checks.
 
-All PNG files under `assets/` enter the portable ZIP; other file types are rejected.
-Keep that directory limited to reviewed public assets. This builder supports PNG listing images;
-add appropriate validation before using another image format. The pinned portable
+PNG and static SVG files under `assets/` enter the portable ZIP; other file types are rejected.
+Keep that directory limited to reviewed public assets. SVGs must be self-contained,
+with numeric dimensions or a viewBox; scripts and external references are rejected. The pinned portable
 schemas and their provenance are under `scripts/schemas/` and are not packaged.
 
 ### Upload, review and publish

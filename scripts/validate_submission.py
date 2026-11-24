@@ -11,6 +11,8 @@ import re
 import zlib
 from pathlib import Path
 import struct
+import math
+import xml.etree.ElementTree as ET
 from urllib.parse import urlsplit
 
 
@@ -105,6 +107,66 @@ def png_dimensions(data, label):
     raise SubmissionError(f"{label} is missing its PNG end chunk")
 
 
+def svg_dimensions(data, label):
+    """Validate self-contained static vector artwork before packaging it."""
+    try:
+        source = data.decode("utf-8")
+        if re.search(r"<!\s*(DOCTYPE|ENTITY)", source, re.I):
+            raise ValueError("XML declarations")
+        svg = ET.fromstring(source)
+        if svg.tag != "{http://www.w3.org/2000/svg}svg":
+            raise ValueError("SVG root")
+        allowed = {"svg", "g", "defs", "path", "rect", "circle", "ellipse",
+                   "line", "polyline", "polygon", "title", "desc", "metadata",
+                   "linearGradient", "radialGradient", "stop", "clipPath", "mask", "use"}
+
+        def inspect(element):
+            if not element.tag.startswith("{http://www.w3.org/2000/svg}"):
+                raise ValueError("foreign content")
+            tag = element.tag.rsplit("}", 1)[-1]
+            if tag not in allowed:
+                raise ValueError("active or unsupported content")
+            for key, value in element.attrib.items():
+                key = key.rsplit("}", 1)[-1].lower()
+                if key.startswith("on") or key in {"style", "base"}:
+                    raise ValueError("active attributes")
+                if key == "href" and not value.startswith("#"):
+                    raise ValueError("external reference")
+                if "url(" in value.lower() and not re.fullmatch(r"url\(#[A-Za-z_][\w.-]*\)", value):
+                    raise ValueError("external reference")
+            # Preserve only the supplied text-only C2PA provenance element.
+            if tag == "metadata":
+                for child in element:
+                    if (child.tag != "{http://c2pa.org/manifest}manifest"
+                            or child.attrib or len(child)):
+                        raise ValueError("unsupported metadata")
+            else:
+                for child in element:
+                    inspect(child)
+
+        inspect(svg)
+        if "width" in svg.attrib and "height" in svg.attrib:
+            dimensions = [float(svg.attrib[key]) for key in ("width", "height")]
+        else:
+            viewbox = [float(value) for value in re.split(r"[\s,]+", svg.attrib["viewBox"].strip())]
+            if len(viewbox) != 4 or not all(math.isfinite(value) for value in viewbox):
+                raise ValueError("viewBox")
+            dimensions = viewbox[2:]
+        if not all(math.isfinite(value) and 48 <= value <= 4096 for value in dimensions):
+            raise ValueError("dimensions")
+        return tuple(dimensions)
+    except (UnicodeError, ET.ParseError, KeyError, ValueError) as error:
+        raise SubmissionError(f"{label} must be a static self-contained SVG with supported numeric dimensions") from error
+
+
+def image_dimensions(data, name):
+    if len(data) > 5 * 1024 * 1024:
+        raise SubmissionError("Asset exceeds the 5 MiB limit")
+    if Path(name).suffix == ".svg":
+        return svg_dimensions(data, name)
+    return png_dimensions(data, name)
+
+
 def asset_files(root):
     directory = root / "assets"
     if directory.is_symlink():
@@ -117,13 +179,13 @@ def asset_files(root):
             raise SubmissionError("Assets must not contain symlinks")
         if path.is_file():
             name = path.relative_to(root).as_posix()
-            if path.suffix != ".png":
-                raise SubmissionError("Only public PNG images belong in assets/")
+            if path.suffix not in (".png", ".svg"):
+                raise SubmissionError("Only public PNG or static SVG images belong in assets/")
             source = regular_file(root, name)
             if source.stat().st_size > 5 * 1024 * 1024:
                 raise SubmissionError("Asset exceeds the 5 MiB limit")
             data = source.read_bytes()
-            png_dimensions(data, "Asset")
+            image_dimensions(data, name)
             files[name] = data
     return files
 
@@ -166,9 +228,7 @@ def validate_openai(root, manifest, mcp):
             raise SubmissionError(f"{field} must reference a ./assets/ file")
         regular_file(root, reference[2:])
         data = assets.get(reference[2:], b"")
-        # This repository intentionally supports PNG assets only. Other portal
-        # formats need a corresponding decoder/check before adding them here.
-        width, height = png_dimensions(data, field)
+        width, height = image_dimensions(data, reference)
         if square and width != height:
             raise SubmissionError(f"{field} has unsupported image dimensions")
 

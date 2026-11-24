@@ -37,8 +37,9 @@ class SubmissionTests(unittest.TestCase):
     def test_submission_and_referenced_assets_are_packaged(self):
         self.check()
         _, files = package_files(self.root, True)
-        for variant in ("light", "dark"):
-            path = f"assets/lightbringer-icon-{variant}.png"
+        interface = self.manifest["extensions"]["com.openai"]["interface"]
+        for field in ("logo", "logoDark", "composerIcon", "composerIconDark"):
+            path = interface[field].removeprefix("./")
             self.assertEqual(files[path], (ROOT / path).read_bytes())
         self.assertEqual(
             {p for p in files if p.endswith("/SKILL.md")},
@@ -125,6 +126,7 @@ class SubmissionTests(unittest.TestCase):
             self.check()
 
     def test_missing_malformed_and_nonsquare_icons_are_rejected(self):
+        self.manifest["extensions"]["com.openai"]["interface"]["logo"] = "./assets/lightbringer-icon-light.png"
         icon = self.root / "assets/lightbringer-icon-light.png"
         content = icon.read_bytes()
         icon.unlink()
@@ -278,6 +280,31 @@ class SubmissionTests(unittest.TestCase):
         shutil.copytree(ROOT / ".antigravity-plugin", self.root / ".antigravity-plugin")
         with self.assertRaisesRegex(ValueError, "Missing package file: mcp_config.json"):
             self.validate_cli(self.root)
+
+    def test_svg_assets_are_packaged_and_invalid_vectors_are_rejected(self):
+        icon = self.root / "assets/test.svg"
+        self.manifest["extensions"]["com.openai"]["interface"]["logo"] = "./assets/test.svg"
+        valid = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128"><rect width="128" height="128" fill="#000"/></svg>'
+        icon.write_text(valid)
+        self.check()
+        _, files = package_files(self.root, True)
+        self.assertEqual(files["assets/test.svg"], valid.encode())
+        for bad in (
+            '<svg',
+            valid.replace('128 128"', '128 64"', 1),
+            valid.replace('128 128"', 'NaN 128"', 1),
+            valid.replace('128 128"', '32 32"', 1),
+            valid.replace('<rect', '<script/> <rect'),
+            valid.replace('<rect', '<metadata><script/></metadata><rect'),
+            valid.replace('<rect', '<rect onclick="alert(1)"'),
+            valid.replace('<rect', '<use href="https://example.com/logo.svg"/> <rect'),
+            valid.replace('fill="#000"', 'fill="url(https://example.com/paint)"'),
+            '<!DOCTYPE svg [<!ENTITY test "value">]>' + valid,
+        ):
+            with self.subTest(svg=bad):
+                icon.write_text(bad)
+                with self.assertRaisesRegex(ValueError, "SVG|dimensions"):
+                    self.check()
 
     def test_onboarding_must_resolve_to_packaged_skill(self):
         extension = self.manifest["extensions"]["com.openai"]
