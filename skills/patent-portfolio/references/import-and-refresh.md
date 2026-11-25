@@ -12,6 +12,7 @@ Call `import_patent` for each selected complete publication number with the agre
 | Receipt `partial` | The record was saved with limitations described in the warnings. |
 | Receipt `incomplete` | The record was saved, but import processing did not finish. This does not mean work is still running. |
 | Null receipt | Completion details are unavailable. |
+| `creditsCharged`, when returned | The credits this request charged. 0 means the import was free or returned an existing record, even if an earlier request was charged for it. A result without this field says nothing about charges. |
 | Application or purpose conflict | Inspect the existing record identified by the error with `fetch` when an ID is available; report the conflict and retain its link. |
 
 For a conflict, compare the existing publication and purpose with the request. If the existing record satisfies the user's goal, report it as already saved without claiming the requested import succeeded. Otherwise leave that item unresolved and continue the rest of the authorised batch. The import tool cannot change an existing record's purpose or replace its publication; direct the user to the Lightbringer platform or team for those changes. Do not alter identifiers or purpose to bypass a conflict.

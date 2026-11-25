@@ -2,6 +2,29 @@
 
 The prepared package contains eleven workflow skills: `setup`, `lightbringer-navigation`, `journeys`, `novelty-exploration`, `innovation-capture`, `patent-preparation`, `patent-review`, `patent-portfolio`, `ip-strategy`, `company-context` and `trade-secrets`. Each skill includes its references.
 
+## Consolidated capture candidate
+
+This candidate combines the shared-asset migration, guided capture and the pending release updates. It preserves contributor-list replacement semantics, conditional drawing reads, upload-host guidance and explicit answers to journey approval and credit-spending questions. Direct CRUD, source exploration and guided capture remain separate. Capture availability still depends on the connected service.
+
+Package and source checks do not establish hosted acceptance or publication. Verify the final combined skills in the target host with read-only and writable connections, existing disclosures, originals, retries, unavailable writers and older or mixed catalogues before publication.
+
+## Shared asset tools for innovations and disclosures
+
+The innovation workflows prefer the shared asset tools for innovations and invention disclosures. `innovation-capture`, `patent-preparation`, `patent-review`, `ip-strategy` and `lightbringer-navigation` find records with `search` in the `innovation` category, read them with `fetch` and `include_asset: true`, register disclosures with `create_asset` and update them with `update_asset` at the current revision. The deprecated `list_innovations`, `get_innovation`, `register_innovation` and `update_innovation` remain fallbacks where a connection does not advertise the replacement. A failed, conflicted or uncertain write is never replayed through the other interface. Tools that take an `invention_id`, the illustration upload destination and the documents in `invite_members` receive the record ID without its `document:` prefix, which every version of those tools accepts. A repeated preparation request reuses the resolved ID, because a submitted disclosure is listed under `application`. Host acceptance and publication remain separate outcomes.
+
+These are prepared acceptance cases, not claims of authenticated execution:
+
+| Situation | Expected behaviour |
+| --- | --- |
+| Shared asset tools and deprecated innovation tools both available | Finds, reads, registers and updates through `search`, `fetch`, `create_asset` and `update_asset`, not the deprecated tools. |
+| Only the deprecated innovation tools available | Uses `list_innovations`, `get_innovation`, `register_innovation` and `update_innovation` and completes the same workflow. |
+| Shared read available, `invention_disclosure` write variant not advertised | Reads with `fetch` and writes with the deprecated writer, without mixing interfaces within one write. |
+| Stale revision on `update_asset` | Reads the record again and reconciles before retrying; does not resend through `update_innovation`. |
+| Neither the `invention_disclosure` variant nor the deprecated writers advertised | Keeps the disclosure or proposed changes in the conversation as pending and offers the Lightbringer link; does not save a lightweight innovation instead. |
+| Record found through `search`, then submitted for preparation or analysed | Passes the record ID without `document:` to `request_patent_preparation`, `start_innovation_feedback` or `list_tasks`. |
+| Co-inventors invited after a save through `create_asset` | Passes the record ID without `document:` in the `invite_members` documents. |
+| Existing drawings checked before an illustration upload | Reads drawings with `fetch` and `include_insights_and_illustrations`, or `get_innovation` with `include_illustrations` when only that is advertised; held readback does not block a supported upload. |
+
 ## Workflow corrections after portable 5.7.0 / Claude 1.10.0
 
 These corrections follow 5.7.0 / 1.10.0 and retain all eleven workflows. Missing `list_trade_secrets` now leaves register access unknown; only a confirmed absence warrants suggesting that the organisation add the register. Source exploration prefers supported Strategy search/fetch reads and uses legacy Strategy tools only as compatibility fallbacks. The Claude README also describes its bundled icon without an image path formatted as code. Host acceptance and publication remain separate outcomes.
@@ -649,3 +672,16 @@ organisation has not allowed listing, and the contact message for an
 organisation without the register. Confirm that responses never contain entry
 content and that the assistant does not infer content from titles.
 
+## Prepared shared capture guidance
+
+Guided capture uses an advertised invention-capture journey and its question/status
+tools. Direct CRUD and source exploration remain separate. This source update does
+not establish host acceptance or release availability. Keep compatibility with older
+and mixed catalogues, including the shared-asset migration already prepared.
+
+Acceptance must cover: a simple note save without an interview; source exploration
+without storage; guided capture with supplied evidence and no repeated intake;
+selected-source preparation reusing an existing destination; read-only unsaved
+continuation; uncertain starts/writes without duplicates; inaccessible external
+sources; and missing journey dependencies using an honest compatibility path.
+No professional-service request follows solely from a completed disclosure.
