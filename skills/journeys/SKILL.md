@@ -7,7 +7,7 @@ description: Find, start and follow Lightbringer journeys, in which Lightbringer
 
 A journey is work that Lightbringer's agent carries out in a conversation of its own. The agent reads the platform data it needs, asks for what it cannot find and reports an outcome. Your part is to choose the journey, give the inputs you already know, wait, deal with its questions and relay the outcome. Do not do the journey's work yourself, and do not write your own version of its result. Follow the [service conduct](references/service-conduct.md) guidance.
 
-The available journeys, their inputs and what each delivers are in the description of `start_journey`. They can differ between connections, so read that description in each conversation.
+The description of `start_journey` names the available journeys. For each one, the description tells what it is for, what it reads, what it delivers and what it saves. The input schema of `start_journey` contains their inputs and describes each input. The description and the input schema can differ between connections, so read both in each conversation.
 
 ## Choose a journey
 
@@ -17,7 +17,7 @@ cannot read private external material merely because a link was supplied. Guided
 disclosure capture may start immediately with the facts already available. Keep
 these choices distinct from a professional-service request.
 
-When `start_journey` is offered and the user's goal may fit a journey, check its description before you choose another workflow. Compare the goal with each journey that the description names: when it is for, what it reads and what it delivers. If one fits, use it. If two fit, choose the closer one, or ask one short question when the choice changes the result. If none fits, continue with the relevant workflow and do not mention journeys.
+When `start_journey` is offered and the user's goal may fit a journey, check its description before you choose another workflow. Compare the goal with each journey that the description names: what it is for, what it reads and what it delivers. If one fits, use it. If two fit, choose the closer one, or ask one short question when the choice changes the result. If none fits, continue with the relevant workflow and do not mention journeys.
 
 If `start_journey` is not offered, or the service says that a journey is not available, continue with the other workflows. Do not describe a journey that the connection cannot start. If the description of `start_journey` names no journey, for example because the connection still holds an older definition, start none and continue with the relevant workflow; do not look for a separate list of journeys.
 
@@ -25,11 +25,11 @@ Start a journey only when the connection also offers `answer_agent` and a `get_t
 
 ## Start it
 
-Give each input that the description names for the journey and that you already know from the conversation, by its name, in the user's words. Leave out the inputs you do not know; the agent asks for them when it needs them. Do not interview the user before you start. Never ask the user for anything that the description says the journey reads: Lightbringer reads it itself.
+In the input schema of `start_journey`, find the inputs that the journey uses. Give each of these inputs that you already know from the conversation, by its name, in the user's words. Leave out the inputs you do not know; the agent asks for them when it needs them. Do not interview the user before you start. Never ask the user for anything that the description says the journey reads: Lightbringer reads it itself.
 
 When the input of `start_journey` includes `writable_ids`, give it only for documents or reports that the user clearly named or chose for the journey to change, and only on a connection that can write. Otherwise leave it out; the agent asks for access when it needs it. If the service refuses `writable_ids` because the connection cannot write, nothing was started: start once more without it.
 
-Tell the user in one or two sentences what the journey does and what it delivers, as the description says. Include what the description says about Lightbringer credits and about information sent to search services outside Lightbringer. Then call `start_journey` with the journey's id (`journey`) and the `inputs`. If it refuses an input, its message names the inputs that the journey takes; correct the call once. If it says that the journey is not available, continue with the relevant workflow.
+Tell the user in one or two sentences what the journey does and what it delivers, as the description says. Include what the description says about Lightbringer credits. Then call `start_journey` with the journey's id (`journey`) and the `inputs`. If it refuses an input, its message names the inputs that the journey takes; correct the call once. If it says that the journey is not available, continue with the relevant workflow.
 
 `start_journey` returns a conversation task. Keep its `task_id`; every later call uses it.
 
