@@ -31,7 +31,7 @@ Before sending, show the exact list: each person's name, email address and role,
 
 Explain what the invitee receives: an email from Lightbringer showing the user as the inviter, naming the organisation and identifying the document by reference number only, with no title, content or personal note. Suggest the user message the person directly if they want to add context.
 
-Use `invite_members` when the connection advertises it, following its schema. One call takes up to 20 people and up to five documents. For a larger group, split it into batches of at most 20 and get the user's approval for each batch before sending it. Report each person's outcome plainly:
+Use `invite_members` when the connection advertises it, following its schema. Pass each document's record ID without the `document:` or `report:` prefix that `search` and `fetch` show; every version of the tool accepts that form. One call takes up to 20 people and up to five documents. For a larger group, split it into batches of at most 20 and get the user's approval for each batch before sending it. Report each person's outcome plainly:
 
 - **Invited:** the invitation was sent; accepting gives access to the document.
 - **Already invited:** the pending invitation was re-sent with the document and keeps its earlier role.
