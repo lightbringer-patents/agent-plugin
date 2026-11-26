@@ -46,6 +46,9 @@ class BuildReleaseTests(unittest.TestCase):
             (claude / ".claude-plugin/icon.png").write_bytes(icon)
             (claude / ".claude").mkdir()
             (claude / ".claude/CLAUDE.md").write_text("Contributor instructions\n")
+            contributor_guide = "# Contributing\n\nPublic contribution policy.\n"
+            (claude / "CONTRIBUTING.md").write_text(contributor_guide)
+            (claude / "README.md").write_text("Read [contributing](CONTRIBUTING.md).\n")
             with patch.object(builder, "__file__", str(portable / "scripts/build_release.py")), patch("sys.argv", [
                 "build_release.py", "--claude-dir", str(claude), "--output-dir", str(output)
             ]):
@@ -60,6 +63,7 @@ class BuildReleaseTests(unittest.TestCase):
                     self.assertEqual(json.loads(archive.read(".claude-plugin/plugin.json"))["version"], "1.1.1")
                     self.assertEqual(archive.read(".claude-plugin/icon.png"), icon)
                     self.assertNotIn(".claude/CLAUDE.md", archive.namelist())
+                    self.assertEqual(archive.read("CONTRIBUTING.md").decode(), contributor_guide)
                 self.assertTrue((output / "lightbringer-portable-1.1.0.zip").is_file())
 
     def test_different_skills_still_block_packaging(self):

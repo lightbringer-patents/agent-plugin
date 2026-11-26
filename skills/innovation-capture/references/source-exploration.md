@@ -33,6 +33,7 @@ Harvest:
 
 ### Phase 2 — context
 
+- Complete these read-only checks before presenting findings, including for analysis-only requests and concepts discussed earlier in the conversation. Search current records for each newly identified concept; an earlier search for a different idea or a remembered save does not establish whether this concept already exists. If access prevents the check, report overlap as unverified rather than call the finding new.
 - Per harvest theme, `search` categories `innovation`, `application`, `patent` (add `competitor_application`/`report` where relevant); track the theme×category matrix until every relevant cell is queried. `fetch` promising hits; assess overlap, continuations, conflicts.
 - Check prior runs: `search` in the `innovation` category (or `list_innovations` where that category is not advertised) with relevant concept terms, and their review outcomes via `list_reviews` (open and closed) + `get_review`. Reuse identical concepts and add new supported context through authorised updates, including to a previously rejected innovation when the tool permits. Preserve its decision history; never duplicate it to bypass a prior decision. If updates are unavailable, explain the limitation.
 - The search index updates asynchronously — vary query terms before concluding absence.
@@ -43,6 +44,7 @@ Harvest:
 Read [idea identification](idea-identification.md). For each pair:
 - Distinct = separate technical problem or materially different mechanism. Never create two innovation records in one run for the same inventive concept.
 - Record: inventive concept, problem with evidence, differentiators vs Phase 2 findings, sources on both sides, strategy alignment, combine-vs-separate reasoning.
+- Retain the role actually stated in each source, such as author, proposer or contributor. Confirmed inventorship and a complete or sole-inventor statement need support for that specific concept; do not transfer an inventor list confirmed for a different innovation. Preserve unconfirmed attribution as such in both findings and saved records.
 - Record eligibility or patentability uncertainty as a question for the Lightbringer patent team. Such uncertainty does not prevent registration. Frame the observed technical contribution without inventing one.
 - Portfolio overlap: register distinct improvements as related innovations naming the related record; enrich identical concepts instead of duplicating them (summary note).
 - Thin documentation: retain the potential innovation and its open questions. Use the current template honestly; if the deployed schema prevents saving it, report it as pending registration, give the missing inputs, and ask for the minimum clarification or offer the platform/team route. Never silently drop it or claim it was saved.

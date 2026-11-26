@@ -11,11 +11,11 @@ Start from the user's actual messages and authorised source material. A summary 
 
 ## Choose the path first
 
-Choose from the user's requested effect before looking up a template or starting an interview:
+Choose from the user's requested effect on each new request, before looking up a template or starting an interview. An earlier save or interview does not determine the path for a later request:
 
 - **Guided capture with Lightbringer's agent:** read [capture handoff](references/capture-handoff.md) now. Discover the connected `start_journey`, `answer_agent` and `get_task_status` definitions, using the host's tool discovery when definitions are deferred. If `start_journey` advertises `invention-capture`, start that journey with the supplied facts and requested outcome. Read-only access and a request for an unsaved draft do not make the journey unavailable. Omit `writable_ids` on a read-only connection. Do not substitute a locally written draft, a template interview or a strategy search for this handoff.
-- **Direct save, read, edit or delete:** read [direct workflow](references/direct-workflow.md) and use the advertised shared asset tools. Do not turn a simple save into a guided interview.
-- **Source exploration:** gather evidence on the user's side first, following [source exploration](references/source-exploration.md). Exploration does not authorise saving.
+- **Direct save, read, edit or delete:** read [direct workflow](references/direct-workflow.md) and use the advertised shared asset tools. For a lightweight save, use attributed excerpts of the original technical description, with inventor statements, status and open questions organised separately. Do not replace those excerpts with a rewritten problem-and-solution narrative. Do not turn a simple save into a guided interview.
+- **Source exploration:** read [source exploration](references/source-exploration.md) before accessing the requested sources, including when capture already happened in this conversation. Follow its context and existing-record checks before reporting findings, even for analysis-only requests. Exploration does not authorise saving.
 
 After starting a journey, follow `journeys` when installed: poll its returned task, relay its questions and reuse known factual answers. Keep following the same task until it needs the user's answer or returns a result. Report an unsaved result as unsaved, retaining its continuation link. Do not independently redraft the invention while the journey runs.
 
