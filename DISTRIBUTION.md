@@ -10,20 +10,18 @@ Package and source checks do not establish hosted acceptance or publication. Ver
 
 ## Shared asset tools for innovations and disclosures
 
-The innovation workflows prefer the shared asset tools for innovations and invention disclosures. `innovation-capture`, `patent-preparation`, `patent-review`, `ip-strategy` and `lightbringer-navigation` find records with `search` in the `innovation` category, read them with `fetch` and `include_asset: true`, register disclosures with `create_asset` and update them with `update_asset` at the current revision. The deprecated `list_innovations`, `get_innovation`, `register_innovation` and `update_innovation` remain fallbacks where a connection does not advertise the replacement. A failed, conflicted or uncertain write is never replayed through the other interface. Tools that take an `invention_id`, the illustration upload destination and the documents in `invite_members` receive the record ID without its `document:` prefix, which every version of those tools accepts. A repeated preparation request reuses the resolved ID, because a submitted disclosure is listed under `application`. Host acceptance and publication remain separate outcomes.
+The innovation workflows use the shared asset tools for innovations and invention disclosures. `innovation-capture`, `patent-preparation`, `patent-review`, `ip-strategy` and `lightbringer-navigation` find records with `search` in the `innovation` category, read them with `fetch` and `include_asset: true`, register disclosures with `create_asset` and update them with `update_asset` at the current revision. The skills name no other tool for these operations. A failed, conflicted or uncertain write is read back and reconciled, never replayed as sent. Tools that take an `invention_id`, the illustration upload destination and the documents in `invite_members` receive the record ID without its `document:` prefix, which every version of those tools accepts. A repeated preparation request reuses the resolved ID, because a submitted disclosure is listed under `application`. Host acceptance and publication remain separate outcomes.
 
 These are prepared acceptance cases, not claims of authenticated execution:
 
 | Situation | Expected behaviour |
 | --- | --- |
-| Shared asset tools and deprecated innovation tools both available | Finds, reads, registers and updates through `search`, `fetch`, `create_asset` and `update_asset`, not the deprecated tools. |
-| Only the deprecated innovation tools available | Uses `list_innovations`, `get_innovation`, `register_innovation` and `update_innovation` and completes the same workflow. |
-| Shared read available, `invention_disclosure` write variant not advertised | Reads with `fetch` and writes with the deprecated writer, without mixing interfaces within one write. |
-| Stale revision on `update_asset` | Reads the record again and reconciles before retrying; does not resend through `update_innovation`. |
-| Neither the `invention_disclosure` variant nor the deprecated writers advertised | Keeps the disclosure or proposed changes in the conversation as pending and offers the Lightbringer link; does not save a lightweight innovation instead. |
+| Shared asset tools available | Finds, reads, registers and updates through `search`, `fetch`, `create_asset` and `update_asset`. |
+| Stale revision on `update_asset` | Reads the record again and reconciles before retrying; does not resend the stale write. |
+| `invention_disclosure` write variant not advertised | Keeps the disclosure or proposed changes in the conversation as pending and offers the Lightbringer link; does not save a lightweight innovation instead. |
 | Record found through `search`, then submitted for preparation or analysed | Passes the record ID without `document:` to `request_patent_preparation`, `start_innovation_feedback` or `list_tasks`. |
 | Co-inventors invited after a save through `create_asset` | Passes the record ID without `document:` in the `invite_members` documents. |
-| Existing drawings checked before an illustration upload | Reads drawings with `fetch` and `include_insights_and_illustrations`, or `get_innovation` with `include_illustrations` when only that is advertised; held readback does not block a supported upload. |
+| Existing drawings checked before an illustration upload | Reads drawings with `fetch` and `include_insights_and_illustrations` when advertised; held readback does not block a supported upload. |
 
 ## Workflow corrections after portable 5.7.0 / Claude 1.10.0
 
