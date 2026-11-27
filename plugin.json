@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "lightbringer",
-  "version": "5.7.4",
+  "version": "5.7.5",
   "description": "Capture company context and innovations, develop IP strategies, request patent preparation, respond to reviews, and review patent portfolios through Lightbringer.",
   "author": {
     "name": "Lightbringer AB",
@@ -101,7 +101,7 @@
         }
       },
       "publication": {
-        "release_notes": "Strategy work now starts with a proposed purpose and scope grounded in the available evidence for the user to correct. It supports organisations whose product is still undefined, carries forward source notes, and connects protection priorities to what the organisation wants to achieve. This update follows the service's retirement of the earlier innovation list, read, register and update tools. Innovation and disclosure work uses search, fetch and the shared asset tools; where a connection does not advertise the needed operation, the work stays in the conversation with the record's link, and a retired-tool answer is not treated as a failed write. A journey that saves a report shows it in the report view where that tool is advertised, and gives the text version otherwise. Record comments can target a Strategy or a drawing where advertised. All eleven workflows and their supported fallbacks are retained."
+        "release_notes": "Version 5.7.5 consolidates guided invention capture, direct record work and source exploration. Guided capture uses the advertised journey, including unsaved read-only drafts. Direct saves preserve attributed source passages, inventor statements and open questions, and verify the saved content. Innovation and disclosure workflows use search, fetch, create_asset and update_asset; unavailable operations leave the work pending with a Lightbringer continuation. The release retains evidence-based Strategy purpose and scope, support for organisations without a defined product, and report presentation. All eleven workflows remain available subject to the connected tools. Capture does not request professional services."
       },
       "onboardingSkill": "./skills/setup/SKILL.md"
     }

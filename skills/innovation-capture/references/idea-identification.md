@@ -39,7 +39,7 @@ Retain every identified potential innovation in the authorised scope, including 
 
 Search for existing concepts before creation. Enrich an identical existing record with supported new context, preserving its earlier decisions and sources. Distinct improvements can have separate records linked by their identifiers and the factual delta. Do not duplicate a rejected concept to bypass its history.
 
-Invention disclosure registration, through `create_asset` or the deprecated `register_innovation`, has structured requirements. Use the live template honestly. If the available evidence cannot meet the schema without fabrication, retain the candidate in the user-visible summary as pending registration, identify the missing inputs and offer clarification or the platform/team route.
+Invention disclosure registration, through `create_asset`, has structured requirements. Use the live template honestly. If the available evidence cannot meet the schema without fabrication, retain the candidate in the user-visible summary as pending registration, identify the missing inputs and offer clarification or the platform/team route.
 
 ## Technical and eligibility observations
 
