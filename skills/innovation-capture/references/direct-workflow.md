@@ -1,6 +1,6 @@
 # Direct innovation workflow
 
-Read this for direct record work or when the advertised capture journey is unavailable. Guided capture follows the main skill and capture-handoff reference instead.
+Read this for lightweight idea saves, direct record work, or direct disclosure authoring when the user prefers the current assistant or the capture journey is unavailable. The main skill chooses the intended result first; guided disclosure capture follows its capture-handoff reference.
 
 ## Scope and context
 
@@ -20,7 +20,8 @@ Use the person’s own words for their idea. Call the saved note an innovation a
 
 For a rough idea, start with the next useful question in ordinary language, usually about how the proposed solution works. Build on the answer instead of presenting a multi-topic intake checklist. Reuse facts already supplied, including who came up with the idea; ask for clarification only where the meaning or attribution is unclear. Bring up other relevant gaps naturally as the conversation develops. Unknown details can stay open and should not turn a simple save into a complete disclosure interview.
 
-- **Conversation or inventor interview:** prefer the available guided-capture journey above. In the direct-authoring compatibility path, retrieve `get_innovation_template` and follow its current interactive guidance and readiness criteria. Reuse supplied context. For a targeted enrichment, read the existing record and clarify only what the requested change needs; do not restart capture.
+- **Lightweight idea save:** use the `innovation` asset schema, retaining unknowns. Do not retrieve `get_innovation_template` or apply disclosure readiness criteria to an ordinary idea save.
+- **Direct invention disclosure authoring:** retrieve `get_innovation_template` and follow its current interactive or source-based guidance and readiness criteria. This path is available by user preference even when the journey is advertised. Reuse supplied context. For a targeted enrichment, read the existing record and clarify only what the requested change needs; do not restart capture.
 - **Source exploration or patent mining:** read [source exploration](source-exploration.md). Investigate the authorised material, trace supporting evidence and retain identified innovations even when incomplete. Do not require a broad mining exercise for a single idea.
 
 ## Choose the saved record

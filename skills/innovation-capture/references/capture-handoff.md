@@ -1,7 +1,9 @@
 # Capture handoff
 
-Keep three effects distinct: direct record CRUD, customer-side source discovery,
-and a guided disclosure conversation run by Lightbringer's agent.
+Use this path for an invention disclosure toward patenting when the user wants
+guided capture or accepts the recommended journey for detail capture. Lightweight
+idea saves use the innovation asset path. A user preference for the current
+assistant uses direct disclosure authoring even when the journey is available.
 
 For explicit source exploration, read the authorised documents, engineering
 conversations or project material in the user's environment first. Capture
@@ -59,6 +61,6 @@ files. A completed turn may still have an unmet save criterion. On a read-only
 connection relay the unsaved result and web continuation. Saving a disclosure does
 not order professional preparation, review, filing or payment.
 
-If the journey or a required tool is unavailable, use the direct-authoring path
-when it can fulfil the request, or give the record's web continuation. Do not
+If the journey or a required tool is unavailable before a run starts, use direct
+authoring when it can fulfil the request, or give the record's web continuation. Do not
 change an explicit destination, bypass a refusal, or claim a platform journey ran.

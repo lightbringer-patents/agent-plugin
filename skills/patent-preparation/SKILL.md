@@ -9,14 +9,16 @@ Establish whether the user wants a draft to review or wants to submit a disclosu
 
 ## Draft from a selected innovation
 
-When `start_journey` advertises `invention-capture` and `answer_agent` and
-`get_task_status` are available, prefer that shared guided-capture procedure for
-requested preparation. Pass the selected source references, existing disclosure
+The intended result here is an invention disclosure toward patenting. When
+`start_journey` advertises `invention-capture` and `answer_agent` and
+`get_task_status` are available, recommend that journey for guided detail capture,
+unless the user prefers direct authoring by the current assistant. Follow a clear
+choice without asking again. Pass the selected source references, existing disclosure
 when known, supported evidence and established answers using only advertised
 inputs. Follow `journeys` when installed, and continue the same task for corrections.
 Do not create a separate disclosure or conduct a competing interview while it runs.
 Direct targeted edits still use the shared asset tools. The steps below are the
-direct-authoring compatibility path when the journey is unavailable; they do not
+direct-authoring path when the user prefers it or the journey is unavailable; they do not
 establish that platform-agent capture occurred.
 
 1. Find the selected innovation and fetch its saved text, relationships and attachment inventory. Read the supporting files needed to understand the invention. If there is already a linked disclosure for this work, open it and continue from its saved sections. Ask which draft the user means if the relationship is ambiguous.
@@ -28,7 +30,7 @@ Draft registration does not request professional services. Use the following pat
 
 ## Identify the disclosure for a service request
 
-Use the connected organisation and resolve the selected record with `search` in its `innovation` category; read it with `fetch` and `include_asset: true`. If that category or read is not advertised, explain the limitation and offer the Lightbringer link. Once a disclosure is submitted for drafting, `search` lists it under `application`, not `innovation`; for a repeated request, reuse the ID already resolved or `fetch` it directly instead of searching again. Clarify an ambiguous selection. If the innovation is not registered, use `innovation-capture` when installed, retaining the user's patenting intent for that concept. If capture guidance is unavailable, follow `get_innovation_template` and save supported content with the `create_asset` `invention_disclosure` variant as part of the requested preparation. Registration validates before saving: report any missing inputs or validation errors before attempting preparation. Successful registration can include non-blocking warnings; report them without re-registering the record.
+Use the connected organisation and resolve the selected record with `search` in its `innovation` category; read it with `fetch` and `include_asset: true`. If that category or read is not advertised, explain the limitation and offer the Lightbringer link. Once a disclosure is submitted for drafting, `search` lists it under `application`, not `innovation`; for a repeated request, reuse the ID already resolved or `fetch` it directly instead of searching again. Clarify an ambiguous selection. If the innovation is not registered, use `innovation-capture` when installed, retaining the user's patenting intent for that concept. If that skill is unavailable, keep the same journey-or-direct choice described above. Direct authoring follows `get_innovation_template` and saves supported content with the `create_asset` `invention_disclosure` variant as part of the requested preparation. Registration validates before saving: report any missing inputs or validation errors before attempting preparation. Successful registration can include non-blocking warnings; report them without re-registering the record.
 
 Refinement is optional. Offer it only when the user asks for it or the service reports a blocking requirement. Do not require automated feedback, a completeness interview or revisions before recording an explicit preparation request. For requested refinement or a service-reported blocker, carry the record ID and relevant gaps into the capture workflow, preserving the user's preparation intent. Do not invent technical detail or register a duplicate.
 
