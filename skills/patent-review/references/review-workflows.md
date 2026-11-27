@@ -7,10 +7,26 @@
 - Preserve the returned review `type`. A validation review (`ENTRY_PLAN_VALIDATION`) follows the validation section below. Explain an unrecognised type and offer the platform link instead of treating it as a patent draft.
 - `get_review`: metadata, `artifact.markdown`, document comment threads with stable IDs, and the review discussion feed. Read all of them before proposing feedback to avoid repeating an existing point. Attorney redlines carry original/replacement/rationale.
 - Inspect `artifact.amendments` separately: these are proposed block changes with baseline/proposed text, redline and patch; the document body still shows baseline text. Do not describe an agent-drafted proposal as an accepted amendment or attorney-authored change.
-- Check `artifact.status` and `artifact.reason` when the document cannot be rendered. A rendering notice is not the document. Explain the limitation and use the supplied platform link for document review; do not infer missing content or recommend approval from metadata alone.
+- Check `artifact.status` and `artifact.reason` when the document cannot be rendered. A rendering notice is not the document. Explain the limitation and use the supplied platform link for document review; do not infer missing content or recommend approval from metadata alone. Exception: with `asset_id`, a notice with `reason: "review_asset"` points to the asset; read the asset instead.
 - No review for the named document → `search` + `fetch` is read-only; commenting requires a review.
 
+## Comment on the review's asset
+
+Request `include_asset_id: true` from `get_review` only when the input is advertised. When the result returns `asset_id`:
+
+- Read the asset with `fetch`, its `id` set to `asset_id`, `include_asset: true` and `include_discussions: true`. The `fetch` text is the document under review; `artifact.markdown` is only a notice. The review's `threads`, `discussion` and `artifact.amendments` stay in the `get_review` result.
+- Comment with `comment`. Use the asset type and ID that `fetch` returns as the `target`. Copy each passage exactly from the `fetch` text, not from earlier `get_review` markdown: `comment` matches quotes against the asset. Reply to a thread with `comment` and its thread ID, from the `fetch` discussions or the review's `threads`.
+- These threads are the review's document threads, so a point already in a thread still becomes a reply.
+- An ambiguous passage returns candidates with ready selectors; choose with the user rather than guessing.
+- A PCT inventor review can also return `inventor_additions_asset_id`. Read the inventor additions the same way. Their drawings take comment threads through `comment` where the advertised input includes `illustration_id`.
+- Resolving, reopening or deleting a thread needs the user's decision, as for comments on a record outside a review.
+- If `comment` is not advertised, keep the feedback as a draft and offer the platform link.
+
+Without `asset_id`, use the review comment tools below. Some reviews, such as filing sheet, overview and country reviews, have no asset; they take discussion and a decision only.
+
 ## Anchoring, threading and discussion
+
+The `add_comment` and `reply_to_comment` rules below apply when `get_review` returns no `asset_id`.
 
 - Use `add_discussion_comment` with `review_id` and `comment` for general remarks about the review, without a fabricated quote. It posts to the discussion feed and can notify eligible participants in-app and by email; include its destination and exact text in the same approval batch as other comments.
 - Discussion entries are separate from document threads. Do not pass a discussion entry ID to `reply_to_comment`; use that tool only for a supported document comment ID.

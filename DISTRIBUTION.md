@@ -8,6 +8,20 @@ This candidate combines the shared-asset migration, guided capture and the pendi
 
 Package and source checks do not establish hosted acceptance or publication. Verify the final combined skills in the target host with read-only and writable connections, existing disclosures, originals, retries, unavailable writers and older or mixed catalogues before publication.
 
+## Review comments on the asset under review
+
+Where `get_review` advertises `include_asset_id`, `patent-review` requests it. When the review returns `asset_id`, the skill reads that asset with `fetch` and comments with `comment`, quoting from the `fetch` text. Reviews without `asset_id` keep `add_comment` and `reply_to_comment`. Review discussion and decisions keep `add_discussion_comment` and `respond_to_review`.
+
+These are prepared acceptance cases, not claims of authenticated execution:
+
+| Situation | Expected behaviour |
+| --- | --- |
+| Priority draft, report or Strategy review that returns `asset_id` | Reads the asset with `fetch` and `include_asset: true`, quotes each passage from the `fetch` text and posts approved comments and replies with `comment` on the returned asset type and ID. Does not use `add_comment` or `reply_to_comment`. |
+| PCT inventor review that returns `inventor_additions_asset_id` | Reads the application text and the inventor additions as assets, and comments on a drawing only where `illustration_id` is advertised. |
+| Review without `asset_id`, or `include_asset_id` not advertised | Uses `add_comment` and `reply_to_comment` on the `get_review` markdown, as before. |
+| Filing sheet, overview or country review | Gets no `asset_id`; posts only review discussion and the user's explicit decision. |
+| `asset_id` returned but `comment` not advertised | Keeps the feedback as a draft and offers the platform link. |
+
 ## Shared asset tools for innovations and disclosures
 
 The innovation workflows prefer the shared asset tools for innovations and invention disclosures. `innovation-capture`, `patent-preparation`, `patent-review`, `ip-strategy` and `lightbringer-navigation` find records with `search` in the `innovation` category, read them with `fetch` and `include_asset: true`, register disclosures with `create_asset` and update them with `update_asset` at the current revision. The deprecated `list_innovations`, `get_innovation`, `register_innovation` and `update_innovation` remain fallbacks where a connection does not advertise the replacement. A failed, conflicted or uncertain write is never replayed through the other interface. Tools that take an `invention_id`, the illustration upload destination and the documents in `invite_members` receive the record ID without its `document:` prefix, which every version of those tools accepts. A repeated preparation request reuses the resolved ID, because a submitted disclosure is listed under `application`. Host acceptance and publication remain separate outcomes.
