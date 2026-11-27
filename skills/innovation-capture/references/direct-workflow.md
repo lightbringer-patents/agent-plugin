@@ -45,6 +45,8 @@ An innovation's `contributors` is the complete list of display names. When an up
 
 The sequence below uses the shared asset tools. It names the deprecated `list_innovations`, `get_innovation`, `register_innovation` and `update_innovation` only as fallbacks for a connection that does not advertise the corresponding search category, asset read or `invention_disclosure` variant. It does not override an advertised innovation workflow. For requested drafting from a saved innovation, continue with `patent-preparation`; saving an innovation alone does not start that work.
 
+The current service has retired those four earlier tools, so only a connection that still holds an older tool list shows them. If one of them answers that it is retired, nothing was read or written. That answer is not a failed or uncertain write: use the replacement that it names when this connection advertises it. Otherwise keep the work in the conversation as pending and offer the record's Lightbringer link.
+
 ## Match, register or enrich
 
 1. Search for the same concept with `search`; its `innovation` category covers saved innovations and invention disclosures not yet submitted for drafting. Also check the advertised application category when a submitted disclosure may already exist. Read likely matches with `fetch` and `include_asset: true`. Use `list_innovations` and `get_innovation` only when that category or read is not advertised. Compare the idea and mechanism, not just titles. Reuse an existing record, including a previously rejected one when factual enrichment is relevant and permitted. Preserve decisions and sources; never create a duplicate to bypass a restriction.
