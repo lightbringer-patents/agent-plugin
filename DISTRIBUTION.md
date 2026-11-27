@@ -456,7 +456,7 @@ Build just this package without a Claude checkout:
 
 ```sh
 python3 scripts/build_release.py --antigravity-only --output-dir dist
-python3 -m zipfile -e dist/lightbringer-antigravity-5.6.0.zip dist/antigravity
+python3 -m zipfile -e dist/lightbringer-antigravity-<version>.zip dist/antigravity
 python3 scripts/validate_submission.py --root dist/antigravity --antigravity-package
 agy plugin validate --strict dist/antigravity
 agy plugin install dist/antigravity
@@ -470,29 +470,39 @@ manifests and transparent light/dark icons; Claude versions remain independent.
 The repository is the source for several distributions. Its root `AGENTS.md`
 and `CLAUDE.md` guide contributors and are excluded from release archives. Do not
 move them into plugin `rules/`: that would activate maintenance instructions in
-customer conversations. Validate and install the extracted Antigravity archive;
-the source repository root contains intentionally superseded manifests and is
-not the supported installation target. Direct GitHub-root installation is not
-covered by archive validation.
+customer conversations. Antigravity's [Build plugins](https://antigravity.google/docs/build-plugins)
+guide now documents multi-tool repositories (promoting `.antigravity-plugin/plugin.json`
+and ignoring root `AGENTS.md`, `mcp.json` and `.mcp.json`), but we continue to
+build, validate and test the extracted native archive so the customer README and
+packaged files stay isolated and pass `--strict` with zero warnings. Direct
+GitHub-root installation is not covered by archive validation.
 
 CI builds the native archive and runs the pinned Antigravity CLI against its
-extracted contents with `--strict`. CLI 1.4.12 discovers nine skills and one MCP
-server with zero errors or warnings. Structural validation does not establish
-successful OAuth, workflow execution or Marketplace approval.
+extracted contents with `--strict`. CLI 1.4.12 discovers all eleven skills and
+one MCP server with zero errors or warnings. Structural validation does not
+establish successful OAuth, workflow execution or Marketplace approval.
 
-Sign-in uses OAuth discovery and
+Sign-in uses OAuth discovery with Client ID Metadata Documents (CIMD) or
 [Dynamic Client Registration](https://antigravity.google/docs/mcp#oauth).
-No client ID or secret is bundled. Before publication, verify sign-in,
-organisation selection, reconnect, the suggested prompts, a read workflow and
-an authorised synthetic write with readback. Include read-only consent,
-denied-write cases and logo rendering in both themes. Record the tested host
-version and package checksum. These authenticated acceptance checks remain pending.
+No client ID or secret is bundled. Local installation confirms discovery of all
+eleven skills and the MCP server, but Antigravity currently only initiates OAuth
+when `initialize` returns `401` and does not trigger OAuth when a server allows
+anonymous discovery (`initialize` and `tools/list` returning `200`) and
+challenges protected `tools/call` requests with `401`. Because Lightbringer
+preserves anonymous discovery on `https://mcp.lightbringer.com/mcp`, authenticated
+acceptance checks and Marketplace submission are deferred until Antigravity
+initiates OAuth on `401` from `tools/call`. Once sign-in triggers, verify
+Protected Resource Metadata `resource` matching, organisation selection,
+reconnect, the suggested prompts, a read workflow, an authorised synthetic write
+with readback, read-only consent, denied-write cases and logo rendering in both
+themes, recording the tested host version and package checksum.
 
-For an official listing, use the partner interest form in Google's
-[Marketplace announcement](https://antigravity.google/blog/plugin-marketplace-in-antigravity)
-with the validated bundle. Confirm Google's accepted delivery route during
-onboarding; an archive build does not publish a GitHub installation target or
-secure Marketplace approval. See [Build plugins](https://antigravity.google/docs/build-plugins).
+For an official listing once authenticated acceptance passes, submit through
+Google's partner intake form linked from
+[Build plugins](https://antigravity.google/docs/build-plugins) and the
+[Marketplace announcement](https://antigravity.google/blog/plugin-marketplace-in-antigravity).
+Confirm Google's accepted delivery route during onboarding; an archive build
+does not publish a GitHub installation target or secure Marketplace approval.
 
 ## Acceptance cases for supported hosts
 
