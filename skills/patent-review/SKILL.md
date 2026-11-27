@@ -19,14 +19,14 @@ Autonomy: comments post in the user's name, so nothing posts unapproved. Assembl
 
 1. `list_reviews` (open) → the review carrying the selected Strategy or report. No review → `search`/`fetch` read-only. Comment on the record itself only as described under "Comments on a record outside a review"; otherwise tell the user commenting requires a review.
 2. `get_review`; read the instructions, the document, all threads and the review discussion before drafting — a point already in a thread becomes a reply, never a new comment.
-3. Assess against the instructions: internal consistency, unsupported claims, portfolio and strategy fit (`search`/`fetch` for context, or `get_innovation` where the asset read is not advertised), plus the user's specific asks.
+3. Assess against the instructions: internal consistency, unsupported claims, portfolio and strategy fit (`search`/`fetch` for context), plus the user's specific asks.
 4. Classify (rules below) → discovery screen → batch confirmation → `add_comment` with exact `quoted_text` anchors (`target_user_ids` only on request); general review remarks use `add_discussion_comment` when available.
 5. Summarise in chat; no report file.
 
 ## Patent draft review
 
 1. `list_reviews` → `get_review` (instructions, document, threads, attorney redlines with original/replacement/rationale, response status). Inspect proposed amendments separately from attorney redlines; the document body may still show baseline text. Follow the reference when rendering is unavailable.
-2. Triage threads addressed to or awaiting the user; read the source invention disclosure with `fetch` and `include_asset: true` (or `get_innovation` where that read is not advertised) for claim-support questions.
+2. Triage threads addressed to or awaiting the user; read the source invention disclosure with `fetch` and `include_asset: true` for claim-support questions.
 3. Review against the instructions and the checklist in the reference (claim support, innovation description consistency, terminology, embodiments, strategy fit, redlines).
 4. Classify each item → discovery screen → batch confirmation → post: replies via `reply_to_comment` (explicit `comment_id`; never a thread-anchored `add_comment`), new passage-specific feedback via `add_comment`, and general review remarks via `add_discussion_comment` when available.
 5. `respond_to_review` only as above. Summarise in chat.
