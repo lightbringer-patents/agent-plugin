@@ -2,9 +2,9 @@
 
 The prepared package contains eleven workflow skills: `setup`, `lightbringer-navigation`, `journeys`, `novelty-exploration`, `innovation-capture`, `patent-preparation`, `patent-review`, `patent-portfolio`, `ip-strategy`, `company-context` and `trade-secrets`. Each skill includes its references.
 
-## Consolidated capture candidate
+## Coordinated capture release — portable 5.7.5 / Claude 1.10.8
 
-This candidate combines the shared-asset migration, guided capture and the pending release updates. It preserves contributor-list replacement semantics, conditional drawing reads, upload-host guidance and explicit answers to journey approval and credit-spending questions. Direct CRUD, source exploration and guided capture remain separate. Capture availability still depends on the connected service.
+This candidate combines the retirement of the earlier innovation tools with guided capture, source exploration and direct record work. It preserves the released Strategy purpose and scope guidance, source notes, support for organisations without a defined product and report presentation. Lightweight saves retain attributed source excerpts and verify the saved content. It preserves contributor-list replacement semantics, conditional drawing reads, upload-host guidance and explicit answers to journey approval and credit-spending questions. Direct CRUD, source exploration and guided capture remain separate. Capture availability still depends on the connected service.
 
 Package and source checks do not establish hosted acceptance or publication. Verify the final combined skills in the target host with read-only and writable connections, existing disclosures, originals, retries, unavailable writers and connections without the `invention_disclosure` variant before publication.
 
