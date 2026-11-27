@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "lightbringer",
-  "version": "5.7.3",
+  "version": "5.7.4",
   "description": "Capture company context and innovations, develop IP strategies, request patent preparation, respond to reviews, and review patent portfolios through Lightbringer.",
   "author": {
     "name": "Lightbringer AB",
@@ -101,7 +101,7 @@
         }
       },
       "publication": {
-        "release_notes": "This update follows the service's retirement of the earlier innovation list, read, register and update tools. Innovation and disclosure work uses search, fetch and the shared asset tools; where a connection does not advertise the needed operation, the work stays in the conversation with the record's link, and a retired-tool answer is not treated as a failed write. A journey that saves a report shows it in the report view where that tool is advertised, and gives the text version otherwise. Record comments can target a Strategy or a drawing where advertised. All eleven workflows and their supported fallbacks are retained."
+        "release_notes": "Strategy work now starts with a proposed purpose and scope grounded in the available evidence for the user to correct. It supports organisations whose product is still undefined, carries forward source notes, and connects protection priorities to what the organisation wants to achieve. This update follows the service's retirement of the earlier innovation list, read, register and update tools. Innovation and disclosure work uses search, fetch and the shared asset tools; where a connection does not advertise the needed operation, the work stays in the conversation with the record's link, and a retired-tool answer is not treated as a failed write. A journey that saves a report shows it in the report view where that tool is advertised, and gives the text version otherwise. Record comments can target a Strategy or a drawing where advertised. All eleven workflows and their supported fallbacks are retained."
       },
       "onboardingSkill": "./skills/setup/SKILL.md"
     }
