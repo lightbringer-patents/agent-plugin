@@ -1,14 +1,14 @@
 # Strategy playbook
 
-Use this as a set of decision lenses. Select those that matter to the brief; do not turn them into mandatory interview fields or a fixed section template.
+Use this as a set of decision lenses. Select those that matter to the brief; do not turn them into mandatory interview fields. The live capture guide defines the document.
 
-## Start with a business decision
+## Start with what the strategy is for
 
-Establish what the organisation wants to make possible: support a launch, preserve a technical advantage, enable licensing, evaluate a partnership, focus protection spending or decide what to develop next. Avoid substituting a generic objective such as “build a strong patent portfolio” for the user's actual outcome.
+Establish what the organisation wants to make possible: support a launch, preserve a technical advantage, enable licensing, evaluate a partnership, focus protection spending, decide what to develop next, or keep options open while the product is still undefined. Avoid substituting a generic objective such as “build a strong patent portfolio” for the user's actual outcome.
 
 Define the strategic area in terms a future reader can recognise: the product, technology, capability or company activity in scope, relevant markets and time horizon when known, and any material exclusions. Explain how it relates to other accessible strategies. Overlap may be intentional; similar subject matter does not make two strategies the same record.
 
-An opening grounded in existing context might be: “The launch brief identifies sensor calibration as the main differentiator, and the saved disclosure explains the mechanism. What should the IP work enable for this launch?” If the material already answers that, start with the remaining decision rather than repeat the question.
+An opening grounded in existing context might be: “The launch brief identifies sensor calibration as the main differentiator, and the saved disclosure explains the mechanism. I have assumed the IP work should protect that mechanism ahead of the launch. Is that right?” If the material already answers that, start with the remaining decision rather than repeat the question.
 
 ## Establish the current position
 
@@ -36,7 +36,7 @@ For that analysis, use the established filing context and label jurisdiction-spe
 
 ## Connect differentiation to protection priorities
 
-Identify the capabilities that make the business outcome possible: what creates customer value, where the technical advantage lies, how durable it may be, and which dependencies matter. Ground the scope in mechanisms and evidence rather than product names or marketing claims alone.
+Identify the capabilities that make the business outcome possible: what creates customer value, where the technical advantage lies, how durable it may be, and which dependencies matter. Ground the scope in mechanisms and evidence rather than product names or marketing claims alone. Where no product is defined, weigh a capability by how many possible applications depend on it, how hard it would be to work around, and how soon it will be disclosed.
 
 For each material capability, consider:
 
@@ -56,15 +56,6 @@ Compare options on dimensions that can change the choice: contribution to the ob
 
 For a portfolio decision, consider maintaining, investigating, expanding, licensing, deferring or discontinuing work as proposals. Explain the relevant product or market fit and evidence gaps. A weak search match is not a basis for abandoning rights, and a strategy save does not execute a portfolio action.
 
-A compact decision record can use:
-
-| Priority or decision | Business rationale | Evidence and uncertainty | Proposed next action | Revisit when |
-| --- | --- | --- | --- | --- |
-| Investigate protection for calibration mechanism | The supplied launch brief treats measurement consistency as a product differentiator | Disclosure describes the mechanism; the relevant claim coverage has not been assessed | Map the implementation to available claims with engineering and a qualified patent attorney | Claim assessment or launch scope changes |
-| Evaluate confidential handling of tuning know-how | Internal tuning may contribute to the documented performance advantage | The material does not establish what customers or partners can observe | Check information exposure and existing handling arrangements before choosing a protection route | Partner access or disclosure plans change |
-
-This example is fictional. Adapt its reasoning to supported facts; do not copy it as customer evidence. If the user's brief concerns just one decision, a short rationale and action may be enough.
-
 ## Turn direction into actionable work
 
 Prioritise actions by their contribution to the business decision and their dependencies. Available connector actions may help carry out a separately authorised next step; availability alone does not make an action strategically important.
@@ -78,7 +69,7 @@ Distinguish among:
 - **Evidence-gathering action:** a task needed before choosing or executing a direction.
 - **Open question:** a material gap, with an explanation of what would resolve it.
 
-Avoid a list of every conceivable IP activity. Keep actions tied to the objective and proportionate to the evidence. An unknown budget may be a later planning input; an unknown strategic area can prevent a coherent strategy altogether.
+Avoid a list of every conceivable IP activity. Keep actions tied to the objective and proportionate to the evidence. An unknown budget may be a later planning input. Where the strategic area is unknown, propose one from the evidence for the user to correct.
 
 Where professional assessment or execution is needed, identify the question and the relevant Lightbringer service. Describe requested professional work as proposed or prepared until its separate request is confirmed.
 
